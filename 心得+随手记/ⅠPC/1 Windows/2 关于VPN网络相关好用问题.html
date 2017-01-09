@@ -1,6 +1,0 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>2 关于VPN网络相关好用问题</title><?xml version="1.0" encoding="UTF-8"?>
-
-
-<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
-PN 系统连接上打开网络慢的问题，是由于本地VPN客户端指向169.254.81.19地址路由，需要更改vpn属性TCP/IP属性里面高级选项中“在远程网络上使用默认网关”，但是这样就无法通过VPN访问子网的时候，可以通过 route add 10.192.0.0 mask 255.255.0.0 169.254.81.19 来增加访问方式路由方式，可以方便访问网络，其中10.192.0.0为子网地址；
-</div>

@@ -1,6 +1,0 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>DB2 实例：3 Day db2 语法格式</title><?xml version="1.0" encoding="UTF-8"?>
-
-
-<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
-DECLARE 游标名 CURSOR FOR&nbsp;
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Select 语句；</div><div>打开游标：</div><div>OPEN 游标名；</div><div>取值：</div><div>FETCH 游标名 INTO 变量列表；</div><div>关闭游标：</div><div>CLOSE 游标名；</div><div>&nbsp;游标的声明如果在中段，要使用begin 和end; 段分割标志分割开；</div><div><br/></div><div>GOTO 语句；</div><div>goto 标识名；</div><div>标识名：逻辑体；</div><div>例子：goto fail；</div><div>&nbsp; &nbsp; &nbsp;………</div><div>&nbsp; &nbsp; &nbsp;SUCCESS: RETUREN 0</div><div>&nbsp; &nbsp; &nbsp;FAIL: RETUREN -200</div></div>

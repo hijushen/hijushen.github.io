@@ -1,6 +1,0 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>8 流Stream</title><?xml version="1.0" encoding="UTF-8"?>
-
-
-<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
-在 Java程序中，对于数据的输入/输出操作以“流”（stream）方式进行；
-<div>J2SDK提供了各种各样的“流”类，用以获取不同种类的数据；</div><div>程序中通过 标准 的方法输入或输出数据。</div><div>java.io包&nbsp;</div><div>节点流，处理流。 &nbsp; 对程序而言分输入/输出流。&nbsp;</div><div>处理流是“连接”在已存在的流（节点流）</div><div><img hash="5a5832112f36bead855048f74b259c87" style="cursor: default;" type="image/png" src="8 流Stream_files/5a5832112f36bead855048f74b259c87.png" /></div><div>输入字节流：InputStream &nbsp; 输出字节流：OutputStream</div><div>输入字符流：Reader &nbsp; &nbsp; &nbsp; &nbsp;输出字符流：Writer</div><div>int read(byte[] buffer) throws IOException &nbsp;<a>//读取一系列字节并存储到一个数组Buffer，</a>返回实际</div><div>读取的字节数，如果读取前已到输入流的末尾返回-1；</div><div><br/></div><div>int read(byte[] buffer, int offset, int length) throws IOException</div><div>//读取length个字节，并存储到一个字节数组buffer ，从offset开始，长度为length</div><div><br/></div><div>void flush() throws IOException &nbsp;将输出流中缓冲的数据全部写到目的地</div><div>void close（） throws IOException &nbsp;</div><div><font color="#EB0073">良好的编程方法是把所有的缓冲数据写到目的地，然后关闭。</font></div><div><br/></div><div><br/></div></div>

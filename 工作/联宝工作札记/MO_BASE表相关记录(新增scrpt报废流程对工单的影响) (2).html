@@ -1,5 +1,0 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>MO_BASE表相关记录(新增scrpt报废流程对工单的影响) (2)</title><?xml version="1.0" encoding="UTF-8"?>
-
-
-<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><ol><li>BC File 插入Mo_base 表基本资料；</li><li>MO (GROUP) Online 时 根据a,route_name 和route_control 表更改MO_BASE 的start(end) Group，流程代码，此时MO状态为2，Online状态；</li><li>投入板子时，第一片板子投入更改MO_BASE 为 状态4，更改INPUT_QTY。</li><li>43阶例如在ATE 等end_group 计算时outputqty + 1，当output_qty达到input_qty 时更改mo_base 为3。</li><li>如果中途因为各种原因导致产出率不够，导致mo 无法关闭，则生管PC 部门会强制关闭工单，工单状态变为5.</li><li>会议主旨：增加scrpt_qty &nbsp;报废数量，只要output_qty + scrpt_Qty = input_qty 则关闭工单，状态为3.</li><li>效益：增加MO_close 的正常关闭率。</li></ol><div><br/></div><div>ZP05 试投 ZP01 量产 cn06合肥
-<div>X76 群组替代</div><div>10.2.64.40\mes\sap\test\cn06\smt\sfisBC</div><div>10.2.72.141</div><div>PPM0603 D+1 排程</div><div>导CRB File&nbsp;</div><div>Merge&nbsp;</div></div></div>
