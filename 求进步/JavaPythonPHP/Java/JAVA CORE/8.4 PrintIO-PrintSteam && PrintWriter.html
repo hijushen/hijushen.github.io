@@ -1,0 +1,69 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>8.4 PrintIO:PrintSteam && PrintWriter</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><div><p><code>PrintStream</code> 为其他输出流添加了功能，使它们能够方便地打印各种数据值表示形式。</p></div><div><br/></div>
+import java.io.*;<br/>
+public class TestPrintStream1 {<br/>
+&nbsp; public static void main(String[] args) {<br/>
+&nbsp;&nbsp;&nbsp; PrintStream ps = null; &nbsp;<font color="#EB0073">//新建一个PrintStream为null的对象</font><br/>
+&nbsp;&nbsp;&nbsp; try {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FileOutputStream fos =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new FileOutputStream(&quot;d:\\bak\\log.dat&quot;); &nbsp;/<font color="#FF0000">/确定要记录数据的文件，Output针对程序而言，故为Output，注意2 个斜杠，一个为转译。</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ps = new PrintStream(fos);//<font color="#7600D8">在程序输出流外加一个PrintSteam的管子</font><br/>
+&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp; if(ps != null){<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.setOut(ps); &nbsp; <font color="#1AADE0">//重新设置输出形式</font><br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp; int ln = 0; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;//换行变量<br/>
+&nbsp;&nbsp;&nbsp; for(char c = 0; c &lt;= 60000; c++){<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print(c+ &quot; &quot;); &nbsp;// <font color="#FF4635">c为char变量，数字会强制转换。</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(ln++ &gt;=100){ System.out.println(); ln = 0;} //换行控制<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+}<br/><div><br/></div><div>import java.io.*;<br/>
+public class TestPrintStream2 { &nbsp;<font color="#FF4635">//将输入的文件名对应的文件内容读出</font><br/>
+&nbsp; public static void main(String[] args) {<br/>
+&nbsp;&nbsp;&nbsp; String filename = args[0]; &nbsp;<font color="#FF4635">//将文件名放入数组中，进行传递</font><br/>
+&nbsp;&nbsp;&nbsp; if(filename!=null){list(filename,System.out);} //<font color="#FF4635">有文件名，传递参数至list方法中</font><br/>
+&nbsp; }<br/>
+&nbsp; public static void list(String f,PrintStream fs){<br/>
+&nbsp;&nbsp;&nbsp; try {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BufferedReader br =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new BufferedReader(new FileReader(f));<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String s = null;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while((s=br.readLine())!=null){<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fs.println(s);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; br.close();<br/>
+&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fs.println(&quot;无法读取文件&quot;);<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+}</div><div><br/></div><div><br/></div><div><br/></div><div>import java.util.*;<br/>
+import java.io.*;<br/>
+public class TestPrintStream3 {<font color="#FF4635">//记录输入的记录，日志和日期。</font><br/>
+&nbsp; public static void main(String[] args) {<br/>
+&nbsp;&nbsp;&nbsp; String s = null;<br/>
+&nbsp;&nbsp;&nbsp; BufferedReader br = new BufferedReader(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new InputStreamReader(System.in));<br/>
+&nbsp;&nbsp;&nbsp; try {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FileWriter fw = new FileWriter<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (&quot;d:\\bak\\logfile.log&quot;, true); //Log4J<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PrintWriter log = new PrintWriter(fw);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while ((s = br.readLine())!=null) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.equalsIgnoreCase(&quot;exit&quot;)) break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s.toUpperCase());<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.println(&quot;-----&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.println(s.toUpperCase());<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.flush();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.println(&quot;===&quot;+new Date()+&quot;===&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.flush();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; log.close();<br/>
+&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+}</div><div><br/></div></div>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+<!--defaultCSS-->
+<title>WPF --XAML标记语言</title>
+
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+</head>
+
+<body  style=""><h2>WPF --XAML标记语言 (2015/8/31 星期一 23:58:18)</h2>1. 一种UI标记语言, XAML中的<font color="#ff0000">对象元素</font>均一一对应到CLR中的类型或结构. XAML 属性对应到相应CLR 类型的<font color="#ff0000">属性(</font>Property). XAML命名空间对应到CLR中类的命名空间, 元素类型对应到CLR中的类型.&nbsp;<div><br></div><hr /><h2>WPF(一) (2015/8/31 星期一 8:31:34)</h2>xaml给对象赋值的三种方式:<div>1) attribute= value的方式; 附加属性.</div><div>2) 属性标签方式</div><div>3) &nbsp; 标记拓展如: {Binding ElementName=sld, Path=Value}</div><div>&nbsp; &nbsp; &nbsp; A. 支持资源引用的标记拓展;</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; B. 支持数字绑定的标记拓展.</span><br></div><div>1)事件处理与代码后置</div><div>2)导入程序集</div><div><br></div><div>1)xmlns 申明命名控件</div><div>2)x:class 代码后置要素, 声明类</div><div>3)x:classModify 声明类的访问级别</div><div><br></div><div>1)属性和类型转换器</div><div>例如&lt;TextBlock FontStyle = "Italic"&gt;等Italic字符串如何变成相应类属性.</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 第一步: 分析属性定义. 查找TypeConvert属性. (如果招到,TypeConvert调用相应转换器完成转换), 如果使用FontSize属性时,.NET将检查FontSize属性定义,以查找TypeConvert属性(Attribute).</font><br></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 第二步, 如果属性定义中没有TYpeConvert属性, XAML检查相应数据类型定义,如Foreground时Brush对象,将检查Brush类的定义, 因为Brush使用TypeConvert属性定义修饰, 因此使用BrushConverter来进行类型转换.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI"><br></font></div><div><div>2. 对象元素属性:</div><div>&lt;TextBox FontSize="18" /&gt; FontSize属于属性的一种.</div><div>3. 属性语法</div><div>&lt;StackPanel Background="red"&gt;&lt;/StackPanel&gt; XAML解析器使用BrushConverter转换器将字符串转换为一个Brush类的派生对象.</div><div>4. 属性元素语法, 将属性独立出来.</div></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pln">   </span><span class="pun">&lt;</span><span class="typ">Window</span><span class="pun">.</span><span class="typ">Background</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pln">        </span><span class="pun">&lt;</span><span class="typ">SolidColorBrush</span><span class="pln"> </span><span class="typ">Color</span><span class="pun">=</span><span class="str">"Red"</span><span class="pun">&gt;&lt;/</span><span class="typ">SolidColorBrush</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;/</span><span class="typ">Window</span><span class="pun">.</span><span class="typ">Background</span><span class="pun">&gt;</span></code></li></ol></pre></div><div>5. 标记拓展特性. 常用:a) 支持资源引用的标记拓展和支持数据绑定的标记拓展.</div></div><div>静态属性, 如下二者相同:</div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pun">&lt;!--属性语法设置标记拓展--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">Button</span><span class="pln"> </span><span class="typ">Content</span><span class="pun">=</span><span class="str">"点击此处查看信息"</span><span class="pln"> </span><span class="typ">Foreground</span><span class="pun">=</span><span class="str">"{x:Static SystemColors.ActiveCaptionBrush}"</span><span class="pun">&gt;&lt;/</span><span class="typ">Button</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-cs"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-cs"><span class="pun">&lt;!--使用属性元素设置--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">Button</span><span class="pln"> </span><span class="typ">Content</span><span class="pun">=</span><span class="str">"点这里查看详细信息"</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;</span><span class="typ">Button</span><span class="pun">.</span><span class="typ">Foreground</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-cs"><span class="pln">      </span><span class="pun">&lt;</span><span class="pln">x</span><span class="pun">:</span><span class="typ">Static</span><span class="pln"> </span><span class="typ">Member</span><span class="pun">=</span><span class="str">"SystemColors.ActiveCaptionBrush"</span><span class="pun">&gt;&lt;/</span><span class="pln">x</span><span class="pun">:</span><span class="kwd">static</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;/</span><span class="typ">Button</span><span class="pun">.</span><span class="typ">Foreground</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-cs"><span class="pun">&lt;/</span><span class="typ">Button</span><span class="pun">&gt;</span></code></li></ol></pre></div><div><span style="font-size: 10.5pt; line-height: 1.5;">6. 附加 属性.</span><br></div></div><div>如Grid.Row和Grid.Column 赋值,再其他控件中使用, 常用作布局控件. 一种特殊的依赖属性. 可以这么使用!!!</div><div><br></div><div>7. 特定的字符和空白:</div><div>显示&gt;: &amp;gt; &lt; &amp;lt; And &amp;amp; "" &amp;quot</div><div>保留空行: xml:space="preserve"</div><div><br></div><div>8.事件</div><div>WPF中, 首先设置Name属性,也就是对象名称,接下来绑定事件处理器,最后才是设置属性. 任何响应属性改变的事件处理器将在属性首次设置时被触发.</div><div><br></div><div><br></div></body></html>

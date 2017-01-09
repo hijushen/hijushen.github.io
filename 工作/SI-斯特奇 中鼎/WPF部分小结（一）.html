@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>WPF部分小结（一）</title>
+
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<link type="text/css" rel="stylesheet" id="wiz_code_highlight_link" href="WPF部分小结（一）_files/wiz_code_highlight_2.css"></head>
+
+<body style="" ><ol><li><span style="font-size: 10.5pt; line-height: 1.5;">ObservableCollection&lt;T&gt; 目前理解 ==List&lt;&gt; ， 通知添加时允许通知。&nbsp;</span><a href="http://www.cnblogs.com/shanyou/archive/2009/01/17/1377639.html">http://www.cnblogs.com/shanyou/archive/2009/01/17/1377639.html</a>&nbsp; <br></li><li><span style="font-size: 10.5pt; line-height: 1.5;">BorderThickness 是线型,实线,虚线,点划线等等<br></span></li><li>Rectangle 矩形画图</li><li>Vertical 垂直<br></li><li>Horizontal 水平&nbsp;HorizontalAlignment 水平对齐方式，优先级小于Height和Width。<br></li><li>Padding（填充，a) ListBox中ScrollViewer PanningMode可以设置为VertialOnly。）<br></li><li>&lt;DataTemplate x:Key="" /&gt;方式和ListBox中配合使用 &nbsp;ItemTemplate="{StaticResource YwSelectedContact} 方式完成控件绑定。<br></li><li>--------------------------</li><li>8/31</li><li>---------</li><li>【UI对象间的绑定】UI间绑定，依赖属性内建的垂直通知功能，UI对象绑定可以自己负责同步处理；</li><li><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">TextBox</span><span class="pln"> x</span><span class="pun">:</span><span class="typ">Name</span><span class="pun">=</span><span class="str">"txtName"</span><span class="pln"> </span><span class="typ">Margin</span><span class="pun">=</span><span class="str">"5"</span><span class="pln"> </span><span class="typ">Width</span><span class="pun">=</span><span class="str">"400"</span><span class="pln"> </span><span class="typ">BorderThickness</span><span class="pun">=</span><span class="str">"0"</span><span class="pln"> </span><span class="typ">Height</span><span class="pun">=</span><span class="str">"50"</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"Source Element"</span><span class="pun">&gt;&lt;/</span><span class="typ">TextBox</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">TextBlock</span><span class="pln"> x</span><span class="pun">:</span><span class="typ">Name</span><span class="pun">=</span><span class="str">"tbShowMessage"</span><span class="pln"> </span><span class="typ">Margin</span><span class="pun">=</span><span class="str">"5"</span><span class="pln"> </span><span class="typ">Width</span><span class="pun">=</span><span class="str">"400"</span><span class="pln"> </span><span class="typ">Height</span><span class="pun">=</span><span class="str">"50"</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"{Binding ElementName=txtName,Path=Text }"</span><span class="pln"> </span><span class="pun">/&gt;</span><span class="pln">  </span></code></li></ol></pre></div><div><br></div></li><li>【绑定到集合】【A】ItemSource的数据绑定方式，UI和数据集合的绑定不同于上面的UI绑定。绑定方式：</li><li><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pun">使用</span><span class="typ">ItemSource</span><span class="pun">，使用</span><span class="typ">ListBox</span><span class="pun">绑定</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">ListBox</span><span class="pln"> x</span><span class="pun">:</span><span class="typ">Name</span><span class="pun">=”</span><span class="pln">pictureBox</span><span class="pun">”</span><span class="pln"> </span><span class="typ">DisplayMemberPath</span><span class="pun">=”</span><span class="typ">Name</span><span class="pun">”</span><span class="pln"> </span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-cs"><span class="pln">        </span><span class="typ">ItemsSource</span><span class="pun">=”(</span><span class="typ">Binding</span><span class="pln"> </span><span class="pun">{</span><span class="typ">DynamicResource</span><span class="pln"> photos</span><span class="pun">}”</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-cs"><span class="pun">声明类：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-cs"><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Photos</span><span class="pln"> </span><span class="pun">:</span><span class="pln"> </span><span class="typ">ObservableCollection</span><span class="pun">&lt;</span><span class="typ">Photo</span><span class="pun">&gt;</span></code></li></ol></pre></div><div><br></div></li><li>【绑定到集合】【B】<br></li><li><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">Window</span><span class="pun">.</span><span class="typ">Resources</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pln">     </span><span class="pun">&lt;</span><span class="pln">local</span><span class="pun">:</span><span class="typ">Employee</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-cs"><span class="pln">        x</span><span class="pun">:</span><span class="typ">Key</span><span class="pun">=</span><span class="str">"MyEmployee"</span><span class="pln"> </span><span class="typ">EmployeeNumber</span><span class="pun">=</span><span class="str">"123"</span><span class="pln"> </span><span class="typ">FirstName</span><span class="pun">=</span><span class="str">"John"</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-cs"><span class="pln">       </span><span class="typ">LastName</span><span class="pun">=</span><span class="str">"Doe"</span><span class="pln"> </span><span class="typ">Department</span><span class="pun">=</span><span class="str">"Product Development"</span><span class="pln"> </span><span class="typ">Title</span><span class="pun">=</span><span class="str">"QA Manager"</span><span class="pln"> </span><span class="pun">/&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-cs"><span class="pun">&lt;/</span><span class="typ">Window</span><span class="pun">.</span><span class="typ">Resources</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-cs"><span class="pun">&lt;</span><span class="typ">Grid</span><span class="pln"> </span><span class="typ">DataContext</span><span class="pun">=</span><span class="str">"{StaticResource MyEmployee}"</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;</span><span class="typ">TextBox</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"{Binding Path=EmployeeNumber}"</span><span class="pun">&gt;&lt;/</span><span class="typ">TextBox</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;</span><span class="typ">TextBox</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"{Binding Path=FirstName}"</span><span class="pun">&gt;&lt;/</span><span class="typ">TextBox</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;</span><span class="typ">TextBox</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"{Binding Path=LastName}"</span><span class="pln"> </span><span class="pun">/&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;</span><span class="typ">TextBox</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"{Binding Path=Title}"</span><span class="pun">&gt;&lt;/</span><span class="typ">TextBox</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pln">    </span><span class="pun">&lt;</span><span class="typ">TextBox</span><span class="pln"> </span><span class="typ">Text</span><span class="pun">=</span><span class="str">"{Binding Path=Department}"</span><span class="pln"> </span><span class="pun">/&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pun">&lt;/</span><span class="typ">Grid</span><span class="pun">&gt;</span></code></li></ol></pre></div></li></ol></body></html>

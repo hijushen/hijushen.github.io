@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        
+        
+
+
+
+
+        <link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+
+
+        <title>第四篇 Entity Framework Plus 之 Batch Operations</title>
+        
+<link rel="stylesheet" type="text/css" href="第四篇 Entity Framework Plus 之 Batch Operations_files/page_mp_article_improve2d1390.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2c9cd6.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">第四篇&nbsp;Entity Framework Plus 之&nbsp;Batch Operations</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="第四篇 Entity Framework Plus 之 Batch Operations_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="第四篇 Entity Framework Plus 之 Batch Operations_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="第四篇 Entity Framework Plus 之 Batch Operations_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        第四篇&nbsp;Entity Framework Plus 之&nbsp;Batch Operations 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                                                <span id="copyright_logo" class="rich_media_meta meta_original_tag">原创</span>
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-05-06</em>
+
+                                                <em class="rich_media_meta rich_media_meta_text">改變世界&nbsp;</em>
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">dotNET跨平台</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">dotNET跨平台</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">dotNET跨平台</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">opendotnet</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">在这里你可以谈微软.NET,Mono的跨平台开发技术，也可以谈谈其他的跨平台技术。<br/>在这里可以让你的.NET项目有新的思路，不局限于微软的技术栈，横跨Windows，Linux&nbsp;主流平台</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <p><span style="">&nbsp;用 Entity Framework &nbsp;进行 增，删，改。都是基于Model进行的，且Model都是有状态追踪的。这样Entity Framework才能正常增，删，改。</span></p><p><span style="">有时候，要根据某个字段，批量更新或者删除数据，用Entity Framework就会显得很是繁琐，且不高效。</span></p><p><span style="">&nbsp; &nbsp; &nbsp;Entity Framework Plus 为Entity Framework 提供 BatchUpdate 和 BatchDelete 操作扩展。使得更新和删除数据，变得简单而高效了许多。</span></p><p><span style="">废话不多说，直接实践给大家看。</span></p><p><strong><span style="text-decoration: underline;"><span style="">&nbsp; &nbsp; 一. 创建项目以及相关代码展示，还是之前的解决方案 “EntityFrameworkPlusSolution”。</span></span></strong></p><p><span style="">&nbsp;1. 在解决方案，新增”EntityFrameworkPlus.BatchOperations.Demo“ WinForm 项目。</span></p><p><span style=""><img  class="" data-type="png" style="width: 100%; height: auto;" data-ratio="0.7068345323741008" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0.jpg" /></span></p><p><span style="">&nbsp;在项目中分别新增 “BatchOperations”，“BatchUpdate”，“BatchDelete” &nbsp;窗口，每个窗口布局和代码如下。</span></p><p><span style="">BatchOperations （BatchUpdate，BatchDelete 窗口的入口）</span></p><p><span style=""><img  class="" data-type="png" style="width: 100%; height: auto;" data-ratio="0.6330935251798561" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_2.png" /></span></p><p><img data-s="300,640" data-type="png"  data-ratio="0.5323741007194245" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_3.jpg" /><br  /></p><p><span style="">BatchUpdate&nbsp;</span></p><p><span style=""><img  class="" data-type="png" style="width: 100%; height: auto;" data-ratio="0.5971223021582733" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_4.png" /></span></p><p><img data-s="300,640" data-type="png"  data-ratio="0.7158273381294964" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_5.jpg" /><br  /><span style="line-height: 1.6;">&nbsp;</span></p><p><span style="">BatchDelete</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.6133093525179856" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_6.png" /></span></p><p><img data-s="300,640" data-type="png"  data-ratio="0.8633093525179856" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_7.jpg" /><br  /></p><p><span style="">2. Demo 数据，还是拿商品数据。</span></p><p><span style="">BatchUpdate Demo的是 根据Creator，更新单价，SQL表示大概&nbsp;update Sample_Goods set UnitPrice = 100 where Creator = &#39;david&#39; 。</span></p><p><span style="">BatchDelete &nbsp;根据UnitPrice = ，&lt; , &gt; 来删除商品，SQL 表示大概 delete Sample_Goods where UnitPrice(=|&gt;|&lt;)100&nbsp;</span></p><p><strong><span style="text-decoration: underline;"><span style="">二 .测试结果</span></span></strong></p><p><span style="">1. BatchUpdate</span></p><p><span style="">1&gt;.初始化窗口</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.6330935251798561" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_8.jpg" /></span></p><p><span style="">2.&gt;执行之前</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.6384892086330936" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_9.jpg" /></span></p><p><span style="">3.&gt; 执行之后</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.6330935251798561" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_10.jpg" /></span></p><p><span style="">2. BatchDelete</span></p><p><span style="">1.&gt;初始化窗口</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.64568345323741" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_11.jpg" /></span></p><p><span style="">2.&gt;执行之前</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.6474820143884892" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_12.jpg" /></span></p><p><span style="">3.&gt;执行之后</span></p><p><span style=""><img  class="" data-type="png" data-ratio="0.6438848920863309" data-w=""   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/0_13.jpg" /></span></p><p><span style="">这篇又到这里了，该结束了，Entity Framework Plus 系统四篇博文，已经全部结束了，从之前博文评论来说，有人觉得 Entity Framework Plus 是侵入的，这里我要说明一下，大家不要被我糟糕的Demo，没有一点封装所引导，我这里只是简单的介绍，作为一个引子，供大家学习，Entity Framework Plus 是一个扩展工具，需要大家封装一下。比喻引用在DDD里面。</span></p><p><span style="">源代码：https://github.com/haibozhou1011/EntityFramework-PlusSample</span></p><p><span style=""><br  /></span></p><p>相关文章：<br  /></p><ul class=" list-paddingleft-2" style="list-style-type: square;"><li><p><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&mid=2654067370&idx=1&sn=5234fbac469069058c7691fbbcb6f893&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&amp;mid=2654067370&amp;idx=1&amp;sn=5234fbac469069058c7691fbbcb6f893&amp;scene=21#wechat_redirect">第三篇 Entity Framework Plus 之 Query Cache</a></p></li><li><p><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&mid=2654067282&idx=2&sn=51ef0b5c20553716ac28a8a4b48b8375&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&amp;mid=2654067282&amp;idx=2&amp;sn=51ef0b5c20553716ac28a8a4b48b8375&amp;scene=21#wechat_redirect">第二篇 Entity Framework Plus 之 Query Future</a></p></li><li><p><a href="http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&mid=2654067270&idx=1&sn=0a29b2da3565267d2ed6579bc4b74e0b&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAwNTMxMzg1MA==&amp;mid=2654067270&amp;idx=1&amp;sn=0a29b2da3565267d2ed6579bc4b74e0b&amp;scene=21#wechat_redirect">第一篇 Entity Framework Plus 之 Audit</a></p></li></ul><p><br  /></p><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); line-height: 34.1333px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);">原文地址：<span style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">http://www.cnblogs.com/davidzhou/p/5436624.html</span></p><hr style="max-width: 100%; color: rgb(62, 62, 62); white-space: normal; line-height: 28.4444px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"  /><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); line-height: 28.4444px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><strong style="max-width: 100%; line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; text-align: center; color: rgb(39, 42, 48); box-sizing: border-box !important; word-wrap: break-word !important;">.NET社区新闻，深度好文，微信中搜索</span><span style="max-width: 100%; text-align: center; color: rgb(210, 34, 34); box-sizing: border-box !important; word-wrap: break-word !important;">dotNET跨平台</span><span style="max-width: 100%; text-align: center; color: rgb(39, 42, 48); box-sizing: border-box !important; word-wrap: break-word !important;">或扫描二维码关注</span></strong></p><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><img width="auto" data-ratio="1" data-w="258" data-type="jpeg" data-s="300,640" width="auto"  style="border: medium; border-image-source: none; line-height: 23.27px; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="第四篇 Entity Framework Plus 之 Batch Operations_files/640.jpg" /></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="第四篇 Entity Framework Plus 之 Batch Operations_files/page_mp_article_improve_combo2d1390.css">
+                    
+                    
+                                        
+                                        <div class="reward_area tc" id="js_reward_area" style="display:none;">
+                                                <p>
+                            <a class="reward_access" id='js_reward_link' href="">赞赏</a>
+                        </p>
+                        <div id="js_reward_inner" class="reward_area_inner" style="display:none;">
+                            <p class="tips_global reward_user_tips"><a href="" id="js_reward_total"></a>人赞赏</p>
+                            <div id="js_reward_list" class="reward_user_list"></div>
+                        </div>
+                    </div>
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <a class="media_tool_meta meta_primary" id="js_view_source" href="">阅读原文</a>
+                                                <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">投诉</a>
+
+                    </div>
+
+
+
+                                    </div>
+
+                <div class="rich_media_area_primary sougou" id="sg_tj" style="display:none">
+
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+                                        
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">该文章作者已设置需关注才可以留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="第四篇 Entity Framework Plus 之 Batch Operations_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            该文章作者已设置需关注才可以留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="第四篇 Entity Framework Plus 之 Batch Operations_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="第四篇 Entity Framework Plus 之 Batch Operations_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+        
+    
+
+    
+  
+  
+
+    </body>
+</html>
+
+ 

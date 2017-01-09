@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>重构萌芽</title>
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.06">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 8px; padding-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+
+</style>
+</head>
+
+<body style="" >1, &nbsp;方法传递值为 &nbsp;bean.不要具体到值，特别是更新表函数方法。因为后续变更，修改的太多了。用bean传递的好处。<div><font face="Microsoft YaHei UI">&nbsp; &nbsp; -- 2014/6/15</font><br></div><div><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">2，尽可能将相同的逻辑，盘点，组合，处理放在一起。 例如使用一组相同的逻辑。 可能更方便以后排查。&nbsp;</font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; -- 现实中，在MES 中发生较少，虽然改起来麻烦。但是使用的很过瘾。</span><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; --折中的办法，就是重建一个类，将这些相似的方法放在一起。</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">3,</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 将查询和更新数据库操作分开.</span></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">4,</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 污水处理厂的逻辑. 将所有的验证逻辑放在前面,减轻后面的逻辑.例如socket通信过程中,将数据验证,格式,消息完整性检测放在前面通信验证,通过后,后面专心处理事务逻辑即可,还能防止锁定.</span></div><div><font face="Microsoft YaHei UI">5,</font></div></body></html>

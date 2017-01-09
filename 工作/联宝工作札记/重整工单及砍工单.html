@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>重整工单及砍工单</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+
+</style>
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.06">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 8px; padding-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style="">1, Chang SKU工单必须使用 1开头的工单.<div>2, 工单状态为2,但是tracking资料无,这种情况为看工单.相应Log查询:</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;<span data-wiz-span="data-wiz-span" style="font-size: 9pt;">&nbsp;</span></font><span style="font-size: 10.5pt; line-height: 1.5; background-color: rgb(50, 205, 50);"><span data-wiz-span="data-wiz-span" style="font-size: 9pt;">SELECT C.* FROM SFISM4.R_ISSUE_desc_t c</span></span></div><div><span style="background-color: rgb(50, 205, 50);"><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><span data-wiz-span="data-wiz-span" style="font-size: 9pt;">&nbsp; &nbsp;&nbsp;</span></span><span data-wiz-span="data-wiz-span" style="font-size: 9pt;">WHERE C.PN = '10303363' AND C.ISSUE_TYPE = 'MO_CHANGE_QTR'</span></span></div><div>3,</div></body></html>

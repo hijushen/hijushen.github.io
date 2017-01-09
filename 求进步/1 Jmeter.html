@@ -1,0 +1,6 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>1 Jmeter</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+1 测试计划-- 使用JMeter进行测试的起点，是其他JMeter测试原件的容器。
+<div><br/></div><div>2 线程组：代表一定数量的并发用户，它可以用来模拟并发用户请求，实际的请求内容在Sampler中定义，它被线程所包含，可以在“测试计划-&gt; 添加 -&gt; 线程组”来建立它。</div><div>Rame-Up Period（in seconds）表示这段时间内创建完所有的线程。一开始对服务器不会有太大的负载。</div><div><br/></div><div>3 取样器：模拟各种请求，所有实际的测试任务都由取样器承担，存在多种请求。如：HTTP&nbsp;ftp请求等等。</div><div><br/></div><div>4 监听器：负责收集测试结果，同时也被告知了结果显示的方式，功能是对取样器的请求结果显示、统计一些数据（吞吐量、KB/S...）等。</div><div><br/></div><div>5 断言：用来判断请求响应的结果是不是用户所期望，是否正确。它可以用来隔离问题域，即在确保功能正确的前提下执行压力测试。这个限制对于有效的测试是 非常有力的。</div><div><br/></div><div>6 定时器：负责定义请求（线程）之间的延迟间隔，模拟对服务器的连续请求。</div><div><br/></div><div>7 逻辑控制器：允许自定义JMeter发送请求的行为逻辑，它与Sampler结合使用可以模拟复杂的请求序列。</div><div><br/></div><div>8 配置元件维护Sampler需要的配置信息，并根据实际的需要会修改请求的内容。</div><div><br/></div><div>9 前置处理器和后置处理器负责在生成请求之前和之后完成工作。前置处理器常常用来修改请求的设置，后置处理器则常常用来处理响应的数据。</div><div><br/></div><div><br/></div></div>

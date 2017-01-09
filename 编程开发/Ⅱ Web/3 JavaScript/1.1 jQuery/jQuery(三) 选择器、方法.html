@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>jQuery(三) 选择器、方法</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style><link type="text/css" rel="stylesheet" id="wiz_code_highlight_link" href="jQuery(三) 选择器、方法_files/wiz_code_highlight_8.css"></head>
+
+<body  style="">1. 在head中使用方法形式，完成body加载完才执行对应方法的方式 ：<div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-js"><span class="pln">    </span><span class="pun">&lt;</span><span class="pln">script type</span><span class="pun">=</span><span class="str">"text/javascript"</span><span class="pun">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-js"><span class="pln">        $</span><span class="pun">(</span><span class="kwd">function</span><span class="pln"> </span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-js"><span class="pln">        </span><span class="pun">});</span></code></li></ol></pre></div><div>2.&nbsp;</div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#d1"</span><span class="pun">).</span><span class="pln">text</span><span class="pun">(</span><span class="str">"123"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//ID选择器</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">".cls"</span><span class="pun">).</span><span class="pln">text</span><span class="pun">(</span><span class="str">"abc"</span><span class="pun">);</span><span class="com">//类选择器</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-js"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-js"><span class="pln">            </span><span class="com">//隐式迭代</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"div"</span><span class="pun">).</span><span class="pln">text</span><span class="pun">(</span><span class="str">"xyz"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//标签选择器，所有的div类遍历迭代</span></code></li></ol></pre></div><div>3. 组合选择器\条件\正则方式</div></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#1,.cls,p"</span><span class="pun">).</span><span class="pln">text</span><span class="pun">(</span><span class="str">"aaa"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//组合选择器。ID 1，cls类，p标签都包括</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-js"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-js"><span class="pln">            </span><span class="com">//如下都是条件选择器</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"div p"</span><span class="pun">)</span><span class="com">//div下所有p元素</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"div &gt; p"</span><span class="pun">)</span><span class="pln"> </span><span class="com">//div下直接p元素</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-js"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#wap + div"</span><span class="pun">)</span><span class="com">//ID wap后第一个div</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#wap~div"</span><span class="pun">)</span><span class="com">//ID wap后所有div元素</span></code></li></ol></pre></div><div>4. jQuery的方法模式</div></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-js"><span class="pln">           </span><span class="com">//jQuery方法</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#d1"</span><span class="pun">).</span><span class="pln">css</span><span class="pun">(</span><span class="str">"background"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"red"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//修改样式</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#d1"</span><span class="pun">).</span><span class="pln">css</span><span class="pun">(</span><span class="str">"background"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//获取样式</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#d1"</span><span class="pun">).</span><span class="pln">val</span><span class="pun">(</span><span class="str">"abc"</span><span class="pun">);</span><span class="pln">  </span><span class="com">//设置value</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-js"><span class="pln">            $</span><span class="pun">(</span><span class="str">"#d1"</span><span class="pun">).</span><span class="pln">val</span><span class="pun">();</span><span class="pln"> </span><span class="com">//获得值</span></code></li></ol></pre></div><div>&nbsp; 并且，找不到的情况下不会报异常，判定方式：</div></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-js"><span class="pln">          $</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-js"><span class="pln">            </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$</span><span class="pun">(</span><span class="str">"#d"</span><span class="pun">).</span><span class="pln">length </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">    </span><span class="com">//通过判定length判定有没有找到的问题</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-js"><span class="pln">                alert</span><span class="pun">(</span><span class="str">"find"</span><span class="pun">);</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-js"><span class="pln">            </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="pun">{</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-js"><span class="pln">                alert</span><span class="pun">(</span><span class="str">"no find"</span><span class="pun">);</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-js"><span class="pln">            </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-js"><span class="pln">        </span><span class="pun">})</span></code></li></ol></pre></div><div>5. jQuery常见的属性，较少，为了满足链式方法和函数式编程</div></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-js"><span class="pln">        $</span><span class="pun">(</span><span class="str">"#link"</span><span class="pun">).</span><span class="pln">css</span><span class="pun">();</span><span class="pln"> </span><span class="com">//设置行内css的首选方式，同style属性方式.</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-js"><span class="pln">        $</span><span class="pun">(</span><span class="str">"#link"</span><span class="pun">).</span><span class="pln">attr</span><span class="pun">(</span><span class="str">"style"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"cls"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//cls可以是css名称，更灵活.</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-js"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-js"><span class="pln">        $</span><span class="pun">(</span><span class="str">"#link"</span><span class="pun">).</span><span class="pln">attr</span><span class="pun">(</span><span class="str">"href"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"http://www.baidu.com"</span><span class="pun">);</span><span class="pln"> </span><span class="com">//没有特定方法的DOM属性访问方式</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-js"><span class="pln">        $</span><span class="pun">(</span><span class="str">"#link"</span><span class="pun">).</span><span class="pln">removeAttr</span><span class="pun">(</span><span class="str">"href"</span><span class="pun">);</span><span class="pln">  </span><span class="com">//同上一条，此处为移除模式</span></code></li></ol></pre></div><div><br></div></div></body></html>

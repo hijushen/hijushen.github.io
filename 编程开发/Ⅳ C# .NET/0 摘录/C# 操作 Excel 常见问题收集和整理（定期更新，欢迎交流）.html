@@ -1,0 +1,110 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>C# 操作 Excel 常见问题收集和整理（定期更新，欢迎交流）</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+C# 操作 Excel&nbsp; 常见问题收集和整理（定期更新，欢迎交流）<br/>
+经常会有项目需要把表格导出为 Excel 文件，或者是导入一份 Excel 来操作，那么如何在 C# 中操作 Excel 文件成了一个最基本的问题。<br/><br/>
+做开发这几年来，陆陆续续也接触过这样的需求，但因为不频繁，所以经常是遇到问题再去网上搜。最近的一个项目，要导出的这个 Excel 涉及了很多比较偏僻的操作，所以决定在这里开一篇文章，专门用来收集和整理使用到的代码，以及一些技巧。如果各位看官有一些自己的心得，或者有更好的方案，也欢迎交流。我会时不时更新一下。<br/><br/>
+0 . 使用之前<br/><br/>
+在写代码之前，我们需要先添加引用，在 程序集 – 扩展 里面：Microsoft.Office.Interop.Excel。<br/>
+还有要注意的是，引用之后，需要将属性中的「嵌入互操作类型」设置为 Flase，不然编译时可能会出错。<br/>
+然后就是记得 using 啦：<br/><br/>
+using Microsoft.Office.Interop.Excel;<br/>
+using System.Reflection;<br/>
+▲ 这里的第二个 using 是因为在 Excel 操作中会经常用到一个 Missing.Value 的默认值，所以需要先引用 System.Reflection。<br/><br/>
+1 . 开始使用<br/><br/>
+一般在使用中，我们只是操作一份 Excel 中的第一个工作表（sheet），下面来最简单的创建和读取一份 Excel 中的第一个 sheet。<br/><br/>
+// 定义一个 Missing 的值，方便后面使用<br/>
+Missing miss = Missing.Value;<br/><br/>
+// 创建 Excel，并制定是不可见的<br/>
+ApplicationClass excel = new ApplicationClass();<br/>
+excel.Visible = false;<br/><br/>
+// 新建一份电子表格，或者打开现有的文件<br/>
+Workbook wb = excel.Workbooks.Add();<br/>
+Workbook wb = excel.Workbooks.Open(&quot;demo.xls&quot;);<br/><br/>
+// 取得到第一个工作表，或者取得当前默认的工作表<br/>
+Worksheet ws = wb.Sheets[1] as Worksheet;<br/>
+Worksheet ws = wb.ActiveSheet as Worksheet;<br/>
+▲ 注意，在 Excel 的操作中，许多时候，索引是从 1 开始的，而不是 0，这和大多数程序语法有区别。<br/><br/>
+2 . 使用之后<br/><br/>
+既然已经把 Excel 都创建出来了，我们就先来说说使用之后的结束，以及保存文件，需要注意的问题。这就好比在写代码，两个花括号都是同时敲的，过后再来写里面的代码。<br/><br/>
+许多资料中，Excel 使用之后都直接就 excel = null; 来结束代码，这些朋友难道没发现，这样会在系统中留下许多 EXCEL.EXE 的进程吗？如下图：<br/><br/><br/>
+如果这是在用户的客户端，可能会因为关机，而把这个问题忽略。但如果是在服务器上生成 Excel 文件，一个用户生成一次，就产生一个进程，那么后果可想而知。所以我们要来先说说使用之后怎么结束 Excel 的进程。<br/>
+结束 Excel 不能单单把 EXCEL.EXE 结束就好，这样的话，如果用户正好打开了一个 Excel 也会被结束掉。<br/>
+下面是正确结束 Excel 的代码：<br/><br/>
+[DllImport(&quot;User32.dll&quot;, CharSet = CharSet.Auto)]<br/>
+public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);<br/><br/>
+// 结束 Excel 进程<br/>
+public static void KillExcel(Application excel)<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp; IntPtr t = new IntPtr(excel.Hwnd);<br/>
+&nbsp;&nbsp;&nbsp; int k = 0;<br/>
+&nbsp;&nbsp;&nbsp; GetWindowThreadProcessId(t, out k);<br/>
+&nbsp;&nbsp;&nbsp; System.Diagnostics.Process p = System.Diagnostics.Process.GetProcessById(k);<br/>
+&nbsp;&nbsp;&nbsp; p.Kill();<br/>
+}<br/>
+▲ 注意 DllImport 需要 using System.Runtime.InteropServices 。<br/><br/>
+接下来就是比较保险的关闭，以及调用上面的代码：<br/><br/>
+// 关闭电子表格，释放资源<br/>
+wb.Close();<br/>
+wb = null;<br/><br/>
+// 退出 Excel，释放资源<br/>
+excel.Quit();<br/>
+KillExcel(excel);<br/>
+excel = null;<br/>
+3 . 保存时的格式问题<br/><br/><br/>
+「文件格式和扩展名不匹配。文件可能已损坏或不安全。」看起来似乎很严重，尤其对一些电脑小白来说，不安全这个词很耀眼。这个问题，可能很多朋友在做 Excel 导出的时候，都会遇到，包括我自己使用一些软件也遇过，绝大多数都没有对这个问题进行处理，觉得让用户点一下「是」就好了。但对于我这种相对注重用户体验的开发者来说，这样当然是不行的。那么到底是什么造成的？<br/>
+其实解决这个问题非常简单，之所以会出现这个问题，是和 Office Excel 的版本有关系。我们都知道 Excel 有一个 97-2003 的格式，就是最常见的 .xls 文件，除了这个还有一种 .xlsx 文件，这种是自 Office Excel 2007 之后有的新格式，除了这些，Excel 还支持把表格保存为 .xml 甚至是纯文本的格式。而我们用程序在生成 Excel 的时候，考虑到国内还有一大批 Office 2003 的使用者，所以我们都会保存为 .xls 以便更好的兼容他们。大部分都是像下面的代码这个保存的：<br/><br/>
+// 保存<br/>
+wb.SaveAs(&quot;demo.xls&quot;);<br/>
+虽然你的保存路径中有包含 .xls 后缀名，但其实这个时候，Excel 并不知道你是要以什么格式去保存，所以它可能是无格式的，或者是当前系统中 Office 版本的默认格式。<br/>
+现在我们来看看 SaveAs 的参数中，会发现还有第二个参数 FileFormat，顾名思义，就是文件格式，正好是我们要的参数，所以我们只要告诉 Excel 要保存的格式，问题迎面而解：<br/><br/>
+// 保存，格式编码为56（xls）（.xlsx 的编码为51）<br/>
+wb.SaveAs(&quot;demo.xls&quot;, 56);<br/>
+现在再打开生成的 demo.xls 文件，会发现直接就打开了，不会再出现上面的问题了。<br/><br/>
+4 . 常用的格式设置<br/><br/>
+在操作 Excel 的时候，除了上面这些基础问题，还有就是一些常见的格式设置。包括字体字号、粗体、合并单元格、垂直居中、横向居中、行高、列宽、单元格格式，边框样式，等等。下面的代码就包含了这些常用的设置：<br/><br/>
+// 选择一块区域（一个或多个单元格之间）<br/>
+Range range = ws.get_Range(ws.Cells[1, 1], ws.Cells[2, 10]);<br/><br/>
+// 设定单元格格式，@是指文本格式（导出一串长数字时，例如手机号码，会被处理为数字，所以我们要强制为文本）<br/>
+range.NumberFormat = &quot;@&quot;;<br/><br/>
+// 合并单元格<br/>
+range.MergeCells = true;<br/><br/>
+// 设置行高、列宽<br/>
+range.RowHeight = 35;<br/>
+range.ColumnWidth = 100;<br/><br/>
+// 设置字体字号、粗体、字体（还有大多数字体相关的都在 Font 属性中）<br/>
+range.Font.Size = 12;<br/>
+range.Font.Bold = true;<br/>
+range.Font.Name = &quot;楷体&quot;;<br/><br/>
+// 横向居中、垂直居中<br/>
+range.HorizontalAlignment = XlHAlign.xlHAlignCenter;<br/>
+range.VerticalAlignment = XlHAlign.xlHAlignCenter;<br/><br/>
+// 设置边框<br/>
+range.Borders.LineStyle = 1;<br/>
+range.Borders.LineStyle = XlLineStyle.xlContinuous;<br/><br/>
+// 给单元格设置值（内容）<br/>
+range.set_Value(miss, &quot;abel.cnblogs.com&quot;);<br/>
+比较麻烦的是，每操作一个区域，我们就要重新设定一次 Range，这相当于在 Excel 实际做了一次选择某些单元格的操作，所以数据量大的话，生成 Excel 的速度会有点慢。<br/><br/>
+5 . 常用的打印设置<br/><br/>
+这部分可能在网上比较少见，但一些项目中也会有相关的需求，比如要默认横向纸张啦，打印标题行啦（就是不管打印到第几页，都会出现这一行，一般是表格第一行）等等，我们来看看代码吧：<br/><br/>
+// 设置横向纸张<br/>
+ws.PageSetup.Orientation = XlPageOrientation.xlLandscape;<br/><br/>
+// 设置打印标题的范围<br/>
+ws.PageSetup.PrintTitleRows = &quot;$3:$3&quot;;<br/>
+6 . 其它设置<br/><br/>
+还有一些其它的设置和操作，暂时先都整理在这吧。<br/><br/>
+// 设置电子表格的名称<br/>
+ws.Name = &quot;Hello C#&quot;;<br/>
+7 . 关于生成速度慢的解决方案…<br/><br/>
+上面我们有提到，使用程序来生成 Excel，遇到数据量大的话（十万级的数据就足够了），会比较慢的问题，这个怎么破？<br/>
+其实我们可以不使用 Excel 操作类来生成，而是直接用 IO 来生成 xml 格式的 Excel 表格，最后保存为 .xls 文件即可，速度可以提高N倍。当然，会出现上面第三点说的问题。<br/>
+那有没有速度又快，又不会出现那个安全提示的方法呢？也是有的，来看看代码：<br/><br/>
+// 打开 XML 格式的 Excel 文件<br/>
+Workbook wb = excel.Workbooks.OpenXML(&quot;temp.xml&quot;);<br/><br/>
+// 再保存为真正 xls 格式的 Excel 文件<br/>
+wb.SaveAs(&quot;demo.xls&quot;, 56);<br/>
+是的，方法就是先打开一份用 IO 生成好的 xml 格式的 Excel，再另存为 Office 97-2003 格式的 xls 文件。<br/>
+注意，这个方法只适合格式简单的 Excel，不然在保存的时候，会提示兼容问题！<br/><br/>
+准备写这篇文章，已经计划了好几天，一直到昨晚才动笔，花了两个晚上，大部分代码在写文章的时候，还重新在 Visual Studio 中实践了一次，花了两个晚上写完。除了方便自己以后用，也希望能帮到有需求的朋友。<br/>
+如果你也有这方面的经验，或者技巧，或者觉得文章中有什么问题，非常欢迎一起交流！<br/><br/><br/></div>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>HTML（三） 链接和图像</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style><link type="text/css" rel="stylesheet" id="wiz_code_highlight_link" href="HTML（三） 链接和图像_files/wiz_code_highlight_20.css"></head>
+
+<body  style="">HTML链接用法：&nbsp;<a href="http://www.w3school.com.cn/html/html_links.asp">http://www.w3school.com.cn/html/html_links.asp</a>&nbsp;<div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"http://www.w3school.com.cn/"</span><span class="tag">&gt;</span><span class="pln">Visit W3School</span><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-html"><span class="com">&lt;!--如下会使用新窗口打开地址--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"http://www.w3school.com.cn/"</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_blank"</span><span class="tag">&gt;</span><span class="pln">Visit W3School!</span><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-html"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-html"><span class="com">&lt;!--同一个文档界面内跳转,#tios代表锚命名--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"#tips"</span><span class="tag">&gt;</span><span class="pln">有用的提示</span><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-html"><span class="pln">锚的命名：</span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"tips"</span><span class="tag">&gt;</span><span class="pln">基本的注意事项 - 有用的提示</span><span class="tag">&lt;/a&gt;</span><span class="pln"> 使用id也可以</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-html"><span class="pln">其他界面指向该锚的方法</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"http://www.w3school.com.cn/html/html_links.asp#tips"</span><span class="tag">&gt;</span><span class="pln">有用的提示</span><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-html"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-html"><span class="pln">跳出框架：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/index.html"</span><span class="pln"> </span><span class="atn">target</span><span class="pun">=</span><span class="atv">"_top"</span><span class="tag">&gt;</span><span class="pln">请点击这里！</span><span class="tag">&lt;/a&gt;</span><span class="pln"> </span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-html"><span class="pln">创建电子邮件：</span><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"mailto:someone@microsoft.com?subject=Hello%20again"</span><span class="tag">&gt;</span><span class="pln">发送邮件</span><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-html"><span class="pln">创建电子邮件2:这是另一个 mailto 链接：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"mailto:someone@microsoft.com?cc=someoneelse@microsoft.com&amp;bcc=andsomeoneelse2@microsoft.com&amp;subject=Summer%20Party&amp;body=You%20are%20invited%20to%20a%20big%20summer%20party!"</span><span class="tag">&gt;</span><span class="pln">发送邮件！</span><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-html"><span class="com">&lt;!--注意：应该使用 %20 来替换单词之间的空格，这样浏览器就可以正确地显示文本了。--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-html"></code></li></ol></pre></div><div>HTML图像：&nbsp;<a href="http://www.w3school.com.cn/html/html_images.asp">http://www.w3school.com.cn/html/html_images.asp</a>&nbsp;</div></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-html"><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">background</span><span class="pun">=</span><span class="atv">"/i/eg_background.jpg"</span><span class="tag">&gt;</span><span class="pln"> </span><span class="com">&lt;!--背景图像--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-html"><span class="pln">排列，浮动图像略</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-html"><span class="pln">通过改变 img 标签的 "height" 和 "width" 属性的值，您可以放大或缩小图像。</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-html"><span class="pln">如：</span><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"/i/eg_mouse.jpg"</span><span class="pln"> </span><span class="atn">width</span><span class="pun">=</span><span class="atv">"200"</span><span class="pln"> </span><span class="atn">height</span><span class="pun">=</span><span class="atv">"200"</span><span class="tag">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-html"><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"/i/eg_goleft123.gif"</span><span class="pln"> </span><span class="atn">alt</span><span class="pun">=</span><span class="atv">"向左转"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="com">&lt;!-- 如果无法显示图像，将显示文本，鼠标移动上也会显示--&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-html"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-html"><span class="pln">您也可以把图像作为链接来使用：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/example/html/lastpage.html"</span><span class="tag">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-html"><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">border</span><span class="pun">=</span><span class="atv">"0"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"/i/eg_buttonnext.gif"</span><span class="pln"> </span><span class="tag">/&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-html"><span class="tag">&lt;/a&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-html"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-html"><span class="pln">图像可点击区域，实现点击图片部分，自动打开新界面显示图片：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-html"><span class="tag">&lt;area</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-html"><span class="atn">shape</span><span class="pun">=</span><span class="atv">"rect"</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-html"><span class="atn">coords</span><span class="pun">=</span><span class="atv">"0,0,110,260"</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-html"><span class="atn">href</span><span class="pln"> </span><span class="pun">=</span><span class="atv">"/example/html/sun.html"</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-html"><span class="atn">target</span><span class="pln"> </span><span class="pun">=</span><span class="atv">"_blank"</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-html"><span class="atn">alt</span><span class="pun">=</span><span class="atv">"Sun"</span><span class="pln"> </span><span class="tag">/&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8">其中： area 的用法： <a href="http://www.w3school.com.cn/tags/tag_area.asp">http://www.w3school.com.cn/tags/tag_area.asp</a> &nbsp;</li><li style="list-style-type: none; padding-left: 0px;" class="L8">map 用法： <a href="http://www.w3school.com.cn/tags/tag_map.asp">http://www.w3school.com.cn/tags/tag_map.asp</a>  <br><br><code class="language-html"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-html"><span class="pln">鼠标移动到图像后会改变状态栏的地址：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-html"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/example/html/html_ismap.html"</span><span class="tag">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-html"><span class="tag">&lt;img</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"/i/eg_planets.jpg"</span><span class="pln"> </span><span class="atn">ismap</span><span class="pln"> </span><span class="tag">/&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-html"><span class="tag">&lt;/a&gt;</span></code></li></ol></pre></div><div><br></div></div></body></html>

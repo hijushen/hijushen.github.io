@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+        
+
+
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
+<link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        <title>20条Linux命令面试问答</title>
+        
+<link rel="stylesheet" type="text/css" href="20条Linux命令面试问答_files/page_mp_article_improve2a7a3f.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2a7a3f.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">20条Linux命令面试问答</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="20条Linux命令面试问答_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="20条Linux命令面试问答_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="20条Linux命令面试问答_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        20条Linux命令面试问答 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-02-06</em>
+
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">Linux爱好者</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">Linux爱好者</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">Linux爱好者</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">LinuxHub</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">分享Linux/Unix相关的技术文章、教程和工具。</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <p><span style="color: rgb(0, 176, 240);"></span></p><p style="white-space: normal; text-align: center;"><span style="color: rgb(255, 0, 0);">(点击</span><span style="color: rgb(0, 112, 192);">上方蓝字</span><span style="color: rgb(255, 0, 0);">，可快速关注我们)</span></p><p style="white-space: normal;"><span style="color: rgb(255, 0, 0); text-align: center;"><br  /></span></p><p><img data-w="" data-ratio="0.5287769784172662" data-s="300,640" data-type="png"    SRC="20条Linux命令面试问答_files/0.png" /><br  /></p><p><span style="color: rgb(0, 176, 240);"><strong>问:1 如何查看当前的Linux服务器的运行级别？</strong></span><br  /><br  />答: ‘who -r’ 和 ‘runlevel’ 命令可以用来查看当前的Linux服务器的运行级别。<br  /><br  /><span style="color: rgb(0, 176, 240);"><strong>问:2 如何查看Linux的默认网关？</strong></span><br  /><br  />答: 用 “route -n” 和 “netstat -nr” 命令，我们可以查看默认网关。除了默认的网关信息，这两个命令还可以显示当前的路由表。<br  /><br  /><strong><span style="color: rgb(0, 176, 240);">问:3 如何在Linux上重建初始化内存盘镜像文件？</span></strong><br  /><br  />答: 在CentOS 5.X / RHEL 5.X中，可以用mkinitrd命令来创建初始化内存盘文件，举例如下：<br  /></p><p><br  /></p><blockquote><p># mkinitrd -f -v /boot/initrd-$(uname -r).img $(uname -r)</p></blockquote><p><br  /></p><p>如果你想要给特定的内核版本创建初始化内存盘，你就用所需的内核名替换掉 ‘uname -r’ 。<br  /><br  />在CentOS 6.X / RHEL 6.X中，则用dracut命令来创建初始化内存盘文件，举例如下：</p><p><br  /></p><blockquote><p># dracut -f</p></blockquote><p><br  /></p><p>以上命令能给当前的系统版本创建初始化内存盘，给特定的内核版本重建初始化内存盘文件则使用以下命令：</p><p><br  /></p><blockquote><p># dracut -f initramfs-2.x.xx-xx.el6.x86_64.img 2.x.xx-xx.el6.x86_64</p></blockquote><p><br  /></p><p><span style="color: rgb(0, 176, 240);"><strong>问:4 cpio命令是什么？</strong></span><br  /><br  />答: cpio就是复制入和复制出的意思。cpio可以向一个归档文件（或单个文件）复制文件、列表，还可以从中提取文件。<br  /><br  /><span style="color: rgb(0, 176, 240);"><strong>问:5 patch命令是什么？如何使用？</strong></span><br  /><br  />答: 顾名思义，patch命令就是用来将修改（或补丁）写进文本文件里。patch命令通常是接收diff的输出并把文件的旧版本转换为新版本。举个例子，Linux内核源代码由百万行代码文件构成，所以无论何时，任何代码贡献者贡献出代码，只需发送改动的部分而不是整个源代码，然后接收者用patch命令将改动写进原始的源代码里。<br  /><br  />创建一个diff文件给patch使用，</p><p><br  /></p><blockquote><p># diff -Naur old_file new_file &gt; diff_file</p></blockquote><p><br  /></p><p>旧文件和新文件要么都是单个的文件要么都是包含文件的目录，-r参数支持目录树递归。<br  /><br  />一旦diff文件创建好，我们就能在旧的文件上打上补丁，把它变成新文件：</p><p><br  /></p><blockquote><p># patch &lt; diff_file</p></blockquote><p><br  /></p><p><span style="color: rgb(0, 176, 240);"><strong>问:6 aspell有什么用 ?</strong></span><br  /><br  />答: 顾名思义，aspell就是Linux操作系统上的一款交互式拼写检查器。aspell命令继任了更早的一个名为ispell的程序，并且作为一款免费替代品 ，最重要的是它非常好用。当aspell程序主要被其它一些需要拼写检查能力的程序所使用的时候，在命令行中作为一个独立运行的工具的它也能十分有效。<br  /><br  /><strong><span style="color: rgb(0, 176, 240);">问:7 如何从命令行查看域SPF记录？</span></strong><br  /><br  />答: 我们可以用dig命令来查看域SPF记录。举例如下：</p><p><br  /></p><blockquote><p>linuxtechi@localhost:~$ dig -t TXT google.com</p></blockquote><p><br  /></p><p><strong><span style="color: rgb(0, 176, 240);">问:8 如何识别Linux系统中指定文件(/etc/fstab)的关联包？</span></strong><br  /><br  />答:</p><p><br  /></p><blockquote><p># rpm -qf /etc/fstab</p></blockquote><p><br  /></p><p>以上命令能列出提供“/etc/fstab”这个文件的包。<br  /><br  /><span style="color: rgb(0, 176, 240);"><strong>问:9 哪条命令用来查看bond0的状态？</strong></span><br  /><br  />答:</p><p><br  /></p><blockquote><p>cat /proc/net/bonding/bond0</p></blockquote><p><br  /></p><p><span style="color: rgb(0, 176, 240);"><strong>问:10 Linux系统中的/proc文件系统有什么用？</strong></span><br  /><br  />答: /proc文件系统是一个基于内存的文件系统，其维护着关于当前正在运行的内核状态信息，其中包括CPU、内存、分区划分、I/O地址、直接内存访问通道和正在运行的进程。这个文件系统所代表的并不是各种实际存储信息的文件，它们指向的是内存里的信息。/proc文件系统是由系统自动维护的。<br  /><br  /><strong><span style="color: rgb(0, 176, 240);">问:11 如何在/usr目录下找出大小超过10MB的文件？</span></strong><br  /><br  />答:</p><p><br  /></p><blockquote><p># find /usr -size +10M</p></blockquote><p><br  /></p><p><span style="color: rgb(0, 176, 240);"><strong>问:12 如何在/home目录下找出120天之前被修改过的文件？<br  /></strong></span><br  />答:</p><p><br  /></p><blockquote><p># find /home -mtime +120</p></blockquote><p><br  /></p><p><strong><span style="color: rgb(0, 176, 240);">问:13 如何在/var目录下找出90天之内未被访问过的文件？</span></strong><br  /><br  />答:</p><p><br  /></p><blockquote><p># find /var \! -atime -90</p></blockquote><p><br  /></p><p><strong><span style="color: rgb(0, 176, 240);">问:14 在整个目录树下查找文件“core”，如发现则无需提示直接删除它们。</span></strong><br  /><br  />答:</p><p><br  /></p><blockquote><p># find / -name core -exec rm {} \;</p></blockquote><p><br  /></p><p><span style="color: rgb(0, 176, 240);"><strong>问:15 strings命令有什么作用？</strong></span><br  /><br  />答: strings命令用来提取和显示非文本文件中的文本字符串。（LCTT 译注：当用来分析你系统上莫名其妙出现的二进制程序时，可以从中找到可疑的文件访问，对于追查入侵有用处）<br  /><br  /><span style="color: rgb(0, 176, 240);"><strong>问:16 tee 过滤器有什么作用 ?</strong></span><br  /><br  />答: tee 过滤器用来向多个目标发送输出内容。如果用于管道的话，它可以将输出复制一份到一个文件，并复制另外一份到屏幕上（或一些其它程序）。</p><p><br  /></p><blockquote><p>linuxtechi@localhost:~$ ll /etc | nl | tee /tmp/ll.out</p></blockquote><p><br  /></p><p>在以上例子中，从ll输出可以捕获到 /tmp/ll.out 文件中，并且同样在屏幕上显示了出来。<br  /><br  /><span style="color: rgb(0, 176, 240);"><strong>问:17 export PS1 = ”$LOGNAME@hostname:\$PWD: 这条命令是在做什么？</strong></span><br  /><br  />答: 这条export命令会更改登录提示符来显示用户名、本机名和当前工作目录。<br  /><br  /><span style="color: rgb(0, 176, 240);"><strong>问:18 ll | awk ‘{print $3,”owns”,$9}’ 这条命令是在做什么？</strong></span><br  /><br  />答: 这条ll命令会显示这些文件的文件名和它们的拥有者。<br  /><br  /><strong><span style="color: rgb(0, 176, 240);">问:19 :Linux中的at命令有什么用？</span></strong><br  /><br  />答: at命令用来安排一个程序在未来的做一次一次性执行。所有提交的任务都被放在 /var/spool/at 目录下并且到了执行时间的时候通过atd守护进程来执行。<br  /><br  /><strong><span style="color: rgb(0, 176, 240);">问:20 linux中lspci命令的作用是什么？</span></strong><br  /><br  />答: lspci命令用来显示你的系统上PCI总线和附加设备的信息。指定-v，-vv或-vvv来获取越来越详细的输出，加上-r参数的话，命令的输出则会更具有易读性。</p><p><br  /></p><p><span style="color: rgb(0, 176, 80);">原文出处： Pradeep Kumar &nbsp; <br  /></span></p><p><span style="color: rgb(0, 176, 80);">译文出处：Linux中国 - ZTinoZ</span></p><p><span style="color: rgb(0, 176, 80);">译文链接：http://linux.cn/article-4790-1.html</span></p><p><br  /></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><img data-type="png" data-ratio="0.9172661870503597" data-w=""  style="white-space: pre-wrap; line-height: 1.6; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="20条Linux命令面试问答_files/640.jpg" /></p><p style="line-height: 25.6px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><br  /></p><p style="line-height: 25.6px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><img data-s="300,640" data-type="jpeg" data-ratio="0.8129496402877698" data-w=""  style="box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="20条Linux命令面试问答_files/640_2.jpg" /></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="20条Linux命令面试问答_files/page_mp_article_improve_combo2a7a3f.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <a class="media_tool_meta meta_primary" id="js_view_source" href="">阅读原文</a>
+                                                <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">举报</a>
+
+                    </div>
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+
+                    
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">关注该公众号可参与留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="20条Linux命令面试问答_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            关注该公众号可参与留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="20条Linux命令面试问答_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="20条Linux命令面试问答_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+    
+
+    
+  
+
+  
+
+
+    </body>
+</html>
+
+ 

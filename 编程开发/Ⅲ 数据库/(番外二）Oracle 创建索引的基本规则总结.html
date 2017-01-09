@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>(番外二）Oracle 创建索引的基本规则总结</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style=""><h1 class="aTitle" style="color: rgb(0, 42, 95); font-size: 28px; font-family: verdana, arial, helvetica, sans-serif; line-height: normal; widows: 1; background-color: rgb(255, 255, 255);">Oracle 创建索引的基本规则总结</h1><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">一、B-Tree索引</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">1.&nbsp;&nbsp;选择索引字段的原则:</p><ul style="margin-left: 30px; padding-left: 0px; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: normal; widows: 1; background-color: rgb(255, 255, 255);"><li>在WHERE子句中最频繁使用的字段&nbsp;</li><li>&nbsp;联接语句中的联接字段</li><li>选择高选择性的字段(如果很少的字段拥有相同值,即有很多独特值,则选择性很好)</li><li><a title="Oracle" href="http://www.linuxidc.com/topicnews.aspx?tid=12" target="_blank" style="color: rgb(92, 154, 61); text-decoration: none;">Oracle</a>在UNIQUE和主键字段上自动建立索引</li><li>在选择性很差的字段上建索引只有在这个字段的值分布非常倾斜的情况下才有益(在这种情况下,某一,两个字段值比其它字段值少出现很多)</li><li>不要在很少独特值的字段上建B-TREE索引,在这种情况下,你可以考虑在这些字段上建位图索引.在联机事务处理环境下,并发性非常高,索引经常被修改,所以不应该建位图索引</li><li>不要在经常被修改的字段上建索引.当有UPDATE,DELETE,INSETT操作时,ORACLE除了要更新表的数据外,同时也要更新索引,而且就象更新数据一样,或产生还原和重做条目</li><li>不要在有用到函数的字段上建索引,ORACLE在这种情况,优化器不会用到索引,除非你建立函数索引</li><li>可以考虑在外键字段上建索引,这些索引允许当在主表上UPDATE,DELETE操作时,不需要共享子表的锁,这非常适用于在父表和子表上有很多并发的INSERT,UPDATE和DELETE操作的情况</li><li>当建立索引后,请比较一下索引后所获得的查询性能的提高和UPDATE,DELETE,INSERT操作性能上的损失,比较得失后,再最后决定是否需建立这个索引&nbsp;</li></ul><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">&nbsp;2.&nbsp;&nbsp;选择建立复合索引</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">&nbsp;复合索引的优点:</p><ul style="margin-left: 30px; padding-left: 0px; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: normal; widows: 1; background-color: rgb(255, 255, 255);"><li>改善选择性:复合索引比单个字段的索引更具选择性&nbsp;</li><li>&nbsp;减少I/O:如果要查询的字段刚好全部包含在复合索引的字段里,则ORACLE只须访问索引,无须访问表</li></ul><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">什么情况下优化器会用到复合索引呢?</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (a) 当SQL语句的WHERE子句中有用到复合索引的领导字段时,ORACLE优化器会考虑用到复合索引来访问.</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (b) 当某几个字段在SQL语句的WHERE子句中经常通过AND操作符联合在一起使用作为过滤谓词,并且这几个字段合在一起时选择性比各自单个字段的选择性要更好时,可</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 能考虑用这几个字段来建立复合索引.</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (c) 当有几个查询语句都是查询同样的几个字段值时,则可以考虑在这几个字段上建立复合索引.</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">复合索引字段排序的原则:</p><ul style="margin-left: 30px; padding-left: 0px; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: normal; widows: 1; background-color: rgb(255, 255, 255);"><li>确保在WHERE子句中使用到的字段是复合索引的领导字段&nbsp;</li><li>&nbsp;如果某个字段在WHERE子句中最频繁使用,则在建立复合索引时,考虑把这个字段排在第一位(在CREATE INDEX语句中)&nbsp;</li><li>&nbsp;如果所有的字段在WHERE子句中使用频率相同,则将最具选择性的字段排在最前面,将最不具选择性的字段排在最后面&nbsp;</li><li>&nbsp;如果所有的字段在WHERE子句中使用频率相同,如果数据在物理上是按某一个字段排序的,则考虑将这个字段放在复合索引的第一位</li></ul><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">二、位图索引</p><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">什么情况下位图索引能够改善查询的性能呢?</p><ul style="margin-left: 30px; padding-left: 0px; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: normal; widows: 1; background-color: rgb(255, 255, 255);"><li>WHERE子句包含多个谓词于中低基数的字段&nbsp;</li><li>&nbsp;单个的谓词在这些中低基数的字段上选取大量的行&nbsp;</li><li>&nbsp;已经有位图索引创建于某些或全部的这些中低基数的字段上</li><li>被查询的表包含很多行</li><li>可以在单一个表上建立多个位图索引,因此,位图索引能够改善包含冗长WHERE子句的复杂查询的性能,在合计查询和星形模型的联接查询语句中,位图索引也可以提供比较优良的性能</li></ul><p style="font-size: 12px; padding: 0px; margin: 10px auto; word-wrap: break-word; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255); font-family: 宋体 !important;">位图索引与B-TREE索引的比较</p><ul style="margin-left: 30px; padding-left: 0px; font-family: verdana, arial, helvetica, sans-serif; font-size: 12px; font-weight: bold; line-height: normal; widows: 1; background-color: rgb(255, 255, 255);"><li>位图索引更节省存储空间</li><li>位图索引比较适用于数据仓库环境,但不适于联机事务处理环境.在数据仓库环境,数据维护通常上通过批量INSERT和批量UPDATE来完成的,所以索引的维护被延迟直到DML操作结束.举例:当你批量插入1000行数据时,这些插入的行被放置到排序缓存中(SORT BUFFER),然后批处理更新这1000个索引条目,所以,每一个位图段在每一个DML操作中只需更新一次,即使在那个位图段里有多行被更新</li><li>一个键值的压缩位图是由一个或多个位图段所组成,每一个位图段大约相当于半个BLOCK SIZE那么大,锁的最小粒度是一个位图段,在联机事务处理环境,如果多个事务执行同时的更新(即并发的更新),使用位图索引就会影响UPDATE,INSERT,DELETE性能了</li><li>一个B-TREE索引的条目只包含一个ROWID,因此,当一个索引条目被锁定,即一行被锁定.但是对于位图索引, 一个索引条目潜在地有可能包含一段ROWID(即某一个范围内的ROWID,有多个ROWID),当一个位图索引条目被锁定时,则这个条目包含的那一段ROWID都被锁定,从而影响并发性.当一个位图段内的ROWID的数量越多时,并发性就越差.虽然如此,对于BULK INSERT,UPDATE和DELETE,位图索引的性能还是比B-TREE索引要好<br><div style="color:gray"><small>来源：&nbsp;&lt;<a href="http://www.cnblogs.com/Leo_wl/p/4701527.html">http://www.cnblogs.com/Leo_wl/p/4701527.html</a><small>&gt;</small></small></div><small><small>&nbsp;</small></small></li></ul></body></html>

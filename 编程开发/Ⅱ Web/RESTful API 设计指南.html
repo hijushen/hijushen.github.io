@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+         
+
+
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
+<link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        <title>RESTful API 设计指南</title>
+        
+<link rel="stylesheet" type="text/css" href="RESTful API 设计指南_files/page_mp_article_improve2a7a3f.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2a7a3f.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">RESTful API 设计指南</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="RESTful API 设计指南_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="RESTful API 设计指南_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="RESTful API 设计指南_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        RESTful API 设计指南 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-02-23</em>
+
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">ImportNew</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">ImportNew</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">ImportNew</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">importnew</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">专注&nbsp;Java&nbsp;和&nbsp;Android&nbsp;技术分享。ImportNew&nbsp;由两个&nbsp;Java&nbsp;关键字&nbsp;import&nbsp;和&nbsp;new&nbsp;组成。意指：Java&nbsp;&amp;&nbsp;Android&nbsp;程序员学习新知识的网站。</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <p style="line-height: 25.6px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><strong style="max-width: 100%; white-space: normal; font-size: 18px; color: rgb(255, 0, 0); box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(192, 0, 0); box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; color: rgb(0, 176, 80); border: 0px; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(192, 0, 0); box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(0, 176, 240); box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(255, 0, 0); font-size: 14px;">(点击</span><span style="max-width: 100%; font-size: 14px; color: rgb(0, 112, 192);">上方公号</span><span style="max-width: 100%; color: rgb(255, 0, 0); font-size: 14px;">，可快速关注)</span></span></strong></span></strong></strong></span></strong></p><p style="line-height: 25.6px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /></p><blockquote style="line-height: 25.6px; white-space: normal; max-width: 100%; color: rgb(62, 62, 62); box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(0, 176, 80); font-size: 14px; line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important;">作者：阮一峰</span></p><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(0, 176, 80); font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">链接：<span style="max-width: 100%; line-height: 28.4444px;">http://www.ruanyifeng.com/blog/2014/05/restful_api.html</span></span></p></blockquote><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(0, 176, 80); font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important; line-height: 28.4444px;"><br  /></span></p><p>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。</p><p><br  /></p><p>因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现”API First”的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇《理解RESTful架构》，探讨如何理解这个概念。</p><p><br  /></p><p>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考了两篇文章（1，2）。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>一、协议</strong></span></p><p><br  /></p><p>API与用户的通信协议，总是使用HTTPs协议。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>二、域名</strong></span></p><p><br  /></p><p>应该尽量将API部署在专用域名之下。</p><p><br  /></p><blockquote><p><span style="font-size: 12px; line-height: 17.6000003814697px; color: rgb(136, 136, 136);">https://api.example.com</span></p></blockquote><p><br  /></p><p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</p><p><br  /></p><blockquote><p><span style="font-size: 12px; line-height: 17.6000003814697px; color: rgb(136, 136, 136);">https://example.org/api/</span></p></blockquote><p><span style="color: rgb(214, 168, 65);"><strong><br  /></strong></span></p><p><span style="color: rgb(214, 168, 65);"><strong>三、版本（Versioning）</strong></span></p><p><br  /></p><p>应该将API的版本号放入URL。</p><p><br  /></p><blockquote><p><span style="line-height: 17.6000003814697px; font-size: 12px; color: rgb(136, 136, 136);">https://api.example.com/v1/</span></p></blockquote><p><br  /></p><p>另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。Github采用这种做法。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>四、路径（Endpoint）</strong></span></p><p><br  /></p><p>路径又称”终点”（endpoint），表示API的具体网址。</p><p><br  /></p><p>在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的”集合”（collection），所以API中的名词也应该使用复数。</p><p><br  /></p><p>举例来说，有一个API提供动物园（zoo）的信息，还包括各种动物和雇员的信息，则它的路径应该设计成下面这样。</p><p><br  /></p><blockquote><p style="line-height: 17.6000003814697px; white-space: normal;"><span style="font-size: 12px; color: rgb(136, 136, 136);">https://api.example.com/v1/zoos</span></p><p style="line-height: 17.6000003814697px; white-space: normal;"><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p style="line-height: 17.6000003814697px; white-space: normal;"><span style="font-size: 12px; color: rgb(136, 136, 136);">https://api.example.com/v1/animals</span></p><p style="line-height: 17.6000003814697px; white-space: normal;"><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p style="line-height: 17.6000003814697px; white-space: normal;"><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p style="line-height: 17.6000003814697px; white-space: normal;"><span style="font-size: 12px; color: rgb(136, 136, 136);">https://api.example.com/v1/employees</span></p></blockquote><p><span style="color: rgb(214, 168, 65);"><strong><br  /></strong></span></p><p><span style="color: rgb(214, 168, 65);"><strong>五、HTTP动词</strong></span></p><p><br  /></p><p>对于资源的具体操作类型，由HTTP动词表示。</p><p><br  /></p><p>常用的HTTP动词有下面五个（括号里是对应的SQL命令）。</p><p><br  /></p><ul style="" class=" list-paddingleft-2"><li><p>GET（SELECT）：从服务器取出资源（一项或多项）。</p></li><li><p>POST（CREATE）：在服务器新建一个资源。</p></li><li><p>PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。</p></li><li><p>PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。</p></li><li><p>DELETE（DELETE）：从服务器删除资源。</p></li></ul><p><br  /></p><p>还有两个不常用的HTTP动词。</p><p><br  /></p><ul style="" class=" list-paddingleft-2"><li><p>HEAD：获取资源的元数据。</p></li><li><p>OPTIONS：获取信息，关于资源的哪些属性是客户端可以改变的。</p></li></ul><p><br  /></p><p>下面是一些例子。</p><p><br  /></p><ul style="" class=" list-paddingleft-2"><li><p>GET /zoos：列出所有动物园</p></li><li><p>POST /zoos：新建一个动物园</p></li><li><p>GET /zoos/ID：获取某个指定动物园的信息</p></li><li><p>PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）</p></li><li><p>PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）</p></li><li><p>DELETE /zoos/ID：删除某个动物园</p></li><li><p>GET /zoos/ID/animals：列出某个指定动物园的所有动物</p></li><li><p>DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物</p></li></ul><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>六、过滤信息（Filtering）</strong></span></p><p><br  /></p><p>如果记录数量很多，服务器不可能都将它们返回给用户。API应该提供参数，过滤返回结果。</p><p><br  /></p><p>下面是一些常见的参数。</p><p><br  /></p><ul style="" class=" list-paddingleft-2"><li><p>?limit=10：指定返回记录的数量</p></li><li><p>?offset=10：指定返回记录的开始位置。</p></li><li><p>?page=2&amp;per_page=100：指定第几页，以及每页的记录数。</p></li><li><p>?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。</p></li><li><p>?animal_type_id=1：指定筛选条件</p></li></ul><p><br  /></p><p>参数的设计允许存在冗余，即允许API路径和URL参数偶尔有重复。比如，GET /zoo/ID/animals 与 GET /animals?zoo_id=ID 的含义是相同的。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>七、状态码（Status Codes）</strong></span></p><p><br  /></p><p>服务器向用户返回的状态码和提示信息，常见的有以下一些（方括号中是该状态码对应的HTTP动词）。</p><p><br  /></p><ul style="" class=" list-paddingleft-2"><li><p>200 OK – [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。</p></li><li><p>201 CREATED – [POST/PUT/PATCH]：用户新建或修改数据成功。</p></li><li><p>202 Accepted – [*]：表示一个请求已经进入后台排队（异步任务）</p></li><li><p>204 NO CONTENT – [DELETE]：用户删除数据成功。</p></li><li><p>400 INVALID REQUEST – [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。</p></li><li><p>401 Unauthorized – [*]：表示用户没有权限（令牌、用户名、密码错误）。</p></li><li><p>403 Forbidden – [*] 表示用户得到授权（与401错误相对），但是访问是被禁止的。</p></li><li><p>404 NOT FOUND – [*]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。</p></li><li><p>406 Not Acceptable – [GET]：用户请求的格式不可得（比如用户请求JSON格式，但是只有XML格式）。</p></li><li><p>410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。</p></li><li><p>422 Unprocesable entity – [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。</p></li><li><p>500 INTERNAL SERVER ERROR – [*]：服务器发生错误，用户将无法判断发出的请求是否成功。</p></li></ul><p><br  /></p><p>状态码的完全列表参见这里。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>八、错误处理（Error handling）</strong></span></p><p><br  /></p><p>如果状态码是4xx，就应该向用户返回出错信息。一般来说，返回的信息中将error作为键名，出错信息作为键值即可。</p><p><br  /></p><blockquote><p><span style="line-height: 17.6000003814697px; font-size: 12px; color: rgb(136, 136, 136);">{ error: &quot;Invalid API key&quot; }</span></p></blockquote><p><span style="color: rgb(214, 168, 65);"><strong><br  /></strong></span></p><p><span style="color: rgb(214, 168, 65);"><strong>九、返回结果</strong></span></p><p><br  /></p><p>针对不同操作，服务器向用户返回的结果应该符合以下规范。</p><p><br  /></p><ul style="" class=" list-paddingleft-2"><li><p>GET /collection：返回资源对象的列表（数组）</p></li><li><p>GET /collection/resource：返回单个资源对象</p></li><li><p>POST /collection：返回新生成的资源对象</p></li><li><p>PUT /collection/resource：返回完整的资源对象</p></li><li><p>PATCH /collection/resource：返回完整的资源对象</p></li><li><p>DELETE /collection/resource：返回一个空文档</p></li></ul><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>十、Hypermedia API</strong></span></p><p><br  /></p><p>RESTful API最好做到Hypermedia，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。</p><p><br  /></p><p>比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。</p><p><br  /></p><blockquote><p><span style="line-height: 17.6000003814697px; font-size: 12px; color: rgb(136, 136, 136);">{&quot;link&quot;: { &quot;rel&quot;: &quot;collection https://www.example.com/zoos&quot;, &quot;href&quot;: &quot;https://api.example.com/zoos&quot;, &quot;title&quot;: &quot;List of zoos&quot;, &quot;type&quot;: &quot;application/vnd.yourformat+json&quot; }}</span></p></blockquote><p><br  /></p><p>上面代码表示，文档中有一个link属性，用户读取这个属性就知道下一步该调用什么API了。rel表示这个API与当前网址的关系（collection关系，并给出该collection的网址），href表示API的路径，title表示API的标题，type表示返回类型。</p><p><br  /></p><p>Hypermedia API的设计被称为HATEOAS。Github的API就是这种设计，访问api.github.com会得到一个所有可用API的网址列表。</p><p><br  /></p><blockquote><p><span style="line-height: 17.6000003814697px; font-size: 12px; color: rgb(136, 136, 136);">{ &quot;current_user_url&quot;: &quot;https://api.github.com/user&quot;, &quot;authorizations_url&quot;: &quot;https://api.github.com/authorizations&quot;, // ... }</span></p></blockquote><p><br  /></p><p>从上面可以看到，如果想获取当前用户的信息，应该去访问<span style="line-height: 1.6;">api.github.com/user，然后就得到了下面结果。</span></p><p><span style="line-height: 1.6;"><br  /></span></p><blockquote><p><span style="line-height: 1.6;"></span><span style="line-height: 17.6000003814697px; font-size: 12px; color: rgb(136, 136, 136);">{ &quot;message&quot;: &quot;Requires authentication&quot;, &quot;documentation_url&quot;: &quot;https://developer.github.com/v3&quot; }</span></p></blockquote><p><br  /></p><p>上面代码表示，服务器给出了提示信息，以及文档的网址。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>十一、其他</strong></span></p><p><br  /></p><p>（1）API的身份认证应该使用OAuth 2.0框架。</p><p><br  /></p><p>（2）服务器返回的数据格式，应该尽量使用JSON，避免使用XML。</p><p><br  /></p><p style="font-size: 16.1904773712158px; white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; color: rgb(136, 136, 136); font-size: 20px; box-sizing: border-box !important; word-wrap: break-word !important;">【今日微信公号推荐↓】</span></p><p style="font-size: 16.1904773712158px; white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; line-height: 1.6; box-sizing: border-box !important; word-wrap: break-word !important;"></span><img data-s="300,640" data-type="png" data-ratio="0.6258992805755396" data-w=""  style="font-size: 16.1904773712158px; line-height: 24.3809547424316px; white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="RESTful API 设计指南_files/640.jpg" /></p><p style="font-size: 16.1904773712158px; line-height: 25.6px; white-space: normal; text-align: center;"><span style="font-size: 14px;">更多推荐请看</span><strong><span style="font-size: 14px;">《</span></strong><a href="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=402729167&idx=1&sn=5a02d08e2dd393f7b1cd08409a4a5000&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&amp;mid=402729167&amp;idx=1&amp;sn=5a02d08e2dd393f7b1cd08409a4a5000&amp;scene=21#wechat_redirect"><span style="color: rgb(255, 169, 0);">值得关注的技术和设计公众号</span></a><span style="font-size: 14px;"><strong><span style="font-size: 16px;">》</span></strong></span></p><p style="font-size: 16.1904773712158px; line-height: 25.6px; white-space: normal;"><span style="font-size: 14px; color: rgb(136, 136, 136);"><br  /></span></p><p style="font-size: 16.1904773712158px; white-space: normal; line-height: 1.75em;"><span style="font-size: 14px; color: rgb(136, 136, 136);">其中推荐了包括<strong>技术</strong>、<strong>设计</strong>、<strong>极客</strong>和<strong>IT相亲</strong>相关的热门公众号。技术涵盖：Python、Web前端、Java、安卓、iOS、PHP、C/C++、.NET、Linux、数据库、运维、大数据、算法、IT职场等。点击《</span><a href="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=402729167&idx=1&sn=5a02d08e2dd393f7b1cd08409a4a5000&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&amp;mid=402729167&amp;idx=1&amp;sn=5a02d08e2dd393f7b1cd08409a4a5000&amp;scene=21#wechat_redirect"><span style="font-size: 14px; color: rgb(255, 169, 0);">值得关注的技术和设计公众号</span></a><span style="font-size: 14px; color: rgb(136, 136, 136);">》，发现精彩！</span></p><p style="font-size: 16.1904773712158px; white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><img  data-ratio="0.9172661870503597" data-s="300,640" data-type="png" data-w="" style="color: rgb(62, 62, 62); text-align: center; white-space: normal; line-height: 28.44px;"   SRC="RESTful API 设计指南_files/0.jpg" /></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="RESTful API 设计指南_files/page_mp_article_improve_combo2a7a3f.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">举报</a>
+
+                    </div>
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+
+                    
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">关注该公众号可参与留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="RESTful API 设计指南_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            关注该公众号可参与留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="RESTful API 设计指南_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="RESTful API 设计指南_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+        
+    
+
+    
+  
+
+  
+
+
+    </body>
+</html>
+
+ 

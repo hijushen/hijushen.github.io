@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>【第六次】9/5 问题功能代码及流程解析</title>
+
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+</head>
+
+<body style="" ><div><span style="font-size: 10.5pt; line-height: 1.5;">问题涉及的5个部分：待转派，待接单，待处理， 待结案，历史（公用）。</span><br></div><div>每个page和detail 都互相独立，左侧page, 右半部分detail。</div><div><br></div><div>举例： YwMessageUIContrl.xmls 提问题的左侧列表</div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span>MessageUICont 找专家左侧列表。</div><div><br></div><div>待处理左侧列表，YwChuliPage：</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>问题同步通知，5分钟以内。5分钟以前的问题消息UI不再处理。</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>（数据内容生成）InitMessage.和<span class="Apple-tab-span" style="font-size: 10.5pt; line-height: 1.5; white-space: pre;">	</span><span style="font-size: 10.5pt; line-height: 1.5;">登陆初始化，刷新按钮信息，会对消息内容信息进行改变。</span></div><div><span class="Apple-tab-span" style="white-space:pre">	</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; --&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">XMPPMessage的入队操作，在HandleMessage.cs 中有包括Init（）方法中，起了一个出队的作业线程。</span></div><div><span class="Apple-tab-span" style="white-space:pre">	</span></div><div>点击列表item，控件触发全局的YwChatWithBody【MainPage.xaml.cs】. --&gt;调用对应详情页的
+
+<!--WizRtf2Html Charset=0  --><span style="font-size:9pt;color:WindowText;background-color:#ffffff;font-family:'Lucida Sans Unicode';">ChangeChatAccount</span>&nbsp;() 方法（右侧详情页）。</div><div><br></div><div><br></div><div>MessageDataUI.xaml 每一条聊天记录对应的控件。各种消息类型的展示。</div><div><br></div><div>【MessageHanler.cs】文件中init()方法中起线程处理 Queue队列中消息信息。而init()的调用者来源于global.init().</div><div><font face="Microsoft YaHei UI">&nbsp; 该方法同事对消息的回调进行方法注册。事件触发时机待查。。。</font><br></div><div><font face="Microsoft YaHei UI"><br></font></div><div><br></div></body></html>

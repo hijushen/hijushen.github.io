@@ -1,0 +1,27 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>8.3 数据流DataIOStream 和ByteArrayIOStream</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+import java.io.*;<br/>
+public class TestDataStream { &nbsp;<font color="#FF4635">//数据输入流，解决一些列转换问题</font><br/>
+&nbsp; public static void main(String[] args) {<font color="#FF4635">&nbsp;&nbsp;</font><br/>
+&nbsp;&nbsp;&nbsp; ByteArrayOutputStream baos =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new ByteArrayOutputStream(); //字节数组，建立一个字节数组和加在上面的<font color="#FF4635">待输入</font>管道，在堆区建立一个字节数组区。<br/>
+&nbsp;&nbsp;&nbsp; DataOutputStream dos =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new DataOutputStream(baos); &nbsp;<a>//</a>在小管道上加上D<font color="#FF4635">ataOutputStream可以方便的实现输入输出。省了转换字节过程</font><br/>
+&nbsp;&nbsp;&nbsp; try {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dos.writeDouble(Math.random()); &nbsp;<a>//</a><font color="#FF4635">写一个Double类型变量</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dos.writeBoolean(true);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ByteArrayInputStream bais =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new ByteArrayInputStream(baos.toByteArray()); &nbsp;//<font color="#FF0000">将输入流转换为字节数组输入的形式，</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(bais.available()); //<font color="#FF0000">可用的输入空间，即9字节</font>。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DataInputStream dis = new DataInputStream(bais); <a><font color="#FF0000">//在字节数组输入流上套接一个输入流，可以</font></a>&nbsp;<font color="#FF0000">解决转换的问题</font><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(dis.readDouble()); //以Double字节读出，即8字节。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(dis.readBoolean());<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dos.close();&nbsp; dis.close();// <font color="#FF4635">先把数据读取关闭，在关闭数据输入</font><br/>
+&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+}
+</div>

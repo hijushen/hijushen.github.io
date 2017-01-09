@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>DSI = Daisly Stroage Inventory @20141106,Lisa</title>
+
+
+
+
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.08">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 8px; padding-bottom: 8px; line-height: 1;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body style="" ><div><div>MO_LEFT 工单多1500</div><div>TOTAL_LEFT GI,AUTO Call 比TOTAL_LEFT&nbsp;</div><div>Auto Call 1000. , GR: 10000. Manual 10000. 多19000. TOTAL_LEFT则为19000.</div><div>MMMM0620SMT --维护不Auto Call 的料号.</div></div><div><br></div><div><br></div><font color="#00ccff"><b>DSI = Daily Storage Inventory 当日库存挂账金额/ 当日Mo Confirm 库存金额</b></font><div>范围: SA+ PCB + 电子料件. &nbsp; =&gt; SA.</div><div>AutoCall 取消SA. 现在开始SA. <font color="#ff0000">SA Manual Call</font>.</div><div><br></div><div>1, Auto;</div><div>2, SA &nbsp;==&gt;11月底</div><div>3, 线上SA ==&gt; 12月底</div><div>4, 精确SA(线上+库存)查询 ==&gt; 1月底</div><div>5, 4+ 预警alert. (缺料预警 )2-4H 缺料清单提供 + 冗余材料预警.(call 未用, 线上未用) ==&gt; 2月底.</div><div><br></div><div><span style="background-color: rgb(192, 255, 255);">实物在高单价房, 账务在高单价房</span>.</div><div><br></div><div>--2015/1/7日更新DSI开发内容</div><div><br></div><div><div>新生成. 入库. 盘点入库(有资料没link,reel link. )</div><div><br></div><div>料号为SA开头屏蔽Z_IN Z_OUT</div><div><br></div><div>同厂之间库存.</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>1)工单. 2)刷reel. 3)</div><div>出库</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>1,涨LM库存.LINE_MODEL_SUM</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>cimr.R_mms IMPOROT CURRENET LEFT 这个</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>demand 计算BOM&nbsp;</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>pull call 料库存</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>import 实际收.&nbsp;</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>currene当前库存</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>left 计算结果. -demand</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>2,出库- ,入库 + .sa库存表 TOTAL_QTY &nbsp;CIMR.R_MMS_STOCK_SA_T A</div><div><br></div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>入的方式:</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">		</span>入库条件: 1)有库位.2)数量可改.&nbsp;</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">		</span>1, GR 之后入.</div><div><span class="Apple-tab-span" style="white-space:pre">			</span>reel_tracking 从original移过.数量从</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">		</span>2, LM 线上入库</div><div><br></div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">		</span>3, 盘点入库.</div><div><span class="Apple-tab-span" style="white-space:pre">			</span></div><div><span class="Apple-tab-span" style="white-space:pre">			</span>--盘点入库</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--无Reel_Tracking 资料生成资料盘点</div><div><span class="Apple-tab-span" style="white-space:pre">		</span></div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--有Reel_tracking更新资料盘点</div></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br></div><div><br><div><br></div></div></body></html>

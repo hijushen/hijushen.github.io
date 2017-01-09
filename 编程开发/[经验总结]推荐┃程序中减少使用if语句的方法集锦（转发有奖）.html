@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        
+        
+
+
+
+
+        <link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+
+
+        <title>[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）</title>
+        
+<link rel="stylesheet" type="text/css" href="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/page_mp_article_improve2e801c.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2c9cd6.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">推荐┃程序中减少使用if语句的方法集锦（转发有奖）</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        推荐┃程序中减少使用if语句的方法集锦（转发有奖） 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-06-17</em>
+
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">IT荐书</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">IT荐书</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">IT荐书</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">itchinapub</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">聚焦最新IT技术资讯，分享行业产品精华，推荐最新重磅IT图书</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+
+                        
+                        <p><img data-type="gif"  data-ratio="0.13129496402877697" data-w=""   SRC="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/0.gif" /><br  /></p><p><br  /></p><p style="">大约十年前，我听说了反if的活动，觉得这个概念非常荒谬。如果不用if语句，又怎么能写出有用的程序呢？这简直太荒谬了。</p><p style=""><br  /></p><p style="">但之后你会开始思考：是否还记得上周你拼命想读懂的深度嵌套代码？糟透了对么？要是有办法能简化它该多好。</p><p style=""><br  /></p><p style="">反if活动的网站上没给出多少实用性建议，因此在本文中，作者将会提供一系列模式，也许你会用得上。但首先我们来关注一下if语句到底造成了什么问题。</p><p style=""><br  /></p><h3 style=""><strong><span style="color: rgb(123, 12, 0);">if语句的问题</span></strong></h3><p><br  /></p><p style="">if语句的第一个问题在于，通常出现if语句的代码很容易越改越糟。我们试着写个新的if语句：</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">theProblem</span>(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> someCondition) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// SharedState</span>
+
+ &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span>(someCondition) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// CodeBlockA</span>
+ &nbsp; &nbsp; &nbsp; &nbsp;} <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">else</span> { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// CodeBlockB</span>
+ &nbsp; &nbsp; &nbsp; &nbsp;}
+}</code></pre><p style=""><br  /></p><p style="">这时候还不算太糟，但已经存在一些问题了。在阅读这段代码时，我必须得去查看对同一个SharedState来说，CodeBlockA和CodeBlockB有什么改动。最开始这段代码很容易阅读，但随着CodeBlock越来越多，耦合越来越复杂之后，就会很难读。</p><p style=""><br  /></p><p style="">上面这种CodeBlock进一步嵌套if语句与本地return的滥用情况也很常见，很难搞懂业务逻辑是选择了哪种路径。</p><p style=""><br  /></p><p style="">if语句的第二个问题在于：复制时会有问题，也就是说，if语句缺失domain的概念。很容易由于在不需要的情况下，由于将内容放在一起而增加耦合性，造成代码难读难改。</p><p style=""><br  /></p><p style="">而第三个问题在于：开发者必须在头脑中模拟执行实现情况——你得让自己变成一台小型电脑，从而造成脑细胞浪费。开发者的精力应当用来思考如何解决问题，而不是浪费在如何将复杂的代码分支结构编织在一起之上。</p><p style=""><br  /></p><p style="">虽然想要直截了当地写出替代方案，但首先我得强调这句话：<span style="font-weight: 700; line-height: 25.6px; color: rgb(123, 12, 0);">凡事中庸而行，尤其是中庸本身</span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style="">if语句通常会让代码更加复杂，但这不代表我们要完全抛弃if语句。我曾经看到过一些非常糟糕的代码，只是为了消除所有的if语句而刻意避开if语句。我们想要绕开这个误区，&nbsp;下面我给出的每种模式，都会给出使用范围。</p><p style=""><br  /></p><p style="">单独的if语句如果不复制到其他地方，也许是不错的句子。在复制if语句时，我们会希望预知危险的第六感起效。</p><p style=""><br  /></p><p style="">在代码库之外，在与危险的外部世界交流时，我们会想要验证incoming response，并根据其作出相应的修改。但在自己的代码库中，由于有可靠的gatekeeper把关，我觉得这是个很好的机会，我们可以尝试使用简单、更为丰富与强大的替代方案来实现。</p><h3 style=""><br  /></h3><h3 style=""><span style="color: rgb(123, 12, 0);">模式1：布尔参数（Boolean Params）</span></h3><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">背景：</span>&nbsp;有方法在修改行为时使用了boolean。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">example</span>() {
+ &nbsp; &nbsp;FileUtils.createFile(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;name.txt&quot;</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;file contents&quot;</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">false</span>);
+ &nbsp; &nbsp;FileUtils.createFile(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;name_temp.txt&quot;</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;file contents&quot;</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">true</span>);
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> FileUtils { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">static</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">createFile</span>(String name, String contents, boolean temporary) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span>(temporary) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// save temp file</span>
+ &nbsp; &nbsp; &nbsp; &nbsp;} <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">else</span> { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// save permanent file</span>
+ &nbsp; &nbsp; &nbsp; &nbsp;}
+ &nbsp; &nbsp;}
+}</code></pre><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">问题：</span>&nbsp;在看到这段代码时，实际上你是将两个方法捆绑到一起，布尔参数的出现让你有机会在代码中定义一个概念。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">适用范围：</span>&nbsp;通常看到这种情况，如果在编译时我们可以算出代码要采用哪种路径，就可以放心使用这种模式。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">解决方案：</span>&nbsp;将这个方法拆分成两个新的方法，然后if就不见了。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">example</span>() {
+ &nbsp; &nbsp;FileUtils.createFile(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;name.txt&quot;</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;file contents&quot;</span>);
+ &nbsp; &nbsp;FileUtils.createTemporaryFile(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;name_temp.txt&quot;</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;file contents&quot;</span>);
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> FileUtils { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">static</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">createFile</span>(String name, String contents) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// save permanent file</span>
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">static</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">createTemporaryFile</span>(String name, String contents) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// save temp file</span>
+ &nbsp; &nbsp;}
+}</code></pre><h3 style=""><br  /></h3><h3 style=""><span style="color: rgb(123, 12, 0);">模式2：使用多态（Polymorphism）</span></h3><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">背景：</span>&nbsp;根据类型switch时。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> Bird { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">enum</span> Species {
+ &nbsp; &nbsp; &nbsp; &nbsp;EUROPEAN, AFRICAN, NORWEGIAN_BLUE;
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> boolean isNailed; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> Species type; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getSpeed</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">switch</span> (type) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">case</span> EUROPEAN: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> getBaseSpeed(); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">case</span> AFRICAN: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> getBaseSpeed() - getLoadFactor(); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">case</span> NORWEGIAN_BLUE: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> isNailed ? <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">0</span> : getBaseSpeed(); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">default</span>: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">0</span>;
+ &nbsp; &nbsp; &nbsp; &nbsp;}
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getLoadFactor</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">3</span>;
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getBaseSpeed</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">10</span>;
+ &nbsp; &nbsp;}
+}</code></pre><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">问题：</span>&nbsp;在添加新的类型时，我们必须要记得更新switch语句，此外随着不同bird的概念添加进来，bird类的凝聚力越来越糟。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">适用范围：</span>根据类型做单次切换是可行的，如果switch太多，在添加新类型时如果忘记更新现有隐藏类型中的所有switch，就会导致bug出现，8thlight博客关于这种情况有详细描述。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">解决方案：</span>&nbsp;使用多态，添加新类型时大家都不会忘记添加相关行为。&nbsp;<br style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"  /><br  /></p><p style="">注意：上例为了简洁只写了一个方法，但在有多个switch时更有用。</p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;"><br  />public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">abstract</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><span class="" style="max-width: 100%;">class</span> <span class="" style="max-width: 100%;">Bird</span> {</span>
+
+ &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">abstract</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getSpeed</span>(); &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">protected</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getLoadFactor</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">3</span>;
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">protected</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getBaseSpeed</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">10</span>;
+ &nbsp; &nbsp;}
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><span class="" style="max-width: 100%;">class</span> <span class="" style="max-width: 100%;">EuropeanBird</span> <span class="" style="max-width: 100%;">extends</span> <span class="" style="max-width: 100%;">Bird</span> {</span>
+ &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getSpeed</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> getBaseSpeed();
+ &nbsp; &nbsp;}
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><span class="" style="max-width: 100%;">class</span> <span class="" style="max-width: 100%;">AfricanBird</span> <span class="" style="max-width: 100%;">extends</span> <span class="" style="max-width: 100%;">Bird</span> {</span>
+ &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getSpeed</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> getBaseSpeed() - getLoadFactor();
+ &nbsp; &nbsp;}
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><span class="" style="max-width: 100%;">class</span> <span class="" style="max-width: 100%;">NorwegianBird</span> <span class="" style="max-width: 100%;">extends</span> <span class="" style="max-width: 100%;">Bird</span> {</span>
+ &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> isNailed; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">double</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getSpeed</span>() { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> isNailed ? <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">0</span> : getBaseSpeed();
+ &nbsp; &nbsp;}
+}</code></pre><h3 style=""><br  /></h3><h3 style=""><span style="color: rgb(123, 12, 0);">模式3：NullObject/Optional</span></h3><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">背景：</span>&nbsp;当外部请求理解代码库的主要用途时，回答“查一下null的情况”。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">example</span>() {
+ &nbsp; &nbsp;sumOf(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">null</span>);
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">int</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">sumOf</span>(List&lt;Integer&gt; numbers) { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span>(numbers == <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">null</span>) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">0</span>;
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> numbers.stream().mapToInt(i -&gt; i).sum();
+}</code></pre><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">问题：</span>&nbsp;在方法中，必须确认传递内容非null值。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">适用范围：</span>对外部访问代码库来说，这种做法很必要。但在代码库内部，也许这代表着你的代码写得太严格了。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">解决方案：</span>&nbsp;使用NullObject或Optional类型替代。空集是很好的替代方案。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">void</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">example</span>() {
+ &nbsp; &nbsp;sumOf(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">new</span> ArrayList&lt;&gt;());
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">int</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">sumOf</span>(List&lt;Integer&gt; numbers) { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> numbers.stream().mapToInt(i -&gt; i).sum();
+}</code></pre><h3 style=""><br  /></h3><h3 style=""><span style="color: rgb(123, 12, 0);">模式4：将内联语句（Inline statements）转为表达式</span></h3><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">背景：</span>&nbsp;在计算布尔表达式时，包含if语句树。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">horrible</span>(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> foo, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> bar, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> baz) { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span> (foo) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span> (bar) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">true</span>;
+ &nbsp; &nbsp; &nbsp; &nbsp;}
+ &nbsp; &nbsp;} &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span> (baz) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">true</span>;
+ &nbsp; &nbsp;} <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">else</span> { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">false</span>;
+ &nbsp; &nbsp;}
+}</code></pre><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">问题：</span>&nbsp;这种代码会导致开发者必须用大脑来模拟计算机对方法的处理。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">适用范围：</span>很少有不适用的情况，像这样的代码可以合成一行，或者拆成不同的部分。</p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">解决方案：</span>&nbsp;将if语句树合成单个表达式。</p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">horrible</span>(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> foo, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> bar, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">boolean</span> baz) { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> foo &amp;&amp; bar || baz;
+}</code></pre><h3 style=""><br  /></h3><h3 style=""><span style="color: rgb(123, 12, 0);">模式5：给出应对策略</span></h3><p><br  /></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">背景：</span>在调用一些其他代码时，无法确保路径是成功的。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> Repository { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> String <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getRecord</span>(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">int</span> id) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">null</span>; <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(136, 0, 0); word-wrap: break-word !important;">// cannot find the record</span>
+ &nbsp; &nbsp;}
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> Finder { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> String <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">displayRecord</span>(Repository repository) {
+ &nbsp; &nbsp; &nbsp; &nbsp;String record = repository.getRecord(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">123</span>); &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span>(record == <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">null</span>) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;Not found&quot;</span>;
+ &nbsp; &nbsp; &nbsp; &nbsp;} <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">else</span> { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> record;
+ &nbsp; &nbsp; &nbsp; &nbsp;}
+ &nbsp; &nbsp;}
+}</code></pre><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;"><br  /></span></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">问题：</span>&nbsp;这类if语句增加了处理同一个对象或者数据结构的时间，其中包含隐藏耦合——null的情况。其它对象可能会返回其他代表没有结果的magic value。</p><p style=""><br  /></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">适用范围：</span>最好将这类if语句放在一个地方，由于不会重复，我们就能将为空对象的magic value删除。</p><p style=""><br  /></p><p style=""><span style="max-width: 100%; box-sizing: border-box; font-weight: 700; word-wrap: break-word !important;">解决方案：</span>针对被调用代码，给出应对策略。Ruby的Hash#fetch就是很好的</p><p style="">案例，Java也用到了类似的方法。这种模式也可以用在删除例外情况时。</p><p style=""><br  /></p><pre class="" style="margin-top: 0px; margin-bottom: 0px; padding: 0px; max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><code class="" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">private</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> Repository { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> String <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">getRecord</span>(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">int</span> id, String defaultValue) {
+ &nbsp; &nbsp; &nbsp; &nbsp;String result = Db.getRecord(id); &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">if</span> (result != <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">null</span>) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> result;
+ &nbsp; &nbsp; &nbsp; &nbsp;} &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> defaultValue;
+ &nbsp; &nbsp;}
+}<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">class</span> Finder { &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">public</span> String <span class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">displayRecord</span>(Repository repository) { &nbsp; &nbsp; &nbsp; &nbsp;<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 0, 136); word-wrap: break-word !important;">return</span> repository.getRecord(<span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 102, 102); word-wrap: break-word !important;">123</span>, <span class="" style="max-width: 100%; box-sizing: border-box; color: rgb(0, 136, 0); word-wrap: break-word !important;">&quot;Not found&quot;</span>);
+ &nbsp; &nbsp;}
+}</code></pre><h3 style=""><br  /></h3><h3 style=""><strong><span style="color: rgb(123, 12, 0);">祝探索愉快</span></strong></h3><p><br  /></p><p style="">希望这些模式对你现在处理的问题有帮助。我在重构代码增进理解时，发现这些方法都很有用。要记得并非所有if语句都是魔鬼，不过现代编程语言还有很多功能值得我们探索并使用。</p><p style=""><br  /></p><section class="yead_editor" label="Copyright © 2015 Yead All Rights Reserved." style=""><section style="margin-top: 10px; margin-bottom: 10px; text-align: center;"><section style="box-sizing: border-box; display: inline-block;"><section style="margin-right: 15px; box-sizing: border-box; float: left; display: inline-block;"><section><section style="margin-right: 5px; width: 7px; height: 10px; float: left; transform: skewX(45deg); background-color: rgb(0, 0, 0);"></section><section class="yead_bgc" style="margin-top: -3px; width: 7px; height: 13px; float: left; transform: skewX(45deg); background-color: rgb(5, 157, 127);"></section></section><section style="clear: both;"><section style="margin-right: 5px; width: 7px; height: 10px; float: left; transform: skewX(-45deg); background-color: rgb(0, 0, 0);"></section><section class="yead_bgc" style="width: 7px; height: 13px; float: left; transform: skewX(-45deg); background-color: rgb(5, 157, 127);"></section></section></section><section style="margin-top: -2px; box-sizing: border-box; float: left; clear: none;"><p style="font-size: 18px; clear: none;"><span style="color:inherit">相关图书推荐</span></p></section><section style="margin-left: 15px; box-sizing: border-box; float: left; display: inline-block;"><section><section style="margin-left: 5px; width: 7px; height: 10px; float: right; transform: skewX(-45deg); background-color: rgb(0, 0, 0);"></section><section class="yead_bgc" style="margin-top: -3px; width: 7px; height: 13px; float: right; transform: skewX(-45deg); background-color: rgb(5, 157, 127);"></section></section><section style="clear: both;"><section style="margin-left: 5px; width: 7px; height: 10px; float: right; transform: skewX(45deg); background-color: rgb(0, 0, 0);"></section><section class="yead_bgc" style="width: 7px; height: 13px; float: right; transform: skewX(45deg); background-color: rgb(5, 157, 127);"></section></section></section></section></section></section><p style="text-align: center;"><img data-s="300,640" data-type="jpeg"  data-ratio="1.348" data-w="250"   SRC="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/0_2.jpg" /></p><p style="text-align: center;"><span style="font-size: 14px;">信息架构：超越Web设计（第4版）（全彩）</span></p><p style="text-align: center;"><span style="font-size: 14px;">作者： （美）Louis Rosenfeld, Peter Morville, Jorge Arango</span></p><p><br  /></p><p style="text-align: center;"><span style="font-size: 14px; color: rgb(123, 12, 0);">￥96.00</span></p><p><br  /></p><blockquote><p><span style="font-size: 14px; color: rgb(136, 136, 136);">内容介绍&gt;&gt;&gt;《信息架构：超越Web设计（第4版）（全彩）》 的前三个版本都是信息架构领域的开山著作。其中描述了信息组织的普遍和永恒原则，这一原则也适用于不断增长的移动世界。在第4版中，作者运用大量最新的插图和例子为这些原则提供了当前实践中的情境，验证了那些与技术和供应商无关的工具，以及那些经受住时间考验的技术。&nbsp;</span></p></blockquote><p><br  /></p><p style="text-align: center;"><span style="font-size: 14px; color: rgb(123, 12, 0);">▽</span><span style="font-size: 14px;">长按下方二维码，购买此书</span></p><p style="text-align: center;"><img data-s="300,640" data-type="png"  data-ratio="1" data-w="250"   SRC="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/0_3.png" /><br  /></p><p style="text-align: center;"><span style="font-size: 14px;">信息架构：超越Web设计（第4版）（全彩）</span></p><p style="text-align: center;"><span style="font-size: 14px;">出版日期：2016 年5月</span></p><p><br  /></p><p style="font-family: 微软雅黑; line-height: 25.6px; color: rgb(102, 102, 102); text-align: justify; background-color: rgb(255, 255, 255);"><span style="font-size: 14px; color: rgb(255, 41, 65);">如果感觉这篇文章不错，那就把它分享到朋友圈吧，并把分享截图发给IT荐书，小编每天都会抽出10位朋友，发放现金红包呦~您的转发是小编持续努力的动力~</span></p><p style="font-family: 微软雅黑; line-height: 25.6px; color: rgb(102, 102, 102); text-align: center; background-color: rgb(255, 255, 255);"><br  /></p><p style="color: rgb(62, 62, 62); font-family: 微软雅黑; line-height: 25.6px; text-align: center; background-color: rgb(255, 255, 255);"><span style="color: rgb(255, 41, 65);">▼</span>关注IT荐书，获得新鲜资讯，更多活动等你参加</p><p style="color: rgb(62, 62, 62); font-family: 微软雅黑; line-height: 25.6px; background-color: rgb(255, 255, 255);"><img data-s="300,640" data-type="png"  data-ratio="0.6330935251798561" data-w="" style="width: 556px;"   SRC="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/0_4.png" /></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/page_mp_article_improve_combo2e4987.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">投诉</a>
+
+                    </div>
+
+
+
+                                    </div>
+
+                <div class="rich_media_area_primary sougou" id="sg_tj" style="display:none">
+
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+                                        
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">该文章作者已设置需关注才可以留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            该文章作者已设置需关注才可以留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="[经验总结]推荐┃程序中减少使用if语句的方法集锦（转发有奖）_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+        
+    
+    
+
+    
+  
+  
+
+    </body>
+</html>
+
+ 

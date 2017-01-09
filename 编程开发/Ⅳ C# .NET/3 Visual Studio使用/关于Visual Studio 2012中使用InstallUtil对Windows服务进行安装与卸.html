@@ -1,0 +1,76 @@
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+<title>关于Visual Studio 2012中使用InstallUtil对Windows服务进行安装与卸载的文章</title><!--?xml version="1.0" encoding="UTF-8"?-->
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head><body  style=""><p>　　关于Visual Studio 2012中使用InstallUtil对Windows服务进行安装与卸载的文章，在MSDN中的http://msdn.microsoft.com/en-us/library/sd8zc8ha.aspx&nbsp;有介绍，不过这个介绍还是有一些笼统，具体操作性不强，下面给出详细的操作办法：</p>
+<p>　　点击左下角的开始按钮，按如下顺序“开始 -&nbsp;Visual Studio 2012 -&nbsp;Visual Studio Tools -&nbsp;Developer&nbsp;Command Prompt&nbsp;&nbsp;for VS2012”，打开一个命令窗口（不要使用传统的cmd方式打开普通DOS窗口）</p>
+<p>　　在这个命令窗口中以管理员身份进入运行，具体命令是： runas /user:Administrator&nbsp;cmd&nbsp;&nbsp;注意其中Administrator是具体的用户名，如果你当前的用户名是管理员身份，但用户名是Myname，就以Myname替换Administrator</p>
+<p>　　该命令执行后，提示输入该用户名的密码，按要求输入（此时界面类似Linux，输入的密码无任何显示）</p>
+<p>　　密码输入正确后，新开一个cmd窗口，标题是cmd(作为Myname运行)</p>
+<p>　　进入创建好的服务应用目录（一般是在bin\Debug下），输入命令: installutil.exe Myservice.exe 如果安装成功，则直接显示命令提示符，没有任何信息；如果安装不成功，则会有信息出现（安装不成功下面讨论）；</p>
+<p>　　右击“我的电脑 - 管理 - （左栏）服务和应用程序 - 服务”，可以找到服务“Myservice”，该服务只是安装上，并没有启动，双击该服务打开属性窗口，点击启动即可</p>
+<p>　　以上是一切顺利的情况下安装步骤，但实际上，很少有人可以一次安装成功，笔者也是半天功夫才安装成功。</p>
+<p>　　安装失败经常出现的问题是：</p>
+<p>　　1、找不到InstallUtil.exe，这个文件在.NET安装文件目录之Framework目录下，由于是使用VS2012制作的Windows服务，建议采用V4.0.xxxxxx下的InstallUtil.exe，可以直接将这个文件复制到服务文件的目录内，这样使用cmd窗口操作方便（注：低版本的InstallUtil.exe，比如v2.0.xxxxxx目录下的同名文件，在试用时也可以安装与卸载）；</p>
+<p>　　2、InstallUtil.exe可以单独运行，即不带参数时可以运行并显示相应的操作帮助，但如果该命令后带服务应用名进行安装时，即使用 installutil.exe Myservice.exe 命令时，安装失败，失败信息其中一条是：</p>
+<p>　　An exception occurred during the Install phase.</p>
+<p>　　System.Security.SecurityException: The source was not found, but some or all event logs could not be searched.&nbsp;&nbsp;Inaccessible logs: Security.</p>
+<p>　　这条信息可以在cmd窗口中看到，也可以在服务目录中的InstallUtil.InstallLog日志文件中看到（使用记事本打开它），可以看出是由于安全原因无法访问源文件。</p>
+<p>　　其实质问题仍然是权限不够。虽然我们以管理员身份打开了VS2012的cmd窗口，但文件InstallUtil和服务文件Myservice不是以管理员身份运行的，解决办法是：在资源管理器中右击InstallUtil.exe文件，单击属性，在打开的属性窗口的"兼容性"标签，勾选特权等级下的“以管理员身份运行此程序”，确定退出；以同样的方法操作服务文件Myservice。完成上述工作，重新执行上述步骤的第5步，即安装成功。</p>
+<p>　　卸载Windows服务，使用/u参数即可。命令为：</p>
+<p>　　installutil /u Myservice.exe</p>
+</body></html>

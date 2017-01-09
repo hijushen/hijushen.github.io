@@ -1,0 +1,60 @@
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+<title>日期</title><!--?xml version="1.0" encoding="UTF-8"?-->
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head><body  style=""><div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><div style="text-align: left;">&nbsp; DateTime dateTime1 =&nbsp;<span style="color: rgb(0, 139, 139); font-weight: bold;">new</span>&nbsp;<span style="color: rgb(25, 25, 112); font-weight: bold;">DateTime</span>&nbsp;(<span style="color: rgb(0, 0, 139);">2012</span>,<span style="color: rgb(0, 0, 139);">12</span>,<span style="color: rgb(0, 0, 139);">5</span>,<span style="color: rgb(0, 0, 139);">23</span>,<span style="color: rgb(0, 0, 139);">15</span>,<span style="color: rgb(0, 0, 139);">45</span>,<span style="color: rgb(0, 0, 139);">13</span>);</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Console.<span style="color: rgb(25, 25, 112); font-weight: bold;">WriteLine</span>(<span style="color: rgb(0, 0, 255);">"dateTime1 的日期是{0}"</span>,dateTime1.<span style="color: rgb(25, 25, 112); font-weight: bold;">ToLongDateString</span>());</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Console.<span style="color: rgb(25, 25, 112); font-weight: bold;">WriteLine</span>(<span style="color: rgb(0, 0, 255);">"dateTime1 100天前的日期是{0}"</span>,dateTime1.<span style="color: rgb(25, 25, 112); font-weight: bold;">AddHours</span>(-<span style="color: rgb(0, 0, 139);">100</span>).<span style="color: rgb(25, 25, 112); font-weight: bold;">ToLongDateString</span>());</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Console.<span style="color: rgb(25, 25, 112); font-weight: bold;">WriteLine</span>(<span style="color: rgb(0, 0, 255);">"daTime1 100天后的日期是{0}"</span>,dateTime1.<span style="color: rgb(25, 25, 112); font-weight: bold;">AddDays</span>(<span style="color: rgb(0, 0, 139);">100</span>).<span style="color: rgb(25, 25, 112); font-weight: bold;">ToLongDateString</span>());</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Console.<span style="color: rgb(25, 25, 112); font-weight: bold;">ReadKey</span>();&nbsp;</div><div style="text-align: left;"><br></div><div style="text-align: left;">除法的float 要注意使用，使用int 得到的值超过预期，有错误</div><div style="text-align: left;"><br></div><div style="text-align: left;">//当前时间</div><div style="text-align: left;">Date date = new Date();</div><div style="text-align: left;">System.out.println(date.toString());</div><div style="text-align: left;"><br></div><div style="text-align: left;">//日期时间差</div><div style="text-align: left;">long start = System.currentTimeMills();</div><div style="text-align: left;">long end = System.currentTimeMills();</div><div style="text-align: left;">long intervals &nbsp;= end - start;</div><div style="text-align: left;"><br></div><div style="text-align: left;">//获得日期的具体部分</div><div style="text-align: left;">Calendar &nbsp;cl = Calendar.getInstance();</div><div style="text-align: left;">year = cl.get(Calendar.YEAR);</div><div style="text-align: left;">//当前月份， 需要加1</div><div style="text-align: left;">month = cl.get(Calendar.MONTH) +1;</div><div style="text-align: left;">day = cl.get(Calendar.DAY_OF_MONTH);</div><div style="text-align: left;">hour = cl.get(Calendar.HOUR_OF_DAY);</div><div style="text-align: left;"><br></div><div style="text-align: left;"><br></div><div style="text-align: left;"><br></div><div style="text-align: left;"><br></div><div style="text-align: left;"><br></div></div></body></html>

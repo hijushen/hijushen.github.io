@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>3 委托、匿名函数、lambda表达式</title>
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.07">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label {margin-top: 8px; margin-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+</style>
+</head>
+
+<body style="" ><a name="top"></a> <!--done--> <div id="home"><div id="header"><div id="blogTitle"><a class="postTitle2" id="cb_post_title_url" href="http://www.cnblogs.com/0banana0/archive/2012/05/01/2477894.html" style="font-size: 1.5em; font-weight: bold; line-height: 1.5;">委托、匿名函数、lambda表达式</a><br></div></div><div id="main"><div id="mainContent"><div class="forFlow"><div id="topics"><div class="post"><div class="clear"></div><div class="postBody"><div id="cnblogs_post_body"><p>在 2.0 之前的 C# 版本中，声明委托的唯一方法是使用命名方法。C# 2.0 引入了匿名方法，而在 C# 3.0 及更高版本中，Lambda 表达式取代了匿名方法，作为编写内联代码的首选方式</p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div><pre> <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 声明一个委托</span>
+    <span style="color: rgb(0, 0, 255);">delegate</span> <span style="color: rgb(0, 0, 255);">void</span> Printer(<span style="color: rgb(0, 0, 255);">string</span> s);
+    <span style="color: rgb(0, 0, 255);">class</span> TestClass
+    {
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> Main()
+        {
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">lambda表达式</span>
+            Printer pp = x =&gt; { 
+                Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">print:</span><span style="color: rgb(128, 0, 0);">"</span> + x);
+            };
+
+            pp(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">sky</span><span style="color: rgb(128, 0, 0);">"</span>);
+
+
+
+            <font color="#ff0000"><b><span data-wiz-span="data-wiz-span" style="font-size: 14pt;">//</span><span data-wiz-span="data-wiz-span" style="font-size: 14pt;">匿名方法的语法：delegate(){</span><span data-wiz-span="data-wiz-span" style="font-size: 14pt;">//</span></b><b><span data-wiz-span="data-wiz-span" style="font-size: 14pt;">里边是代码块}</span></b></font><font color="#008000">
+
+
+            </font><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 摘要:
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">     Initializes a new instance of the System.Threading.Thread class.
+            </span><span style="color: rgb(0, 128, 0);">//</span>
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 参数:
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">   start:
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">     A System.Threading.ThreadStart delegate that represents the methods to be
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">     invoked when this thread begins executing.
+            </span><span style="color: rgb(0, 128, 0);">//</span>
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 异常:
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">   System.ArgumentNullException:
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">     The start parameter is null.</span>
+            System.Threading.Thread t1 = <span style="color: rgb(0, 0, 255);">new</span> System.Threading.Thread
+              (<span style="color: rgb(0, 0, 255);">delegate</span>()
+              {
+                  System.Console.Write(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Hello, </span><span style="color: rgb(128, 0, 0);">"</span>);
+                  System.Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">World!</span><span style="color: rgb(128, 0, 0);">"</span>);
+              });
+            t1.Start();
+
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 匿名函数</span>
+            Printer p = <span style="color: rgb(0, 0, 255);">delegate</span>(<span style="color: rgb(0, 0, 255);">string</span> j)
+            {
+                System.Console.WriteLine(j);
+            };
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Results from the anonymous delegate call:</span>
+            p(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">The delegate using the anonymous method is called.</span><span style="color: rgb(128, 0, 0);">"</span>);
+
+
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 委托：将方法作为方法的参数
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">下边将方法绑定到委托
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">参考：张子阳的c#委托和事件http:</span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">www.cnblogs.com/JimmyZhang/archive/2007/09/23/903360.html</span>
+            p = <span style="color: rgb(0, 0, 255);">new</span> Printer(TestClass.DoWork);
+            p += TestClass.DoWork1;
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> p -= TestClass.DoWork;
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);">p -= TestClass.DoWork1;
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Results from the old style delegate call:</span>
+            p(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">The delegate using the named method is called.</span><span style="color: rgb(128, 0, 0);">"</span>);
+          
+
+        }
+
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> The method associated with the named delegate:</span>
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> DoWork(<span style="color: rgb(0, 0, 255);">string</span> k)
+        {
+            System.Console.WriteLine(k);
+        }
+
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> DoWork1(<span style="color: rgb(0, 0, 255);">string</span> k)
+        {
+            System.Console.WriteLine(k);
+        }
+    }<br><br>//无参数的委托</pre><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div><pre> <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> 声明一个委托</span>
+    <span style="color: rgb(0, 0, 255);">delegate</span> <span style="color: rgb(0, 0, 255);">void</span> del();
+
+    <span style="color: rgb(0, 0, 255);">class</span> TestClass
+    {
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> Main()
+        {
+            del myDelegate1 = () =&gt;
+            {
+                Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">00xx</span><span style="color: rgb(128, 0, 0);">"</span>);
+            };
+            myDelegate1();
+
+
+            System.Threading.Thread t1 = <span style="color: rgb(0, 0, 255);">new</span> System.Threading.Thread
+             (()=&gt;
+             {
+                 System.Console.Write(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Hello, </span><span style="color: rgb(128, 0, 0);">"</span>);
+                 System.Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">World!</span><span style="color: rgb(128, 0, 0);">"</span>);
+             });
+            t1.Start();
+
+
+             t1 = <span style="color: rgb(0, 0, 255);">new</span> System.Threading.Thread
+             (<span style="color: rgb(0, 0, 255);">delegate</span>()
+             {
+                 System.Console.Write(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Hello, </span><span style="color: rgb(128, 0, 0);">"</span>);
+                 System.Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">World!</span><span style="color: rgb(128, 0, 0);">"</span>);
+             });
+            t1.Start();
+        }
+    }</pre><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div></div><pre></pre><p>&nbsp;</p><pre></pre><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div></div><p>&nbsp;</p><p>&nbsp;</p><p>MSDN上的委托例子：</p><p><span style="background-color: rgb(255, 255, 0);">下面的示例阐释声明、实例化和使用委托。<span class="code">BookDB</span> 类封装一个书店数据库，它维护一个书籍数据库。它公开 <span class="code">ProcessPaperbackBooks</span> 方法，该方法在数据库中查找所有平装书，并对每本平装书调用一个委托。使用的 <span class="keyword">delegate</span> 类型名为 <span class="code">ProcessBookDelegate</span>。<span class="code">Test</span> 类使用该类打印平装书的书名和平均价格。</span></p><p><span style="background-color: rgb(255, 255, 0);">委托的使用促进了书店数据库和客户代码之间功能的良好分隔。客户代码不知道书籍的存储方式和书店代码查找平装书的方式。书店代码也不知道找到平装书后将对平装书执行什么处理。</span></p><p>&nbsp;</p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div><pre><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> A set of classes for handling a bookstore:</span>
+<span style="color: rgb(0, 0, 255);">namespace</span> Bookstore
+{
+    <span style="color: rgb(0, 0, 255);">using</span> System.Collections;
+
+    <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Describes a book in the book list:</span>
+    <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">struct</span> Book
+    {
+        <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">string</span> Title;        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Title of the book.</span>
+        <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">string</span> Author;       <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Author of the book.</span>
+        <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">decimal</span> Price;       <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Price of the book.</span>
+        <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">bool</span> Paperback;      <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Is it paperback?</span>
+
+        <span style="color: rgb(0, 0, 255);">public</span> Book(<span style="color: rgb(0, 0, 255);">string</span> title, <span style="color: rgb(0, 0, 255);">string</span> author, <span style="color: rgb(0, 0, 255);">decimal</span> price, <span style="color: rgb(0, 0, 255);">bool</span> paperBack)
+        {
+            Title = title;
+            Author = author;
+            Price = price;
+            Paperback = paperBack;
+        }
+    }
+
+    <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Declare a delegate type for processing a book:</span>
+    <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">delegate</span> <span style="color: rgb(0, 0, 255);">void</span> ProcessBookDelegate(Book book);
+
+    <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Maintains a book database.</span>
+    <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">class</span> BookDB
+    {
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> List of all books in the database:</span>
+        ArrayList list = <span style="color: rgb(0, 0, 255);">new</span> ArrayList();
+
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Add a book to the database:</span>
+        <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">void</span> AddBook(<span style="color: rgb(0, 0, 255);">string</span> title, <span style="color: rgb(0, 0, 255);">string</span> author, <span style="color: rgb(0, 0, 255);">decimal</span> price, <span style="color: rgb(0, 0, 255);">bool</span> paperBack)
+        {
+            list.Add(<span style="color: rgb(0, 0, 255);">new</span> Book(title, author, price, paperBack));
+        }
+
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Call a passed-in delegate on each paperback book to process it: </span>
+        <span style="color: rgb(0, 0, 255);">public</span> <span style="color: rgb(0, 0, 255);">void</span> ProcessPaperbackBooks(ProcessBookDelegate processBook)
+        {
+            <span style="color: rgb(0, 0, 255);">foreach</span> (Book b <span style="color: rgb(0, 0, 255);">in</span> list)
+            {
+                <span style="color: rgb(0, 0, 255);">if</span> (b.Paperback)
+                    <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Calling the delegate:</span>
+                    processBook(b);
+            }
+        }
+    }
+}
+
+
+<span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Using the Bookstore classes:</span>
+<span style="color: rgb(0, 0, 255);">namespace</span> BookTestClient
+{
+    <span style="color: rgb(0, 0, 255);">using</span> Bookstore;
+
+    <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Class to total and average prices of books:</span>
+    <span style="color: rgb(0, 0, 255);">class</span> PriceTotaller
+    {
+        <span style="color: rgb(0, 0, 255);">int</span> countBooks = <span style="color: rgb(128, 0, 128);">0</span>;
+        <span style="color: rgb(0, 0, 255);">decimal</span> priceBooks = <span style="color: rgb(128, 0, 128);">0.0m</span>;
+
+        <span style="color: rgb(0, 0, 255);">internal</span> <span style="color: rgb(0, 0, 255);">void</span> AddBookToTotal(Book book)
+        {
+            countBooks += <span style="color: rgb(128, 0, 128);">1</span>;
+            priceBooks += book.Price;
+        }
+
+        <span style="color: rgb(0, 0, 255);">internal</span> <span style="color: rgb(0, 0, 255);">decimal</span> AveragePrice()
+        {
+            <span style="color: rgb(0, 0, 255);">return</span> priceBooks / countBooks;
+        }
+    }
+
+    <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Class to test the book database:</span>
+    <span style="color: rgb(0, 0, 255);">class</span> TestBookDB
+    {
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Print the title of the book.</span>
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> PrintTitle(Book b)
+        {
+            System.Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">   {0}</span><span style="color: rgb(128, 0, 0);">"</span>, b.Title);
+        }
+
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Execution starts here.</span>
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> Main()
+        {
+            BookDB bookDB = <span style="color: rgb(0, 0, 255);">new</span> BookDB();
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Initialize the database with some books:</span>
+            AddBooks(bookDB);
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Print all the titles of paperbacks:</span>
+            System.Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Paperback Book Titles:</span><span style="color: rgb(128, 0, 0);">"</span>);
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Create a new delegate object associated with the static 
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> method Test.PrintTitle:</span>
+            bookDB.ProcessPaperbackBooks(PrintTitle);
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Get the average price of a paperback by using
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> a PriceTotaller object:</span>
+            PriceTotaller totaller = <span style="color: rgb(0, 0, 255);">new</span> PriceTotaller();
+
+            <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Create a new delegate object associated with the nonstatic 
+            </span><span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> method AddBookToTotal on the object totaller:</span>
+            bookDB.ProcessPaperbackBooks(totaller.AddBookToTotal);
+
+            System.Console.WriteLine(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Average Paperback Book Price: ${0:#.##}</span><span style="color: rgb(128, 0, 0);">"</span>,
+                    totaller.AveragePrice());
+        }
+
+        <span style="color: rgb(0, 128, 0);">//</span><span style="color: rgb(0, 128, 0);"> Initialize the book database with some test books:</span>
+        <span style="color: rgb(0, 0, 255);">static</span> <span style="color: rgb(0, 0, 255);">void</span> AddBooks(BookDB bookDB)
+        {
+            bookDB.AddBook(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">The C Programming Language</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Brian W. Kernighan and Dennis M. Ritchie</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 128);">19.95m</span>, <span style="color: rgb(0, 0, 255);">true</span>);
+            bookDB.AddBook(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">The Unicode Standard 2.0</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">The Unicode Consortium</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 128);">39.95m</span>, <span style="color: rgb(0, 0, 255);">true</span>);
+            bookDB.AddBook(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">The MS-DOS Encyclopedia</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Ray Duncan</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 128);">129.95m</span>, <span style="color: rgb(0, 0, 255);">false</span>);
+            bookDB.AddBook(<span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Dogbert's Clues for the Clueless</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 0);">"</span><span style="color: rgb(128, 0, 0);">Scott Adams</span><span style="color: rgb(128, 0, 0);">"</span>, <span style="color: rgb(128, 0, 128);">12.00m</span>, <span style="color: rgb(0, 0, 255);">true</span>);
+        }
+    }
+}</pre><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div></div><p>输出：</p><pre>Paperback Book Titles:
+   The C Programming Language
+   The Unicode Standard 2.0
+   Dogbert's Clues for the Clueless
+Average Paperback Book Price: $23.97<br><br><br><br></pre><p>声明委托</p><p><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> ProcessBookDelegate(Book book);</p><p>实例化委托。</p><p>声明了委托类型后，必须创建委托对象并使之与特定方法关联。在上一个示例中，您通过按下面示例中的方式将 <span class="code">PrintTitle</span> 方法传递到 <span class="code">ProcessPaperbackBooks</span>方法来实现这一点：</p><p>bookDB.ProcessPaperbackBooks(PrintTitle);</p><p>这将创建与静态方法 <span class="code">Test.PrintTitle</span> 关联的新委托对象。类似地，对象 <span class="code">totaller</span> 的非静态方法 <span class="code">AddBookToTotal</span> 是按下面示例中的方式传递的：</p><p>bookDB.ProcessPaperbackBooks(totaller.AddBookToTotal);</p><p>在两个示例中，都向 <span class="code">ProcessPaperbackBooks</span> 方法传递了一个新的委托对象。</p><p>委托创建后，它的关联方法就不能更改；委托对象是不可变的。</p><p>调用委托。</p><p>创建委托对象后，通常将委托对象传递给将调用该委托的其他代码。通过委托对象的名称（后面跟着要传递给委托的参数，括在括号内）调用委托对象。下面是委托调用的示例：</p><p>processBook(b);</p><p>与本例一样，可以通过使用 <strong>BeginInvoke</strong> 和 <strong>EndInvoke</strong> 方法同步或异步调用委托。&nbsp;</p><div class="cnblogs_code"><pre>在C#中使用线程的方法很多，使用委托的BeginInvoke和EndInvoke方法就是其中之一。BeginInvoke方法可以使用线程异步地执行委托所指向的方法。然后通过EndInvoke方法获得方法的返回值（EndInvoke方法的返回值就是被调用方法的返回值），或是确定方法已经被成功调用。我们可以通过四种方法从EndInvoke方法来获得返回值。</pre></div><p>详情：<a href="http://developer.51cto.com/art/200908/141587.htm" target="_blank">这里</a></p><p>分析：</p><p><span style="background-color: rgb(255, 255, 0);">看起来 是不是很像接口啊 给后来着留一个委托 关注返回值和参数</span></p><p><span style="background-color: rgb(255, 255, 0);">后来者实现委托 内部可以随便定义东东 但是 返回值和参数必须和委托的一样</span></p><p><span style="background-color: rgb(255, 255, 0);">后来者想咋实现就咋实现</span></p><p>&nbsp;</p><p>何时使用委托何时使用接口呢 来自MSDN：</p><div class="cnblogs_code"><div class="cnblogs_code_toolbar"><span class="cnblogs_code_copy"><a title="复制代码" href=""><img alt="复制代码" src="3 委托、匿名函数、lambda表达式_files/copycode[1].gif"></a></span></div><pre>委托和接口都允许类设计器分离类型声明和实现。任何类或结构都能继承和实现给定的接口。可以为任何类上的方法创建委托，前提是该方法符合委托的方法签名。接口引用或委托可由不了解实现该接口或委托方法的类的对象使用。既然存在这些相似性，那么类设计器何时应使用委托，何时又该使用接口呢？
+
+在以下情况下，请使用委托：
+
+当使用事件设计模式时。
+
+当封装静态方法可取时。
+
+当调用方不需要访问实现该方法的对象中的其他属性、方法或接口时。
+
+需要方便的组合。
+
+当类可能需要该方法的多个实现时。
+
+在以下情况下，请使用接口：
+
+当存在一组可能被调用的相关方法时。
+
+当类只需要方法的单个实现时。
+
+当使用接口的类想要将该接口强制转换为其他接口或类类型时。
+
+当正在实现的方法链接到类的类型或标识时：例如比较方法。
+
+使用单一方法接口而不使用委托的一个很好的示例是 IComparable 或泛型版本 IComparable&lt;(Of &lt;(T&gt;)&gt;)。IComparable 声明 CompareTo 方法，该方法返回一个整数，指定相同类型的两个对象之间的小于、等于或大于关系。IComparable 可用作排序算法的基础。虽然将委托比较方法用作排序算法的基础是有效的，但是并不理想。因为进行比较的能力属于类，而比较算法不会在运行时改变，所以单一方法接口是理想的</pre></div></div></div></div></div></div></div></div><!--end: footer --> </div><!--end: home 自定义的最大容器 -->
+
+
+
+</body></html>

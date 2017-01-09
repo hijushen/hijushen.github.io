@@ -1,0 +1,56 @@
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>MB站BS库 MCS iSSUE报错总结</title><!--?xml version="1.0" encoding="UTF-8"?-->
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.07">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label {margin-top: 8px; margin-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+</style>
+</head><body style="" ><div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+1，MB站 SFC5010.MB 提示 "<span style="background-color: rgb(30, 30, 30); font-size: 11pt; color: rgb(214, 157, 133); font-family: Consolas;">MODEL CANNOT Link BOX,Call TU Maintain</span>"
+<div>&nbsp; &nbsp; &nbsp;==&gt;使用网页MCS0302维护机种Model对应数量即可。</div><div>&nbsp; &nbsp; &nbsp;代码:<font color="#008080" face="Courier New" size="2"><span style="font-size:10pt">SELECT</span></font> <font color="#008080" face="Courier New" size="2"><span style="font-size:10pt">DISTINCT</span></font> <font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">BD.BOX_TYPE, BD.MAX_QTY, BD.*, BD.BOX_NAME</span></font></div><div align="left"><font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">&nbsp;</span></font> <font color="#008080" face="Courier New" size="2"><span style="font-size:10pt">FROM</span></font> <font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">SFIS1.C_BOX_DEF_T BD, EEP.USERS EU</span></font></div><div align="left"><font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">&nbsp;</span></font><font color="#008080" face="Courier New" size="2"><span style="font-size:10pt">WHERE</span></font> <font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">BD.PLANT_CODE =</span></font> <font color="#0000FF" face="Courier New" size="2"><span style="font-size:10pt">'HF1'</span></font></div><div align="left"><font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">&nbsp;&nbsp;</span></font> <font color="#008080" face="Courier New" size="2"><span style="font-size:10pt">AND</span></font> <font color="#000080" face="Courier New" size="2"><span style="font-size:10pt">EU.USERID =</span></font> <font face="Courier New" size="2"><span style="font-size: 10pt;"><font color="#0000FF">'H1202M8'</font> <font color="#AD0000">无资料即会提示</font><font color="#0000FF">。</font></span></font></div><div align="left"><font face="Courier New" size="2"><span style="font-size: 10pt;">2，BS库出TU无法带出IR单号。</span></font></div><div align="left">&nbsp; &nbsp; &nbsp;==&gt;表<span style="font-size: 10pt; color: rgb(0, 0, 128); font-family: 'Courier New';">SFISM4.R_PO_LINE_T</span> <span style="font-size: 10pt; font-family: 'Courier New';">中PO_FLAG 为Y代表生效IR单号,N不生效,D为删除;LDA_FLAG 为N代</span>&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-family: 'Courier New'; font-size: 10pt;">表已经出库完成，接收完成，为Y则未开始，在程式中会自动带出。</span></div></div></body></html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+        
+
+
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+
+<link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        <title>推荐大家使用的CSS书写规范、顺序</title>
+        
+<link rel="stylesheet" type="text/css" href="推荐大家使用的CSS书写规范、顺序_files/page_mp_article_improve2a7a3f.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2a7a3f.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">推荐大家使用的CSS书写规范、顺序</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="推荐大家使用的CSS书写规范、顺序_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="推荐大家使用的CSS书写规范、顺序_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="推荐大家使用的CSS书写规范、顺序_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        推荐大家使用的CSS书写规范、顺序 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-02-02</em>
+
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">程序猿</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">程序猿</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">程序猿</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">imkuqin</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">本微信公众号：imkuqin，为程序员提供最新最全的编程学习资料的查询。目前已经开通PHP、C/C++函数库、.NET&nbsp;Framework类库、J2SE&nbsp;API查询功能。</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <blockquote><p><span style="color: rgb(0, 82, 255);"><strong><span style="font-size: 14px;">来自：顺序 _ 设计达人</span></strong></span></p><p><span style="color: rgb(0, 82, 255);"><strong><span style="color: rgb(0, 82, 255); font-size: 14px;">链接：http://www.shejidaren.com/css-written-specifications.html</span></strong></span></p></blockquote><p><br  /></p><p>写了这么久的CSS，但大部分前端er都没有按照良好的CSS书写规范来写CSS代码，这样会影响代码的阅读体验，这里设计达人网总结一个CSS书写规范、CSS书写顺序供大家参考，这些是参考了国外一些文章以及我的个人经验总结出来，我想对写CSS的前端用户来说是值得学习的。</p><p style="line-height: 25.6px; white-space: normal;"><span style="line-height: 1.6;"></span></p><p><br  /></p><section class="tn-Powered-by-XIUMI" style="line-height: 25.6px; white-space: normal; border: 0px; clear: both; box-sizing: border-box;"><section class="tn-Powered-by-XIUMI" style="padding: 8px; border-left-width: 6px; border-left-style: solid; border-color: rgb(249, 110, 87); font-size: 1em; line-height: 1.4; font-family: inherit; text-decoration: inherit; color: rgb(51, 51, 51); box-sizing: border-box;"><section class="tn-Powered-by-XIUMI" style="box-sizing: border-box;"><span style="color: rgb(171, 25, 66); background-color: rgb(255, 251, 0);"><strong>CSS书写顺序</strong></span></section></section><section style="width: 0px; height: 0px; clear: both;"></section></section><p><br  /></p><p><span style="line-height: 1.6;">1.位置属性(position, top, right, z-index, display, float等)</span><br  /><strong style="color: rgb(171, 25, 66); line-height: 22.4px; white-space: normal;"></strong></p><p>2.大小(width, height, padding, margin)</p><p>3.文字系列(font, line-height, letter-spacing, color- text-align等)</p><p>4.背景(background, border等)</p><p>5.其他(animation, transition等)</p><p style="text-align: center;"><img data-s="300,640" data-type="png"  data-ratio="0.5" data-w="500"   SRC="推荐大家使用的CSS书写规范、顺序_files/0.png" /><br  /></p><p><span style="line-height: 1.6;"></span></p><section style="border: 0px; clear: both; box-sizing: border-box;" class="tn-Powered-by-XIUMI"><section style="padding: 8px; border-left-width: 6px; border-left-style: solid; border-color: rgb(249, 110, 87); font-size: 1em; line-height: 1.4; font-family: inherit; text-decoration: inherit; color: rgb(51, 51, 51); box-sizing: border-box;" class="tn-Powered-by-XIUMI"><section class="tn-Powered-by-XIUMI" style="box-sizing: border-box;"><span style="color: rgb(171, 25, 66); background-color: rgb(255, 251, 0);"><strong>CSS书写规范</strong></span></section></section><section style="width: 0px; height: 0px; clear: both;"></section></section><p><strong><span style="line-height: 1.6;"><br  /></span></strong></p><p><strong><span style="line-height: 1.6;">使用CSS缩写属性</span></strong></p><p><span style="line-height: 1.6;"><br  /></span></p><p><span style="line-height: 1.6;">CSS有些属性是可以缩写的，比如padding,margin,font等等，这样精简代码同时又能提高用户的阅读体验。</span></p><p><span style="line-height: 1.6;"><br  /></span></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/abbreviation.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_2.png" /></p><h3><br  /></h3><h3><strong>去掉小数点前的“0”</strong></h3><p><br  /></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/del-zero.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_4.png" /></p><h3><br  /></h3><h3><strong>简写命名</strong></h3><p><br  /></p><p>很多用户都喜欢简写类名，但前提是要让人看懂你的命名才能简写哦！</p><p><br  /></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/name.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_5.png" /></p><h3><br  /></h3><h3><strong><span style="line-height: 1.6;">16进制颜色代码缩写</span></strong><br  /></h3><p><span style="line-height: 1.6;"><br  /></span></p><p>有些颜色代码是可以缩写的，我们就尽量缩写吧，提高用户体验为主。</p><p><br  /></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/color-abb.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_6.png" /></p><h3><br  /></h3><h3><strong>连字符CSS选择器命名规范</strong></h3><h3><span style="line-height: 1.6;"><br  /></span></h3><h3><span style="line-height: 1.6;">1、长名称或词组可以使用中横线来为选择器命名。</span></h3><p>2、不建议使用“_”下划线来命名CSS选择器，为什么呢？</p><p><br  /></p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>输入的时候少按一个shift键；</p></li><li><p>浏览器兼容问题 （比如使用_tips的选择器命名，在IE6是无效的）</p></li><li><p>能良好区分JavaScript变量命名</p></li></ul><p><br  /></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/underline.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_7.png" /></p><h3><br  /></h3><h3><strong>不要随意使用id</strong></h3><p><br  /></p><p>id在JS是唯一的，不能多次使用，而使用class类选择器却可以重复使用，另外id的优先级优先于class，所以id应该按需使用，而不能滥用。</p><p><br  /></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/css-id.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_8.png" /></p><h3><br  /></h3><h3><strong>为选择器添加状态前缀</strong></h3><p><br  /></p><p>有时候可以给选择器添加一个表示状态的前缀，让语义更明了，比如下图是添加了“.is-”前缀。</p><p><br  /></p><p><img  data-original="http://images.shejidaren.com/wp-content/uploads/2013/09/status-select.png" width="500" height="250" data-pinit="registered" style="margin-right: auto; margin-left: auto; padding: 3px; max-width: 500px; border: 1px solid rgb(185, 186, 166); transition: all 0.16s ease-in; display: block; min-height: 24px; min-width: 24px; border-radius: 3px; box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 2px; box-sizing: border-box !important; word-wrap: break-word !important; background-image: url(&quot;推荐大家使用的CSS书写规范、顺序_files/0_3&quot;); background-position: 50% 50%; background-repeat: no-repeat;" data-ratio="0.5" data-w="492" data-type="png"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_9.png" /></p><p><br  /></p><section style="border: 0px; clear: both; box-sizing: border-box;" class="tn-Powered-by-XIUMI"><section style="padding: 8px; border-left-width: 6px; border-left-style: solid; border-color: rgb(249, 110, 87); font-size: 1em; line-height: 1.4; font-family: inherit; text-decoration: inherit; color: rgb(51, 51, 51); box-sizing: border-box;" class="tn-Powered-by-XIUMI"><section class="tn-Powered-by-XIUMI" style="box-sizing: border-box;"><strong><span style="line-height: 25.6px; color: rgb(171, 25, 66); background-color: rgb(255, 251, 0);">CSS命名规范（规则）</span></strong></section></section><section style="width: 0px; height: 0px; clear: both;"></section></section><p>&nbsp;</p><p><strong><span style="line-height: 1.6;">常用的CSS命名规则</span></strong></p><p><br  /></p><p><strong>头：</strong>header<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>内容：</strong>content/container<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>尾：</strong>footer<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>导航：</strong>nav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>侧栏：</strong>sidebar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>栏目：</strong>column<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页面外围控制整体佈局宽度：</strong>wrapper<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>左右中：</strong>left right center<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>登录条：</strong>loginbar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>标志：</strong>logo<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>广告：</strong>banner<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页面主体：</strong>main<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>热点：</strong>hot<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>新闻：</strong>news<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>下载：</strong>download<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>子导航：</strong>subnav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>菜单：</strong>menu<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>子菜单：</strong>submenu<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>搜索：</strong>search<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>友情链接：</strong>friendlink<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页脚：</strong>footer<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>版权：</strong>copyright<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>滚动：</strong>scroll<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>内容：</strong>content<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>标签：</strong>tags<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>文章列表：</strong>list<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>提示信息：</strong>msg<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>小技巧：</strong>tips<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>栏目标题：</strong>title<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>加入：</strong>joinus<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>指南：</strong>guide<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>服务：</strong>service<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>注册：</strong>regsiter<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>状态：</strong>status<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>投票：</strong>vote<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>合作伙伴：</strong>partner</p><h3><br  /></h3><h3><strong>注释的写法<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong></h3><p><br  /></p><p>/* Header */<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />内容区<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />/* End Header */</p><h3><br  /></h3><h3><strong>id的命名<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong></h3><p><br  /></p><p><strong>1)页面结构</strong></p><p><strong>容器<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong>container<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页头：</strong>header<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>内容：</strong>content/container<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页面主体：</strong>main<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页尾：</strong>footer<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>导航：</strong>nav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>侧栏：</strong>sidebar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>栏目：</strong>column<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>页面外围控制整体佈局宽度：</strong>wrapper<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>左右中：</strong>left right center</p><p><span style="line-height: 1.6;"><br  /></span></p><p><strong><span style="line-height: 1.6;">(2)导航</span></strong></p><p><strong>导航：</strong>nav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>主导航：</strong>mainnav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>子导航：</strong>subnav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>顶导航：</strong>topnav<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>边导航：</strong>sidebar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>左导航：</strong>leftsidebar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>右导航：</strong>rightsidebar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>菜单：</strong>menu<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>子菜单：</strong>submenu<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>标题<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong>title<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>摘要<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong>summary</p><p><br  /></p><p><strong>(3)功能</strong></p><p><strong><span style="line-height: 1.6;">标志：</span></strong><span style="line-height: 1.6;">logo</span><br  /></p><p><strong>广告：</strong>banner<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>登陆：</strong>login<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>登录条：</strong>loginbar<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>注册：</strong>register<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>搜索：</strong>search<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>功能区：</strong>shop<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>标题：</strong>title<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>加入：</strong>joinus<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>状态：</strong>status<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>按钮：</strong>btn<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>滚动：</strong>scroll<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>标籤页：</strong>tab<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>文章列表：</strong>list<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>提示信息：</strong>msg<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>当前的<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong>current<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>小技巧：</strong>tips<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>图标<strong style="line-height: 25.6px; white-space: normal;">：</strong></strong>icon<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>注释：</strong>note<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>指南：</strong>guild<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>服务：</strong>service<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>热点：</strong>hot<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>新闻：</strong>news<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>下载：</strong>download<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>投票：</strong>vote<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>合作伙伴：</strong>partner<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>友情链接：</strong>link<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /><strong>版权：</strong>copyright</p><p><span style="line-height: 1.6;"><br  /></span></p><p><strong><span style="line-height: 1.6;">注意事项<strong style="line-height: 25.6px; white-space: normal;">：</strong></span></strong></p><p><span style="line-height: 1.6;"><br  /></span></p><p>1、一律小写;<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />2、尽量用英文;<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />3、不加中槓和下划线;<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />4、尽量不缩写，除非一看就明白的单词。</p><p>&nbsp;</p><h3><strong>CSS样式表文件命名</strong></h3><p><br  /></p><p>主要的 master.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />模块 module.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />基本共用 base.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />布局、版面 layout.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />主题 themes.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />专栏 columns.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />文字 font.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />表单 forms.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />补丁 mend.css<br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  />打印 print.css</p><p><br  /></p><hr style="line-height: 25.6px; white-space: normal;"  /><p style="line-height: 25.6px; white-space: normal;">●本文编号1418，以后想阅读这篇文章直接输入1418即可。<br  /></p><p style="line-height: 25.6px; white-space: normal;">●本文分类“<span style="color: rgb(227, 108, 9);"><strong><span style="line-height: 25.6px;"></span>前端<span style="line-height: 25.6px;"></span></strong></span>”，搜索分类名可以获得相关文章。</p><p style="line-height: 25.6px; white-space: normal;">●输入m可以获取到全部文章目录发人员。</p><section donone="shifuMouseDownCard(&#39;shifu_c_027&#39;)" style="margin-top: 2em; padding-top: 0.5em; padding-bottom: 0.5em; font-family: inherit; font-size: 1em; white-space: normal; max-width: 100%; line-height: normal; border-radius: 4px; border: 1px solid rgb(204, 204, 204); text-decoration: inherit; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section style="margin-top: -1.8em; max-width: 100%; color: rgb(166, 166, 166); font-weight: inherit; text-align: center; border: none; line-height: 1.4; box-sizing: border-box !important; word-wrap: break-word !important;"><section class="color" style="padding: 8px 12px; max-width: 100%; border-radius: 4px; color: rgb(255, 255, 255); font-size: 1em; font-family: inherit; font-weight: inherit; text-decoration: inherit; display: inline-block; border-color: rgb(183, 184, 184); box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(70, 118, 217);"><section style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><strong>对本文感兴趣的人，对以下也感兴趣</strong></section></section></section><section style="padding: 16px; max-width: 100%; font-size: 1em; line-height: 1.4; font-family: inherit; box-sizing: border-box !important; word-wrap: break-word !important;"><p style="margin-top: 5px; margin-bottom: 5px; font-weight: inherit; line-height: 22.4px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(32, 32, 32); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="line-height: 22.4px; font-family: inherit; font-size: 1em; text-decoration: inherit; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">前端<strong style="color: rgb(32, 32, 32); font-family: inherit; font-size: 1em; line-height: 22.4px; text-align: center; white-space: pre-wrap; text-decoration: inherit; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);">开发</strong>↓<strong style="max-width: 100%; line-height: 22.4px; box-sizing: border-box !important; word-wrap: break-word !important;">↓</strong><strong style="max-width: 100%; line-height: 22.4px; box-sizing: border-box !important; word-wrap: break-word !important;">↓</strong></strong><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"></strong></p><p style="margin-top: 5px; margin-bottom: 5px; font-weight: inherit; line-height: 22.4px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(32, 32, 32); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important;"><img data-type="gif" data-ratio="1" data-w="200" width="auto"  style="text-align: center; color: rgb(62, 62, 62); line-height: 25.6px; white-space: normal; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important; background-color: rgb(255, 255, 255);"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_10.jpg" /></p><p style="margin-top: 5px; margin-bottom: 5px; font-weight: inherit; line-height: 22.4px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(32, 32, 32); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="line-height: 22.4px; font-family: inherit; font-size: 1em; text-decoration: inherit; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">Web开发↓<strong style="max-width: 100%; line-height: 22.4px; box-sizing: border-box !important; word-wrap: break-word !important;">↓</strong><strong style="max-width: 100%; line-height: 22.4px; box-sizing: border-box !important; word-wrap: break-word !important;">↓</strong></strong><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"></strong></p><p style="margin-top: 5px; margin-bottom: 5px; font-weight: inherit; line-height: 22.4px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(32, 32, 32); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important;"><img data-type="gif" data-ratio="1" data-w="200" width="auto"  style="text-align: center; white-space: pre-wrap; color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important; background-color: rgb(255, 255, 255);"   SRC="推荐大家使用的CSS书写规范、顺序_files/0_11.jpg" /></p></section></section><p><br  /></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="推荐大家使用的CSS书写规范、顺序_files/page_mp_article_improve_combo2a7a3f.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">举报</a>
+
+                    </div>
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+
+                    
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">关注该公众号可参与留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="推荐大家使用的CSS书写规范、顺序_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            关注该公众号可参与留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="推荐大家使用的CSS书写规范、顺序_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="推荐大家使用的CSS书写规范、顺序_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+    
+
+    
+  
+
+  
+
+
+    </body>
+</html>
+
+ 

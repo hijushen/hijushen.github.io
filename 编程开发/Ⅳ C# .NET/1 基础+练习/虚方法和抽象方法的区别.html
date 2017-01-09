@@ -1,0 +1,6 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>虚方法和抽象方法的区别</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><pre style="margin-top: 0px; margin-bottom: 10px; padding: 0px; font-family: arial, &#39;courier new&#39;, courier, 宋体, monospace; white-space: pre-wrap; word-wrap: break-word; color: rgb(51, 51, 51); font-size: 14px; line-height: 24px; background-color: rgb(241, 254, 221);">
+先说说区别：<br/>1、虚方法必须有实现部分，抽象方法不可以有实现部分；<br/>2、虚方法可以在派生类中重写也可以不重写，抽象方法必须在派生类中重写<br/>3、虚方法可以在任何非密封类中声明，抽象方法只能在抽象类中声明。<br/>4、如果类包含抽象方法，那么该类也必须为抽象的，不能实例化。<br/><br/>相比而言，虚方法倾向于代码复用，抽象方法更类似一种规约来约束子类必须实现某方法。<br/><br/>举个例子（未必恰当、只为说明问题）：<br/>  比如有个基类“动物”；两个子类“狮子”、“青蛙”。<br/>    狮子捕猎：锁定目标、用牙齿和利爪抓获；<br/>    狮子说话：噢呜；<br/>    青蛙捕猎：锁定目标、用舌头抓获；<br/>    青蛙说话：呱呱；<br/><br/>  对于捕猎，他们有共性也有区别：<br/>    所以就可以把捕猎声明为虚方法，基类里实现共性部分、各子类实现个性部分；<br/>  对于说话，完全不同，但是又必须让他们说话——否则成植物了，呵呵：<br/>    所以就可以把说话声明为抽象方法，基类只声明此方法来作为约束，强制子类实现。
+</pre></div>

@@ -1,0 +1,6 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>3 存储过程</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><div>存储过程</div>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CallableStatement （从PreparedStatement拓展而来）
+<div>&nbsp; &nbsp; &nbsp;cs = connection.preparecall(&quot;{call psname(?,?,?)}&quot;);</div><div>&nbsp; &nbsp; &nbsp;cs.registerOutParameter(index, Types.INTEGER);</div><div>&nbsp; &nbsp; &nbsp;cs.setXXX(i, xxxx);</div><div>&nbsp; &nbsp; &nbsp;cs.executeUpdate();</div><div>&nbsp; &nbsp; &nbsp;int &nbsp;id = cs.getInt(index);</div></div>

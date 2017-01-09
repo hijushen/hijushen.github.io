@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        
+        
+
+
+
+        <link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+
+
+        <title>初探Java字符串</title>
+        
+<link rel="stylesheet" type="text/css" href="初探Java字符串_files/page_mp_article_improve2a7a3f.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2a7a3f.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">初探Java字符串</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="初探Java字符串_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="初探Java字符串_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="初探Java字符串_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        初探Java字符串 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-03-13</em>
+
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">ImportNew</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">ImportNew</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">ImportNew</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">importnew</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">专注&nbsp;Java&nbsp;和&nbsp;Android&nbsp;技术分享。ImportNew&nbsp;由两个&nbsp;Java&nbsp;关键字&nbsp;import&nbsp;和&nbsp;new&nbsp;组成。意指：Java&nbsp;&amp;&nbsp;Android&nbsp;程序员学习新知识的网站。</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <p style="line-height: 25.6px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><strong style="max-width: 100%; line-height: 25.6px; white-space: normal; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; color: rgb(255, 41, 65); box-sizing: border-box !important; word-wrap: break-word !important;">(点击<span style="max-width: 100%; color: rgb(0, 82, 255);">上方公众号</span>，可快速关注)</span></strong></p><p style="line-height: 25.6px; max-width: 100%; min-height: 1em; white-space: pre-wrap; color: rgb(62, 62, 62); box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /></p><blockquote style="line-height: 25.6px; white-space: normal; max-width: 100%; color: rgb(62, 62, 62); box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; line-height: 25.6px; font-size: 16.1905px; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(0, 176, 80); font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">来源：蔡晓建</span></p><p style="max-width: 100%; min-height: 1em; white-space: pre-wrap; line-height: 25.6px; font-size: 16.1905px; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(0, 176, 80); font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">链接：http://mccxj.github.io/blog/20130615_java-string-constant-pool.html</span></p></blockquote><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>String印象</strong></span></p><p><br  /></p><p>String是java中的无处不在的类，使用也很简单。初学java，就已经有字符串是不可变的盖棺定论，解释通常是:它是final的。</p><p><br  /></p><p>不过，String是有字面量这一说法的，这是其他类型所没有的特性(除原生类型)。另外，java中也有字符串常量池这个说法，用来存储字符串字面量，不是在堆上，而是在方法区里边存在的。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>字面量和常量池初探</strong></span></p><p><br  /></p><p>字符串对象内部是用字符数组存储的，那么看下面的例子:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">String m = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String n = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String u = new String(m);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String v = new String(&quot;hello,world&quot;);</span></p></blockquote><p><br  /></p><p>这些语句会发生什么事情? 大概是这样的:</p><p><br  /></p><ol class=" list-paddingleft-2" style="list-style-type: decimal;"><li><p>会分配一个11长度的char数组，并在常量池分配一个由这个char数组组成的字符串，然后由m去引用这个字符串。</p></li><li><p>用n去引用常量池里边的字符串，所以和n引用的是同一个对象。</p></li><li><p>生成一个新的字符串，但内部的字符数组引用着m内部的字符数组。</p></li><li><p>同样会生成一个新的字符串，但内部的字符数组引用常量池里边的字符串内部的字符数组，意思是和u是同样的字符数组。</p></li></ol><p><br  /></p><p>如果我们使用一个图来表示的话，情况就大概是这样的(使用虚线只是表示两者其实没什么特别的关系):</p><p><br  /></p><p style="text-align: center;"><img  class="" data-ratio="0.6400966183574879" data-w="414" data-type="png"   SRC="初探Java字符串_files/0.png" /></p><p><br  /></p><p>结论就是,m和n是同一个对象，但m,u,v都是不同的对象，但都使用了同样的字符数组，并且用equal判断的话也会返回true。</p><p><br  /></p><p>我们可以使用反射修改字符数组来验证一下效果，可以试试下面的测试代码:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">@Test</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">public void test1() throws Exception {</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; String m = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; String n = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; String u = new String(m);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; String v = new String(&quot;hello,world&quot;);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; Field f = m.getClass().getDeclaredField(&quot;value&quot;);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; f.setAccessible(true);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; char[] cs = (char[]) f.get(m);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; cs[0] = &#39;H&#39;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; String p = &quot;Hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; Assert.assertEquals(p, m);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; Assert.assertEquals(p, n);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; Assert.assertEquals(p, u);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; Assert.assertEquals(p, v);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">}</span></p></blockquote><p><br  /></p><p>从上面的例子可以看到，经常说的字符串是不可变的，其实和其他的final类还是没什么区别，还是引用不可变的意思。 虽然String类不开放value，但同样是可以通过反射进行修改，只是通常没人这么做而已。 即使是涉及”修改”的方法，都是通过产生一个新的字符串对象来实现的，例如replace、toLower、concat等。 这样做的好处就是让字符串是一个状态不可变类，在多线程操作时没有后顾之忧。</p><p><br  /></p><p>当然，在字符串修改的时候，会产生一个新的对象，如果执行很频繁，就会导致大量对象的创建，性能问题也就随之而来了。 为了应付这个问题，通常我们会采用StringBuffer或StringBuilder类来处理。</p><p><br  /></p><p>另外，字符串常量通常是在编译的时候就确定好的，定义在类的方法区里边，也就是说，不同的类，即使用了同样的字符串， 还是属于不同的对象。所以才需要通过引用字符串常量来减少相同的字符串的数量。可以通过下面的代码来测试一下：</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">class A {</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; public void print() {</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; &nbsp; &nbsp; System.out.println(&quot;hello&quot;);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; }</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">}</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">class B {</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; public void print() {</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; &nbsp; &nbsp; String s = &quot;hello&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; &nbsp; &nbsp; // 修改s的第一个字符为H</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; &nbsp; &nbsp; System.out.println(&quot;hello&quot;); // 输出Hello</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; &nbsp; &nbsp; new A().print(); // 输出hello</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp; }</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">}</span></p></blockquote><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>字符串操作细节</strong></span></p><p><br  /></p><p>String类内部处理有个字符数组之外，还使用偏移位置offset和长度count， 通过offset和count来确定字符数组的一部分，这部分才是这个字符串的真正的内容。 例如，有substring这个常用方法，看下面的例子:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">String m = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String u = m.substring(2,10);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String v = u.substring(4,7);</span></p></blockquote><p><br  /></p><p>按照上面的说法，m,n的数据结构就如下图所示:</p><p><br  /></p><p style="text-align: center;"><img  class="" data-type="png" data-ratio="0.5227722772277228" data-w="505"   SRC="初探Java字符串_files/0_2.png" /></p><p><br  /></p><p>可以发现，m,n,v是三个不同的字符串对象，但引用的value数组其实是同一个。 同样可以通过上述反射的代码进行验证，这里就不详述了。</p><p><br  /></p><p>但字符串操作时，可能需要修改原来的字符串数组内容或者原数组没法容纳的时候，就会使用另外一个新的数组，例如replace,concat,+等操作。另外，oracle的JDK实现中，String的构造方法，对于字符串参数只是引用部分字符数组的情况(count小于字符数组长度)，采用的是拷贝新数组的方式，是比较特别的，不过这个构造方法也没什么机会使用到。</p><p><br  /></p><p>例如下面的代码:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">String m = &quot;hello,&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String u = m.concat(&quot;world&quot;);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String v = new String(m.substring(0,2));</span></p></blockquote><p><br  /></p><p>得到的结构图如下:</p><p><br  /></p><p style="text-align: center;"><img  class="" data-type="png" data-ratio="0.4262589928057554" data-w=""   SRC="初探Java字符串_files/0_3.png" /></p><p><br  /></p><p>可以发现，m,u,v内部的字符数组并不是同一个，有兴趣可以试验一下。</p><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>常量池中字符串的产生</strong></span></p><p><br  /></p><p>常量池中的字符串通常是通过字面量的方式产生的，就像上述m语句那样。 并且他们是在编译的时候就准备好了，类加载的时候，顺便就在常量池生成。</p><p><br  /></p><p>可以通过javap命令检查一下class的字节码，可以发现下面的高亮部分(以上面代码为例):</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">javap -v StringTest</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;Compiled from &quot;StringTest.java&quot;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;public class com.github.mccxj.StringTest extends java.lang.Object</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;SourceFile: &quot;StringTest.java&quot;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;minor version: 0</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;major version: 50</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;Constant pool:</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;const #1 = Method &nbsp; &nbsp; &nbsp; #9.#28; // &nbsp;java/lang/Object.&quot;&lt;init&gt;&quot;:()V</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">+ const #2 = String &nbsp; &nbsp; &nbsp; #29; &nbsp; &nbsp;// &nbsp;hello,</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">+ const #3 = String &nbsp; &nbsp; &nbsp; #30; &nbsp; &nbsp;// &nbsp;world</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;...</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">+ const #46 = Asciz &nbsp; &nbsp; &nbsp; hello,;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">+ const #47 = Asciz &nbsp; &nbsp; &nbsp; world;</span></p></blockquote><blockquote><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;...</span></p></blockquote><p><br  /></p><p>大家不知有没有发现，上面的图中，u和v的字符数组没有被常量池里边的字符串引用到。 原因就是这些字符串(字符数组)都是运行时生成的，而常量池里边的字符串和字符数组是完整对应上的(count等于数组长度)。</p><p><br  /></p><p>即使是字符串的内容是一样的，都不能保证是同一个字符串数组。例如下面的代码:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">String m = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String u = m + &quot;.&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String v = &quot;hello,world.&quot;;</span></p></blockquote><p><br  /></p><p>u和v虽然是一样内容的字符串，但内部的字符数组不是同一个。画成图的话就是这样的:</p><p><br  /></p><p style="text-align: center;"><img  class="" data-type="png" data-ratio="0.636144578313253" data-w="415"   SRC="初探Java字符串_files/0_4.png" /></p><p><br  /></p><p>另外有一点，如果让m声明为final，你就会发现u和v变成是同一个对象。画成图的话就是这样的:</p><p><br  /></p><p style="text-align: center;"><img  class="" data-type="png" data-ratio="0.6376811594202898" data-w="414"   SRC="初探Java字符串_files/0_5.png" /></p><p><br  /></p><p>这应该怎么解释的？这其实都是编译器搞的鬼，因为m是final的， u直接被编译成”hello,world.”了，如果使用javap查看的话，会发现下面一段逻辑:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">const #2 = String &nbsp; &nbsp; &nbsp; #25; &nbsp; &nbsp;// &nbsp;hello,world</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">const #3 = String &nbsp; &nbsp; &nbsp; #26; &nbsp; &nbsp;// &nbsp;hello,world.</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">...</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">public void test1() &nbsp; throws java.lang.Exception;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; Code:</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;Stack=1, Locals=4, Args_size=1</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;0: &nbsp; ldc &nbsp; &nbsp; #2; //String hello,world</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;2: &nbsp; astore_1</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;3: &nbsp; ldc &nbsp; &nbsp; #3; //String hello,world.</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;5: &nbsp; astore_2</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;6: &nbsp; ldc &nbsp; &nbsp; #3; //String hello,world.</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;8: &nbsp; astore_3</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp; &nbsp;9: &nbsp; return</span></p></blockquote><p><br  /></p><p>那么，如何让运行时产生的字符串放到常量池里边呢? 可以借助String类的intern方法。 例如下面的用法</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">String m = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String u = m.substring(0,2);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String v = u.intern();</span></p></blockquote><p><br  /></p><p>上面我们已经知道m,n使用的是同一个字符数组，但intern方法会到常量池里边去寻找字符串”he”,如果找到的话，就直接返回该字符串， 否则就在常量池里边创建一个并返回，所以v使用的字符数组和m,n不是同一个。画成图的话就是这样的:</p><p><br  /></p><p style="text-align: center;"><img  class="" data-type="png" data-ratio="0.5393939393939394" data-w="495"   SRC="初探Java字符串_files/0_6.png" /></p><p><br  /></p><p>字符串的内存释放问题</p><p><br  /></p><p>像字面量字符串，因为存放在常量池里边，被常量池引用着，是没法被GC的。例如下面的代码:</p><p><br  /></p><blockquote><p><span style="line-height: 1.6; font-size: 12px; color: rgb(136, 136, 136);">String m = &quot;hello,world&quot;;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">String n = m.substring(0,2);</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">&nbsp;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">m = null;</span></p><p><span style="font-size: 12px; color: rgb(136, 136, 136);">n = null;</span></p></blockquote><p><br  /></p><p>经过上述的操作，画成图的话就是这样的:</p><p><br  /></p><p style="text-align: center;"><img  class="" data-type="png" data-ratio="0.642512077294686" data-w="414"   SRC="初探Java字符串_files/0_7.png" /></p><p><br  /></p><p>而经过上面的分析，我们知道像substring、split等方法得到的结果都是引用原字符数组的。 如果某字符串很大，而且不是在常量池里存在的，当你采用substring等方法拿到一小部分新字符串之后，长期保存的话(例如用于缓存等)， 会造成原来的大字符数组意外无法被GC的问题。</p><p><br  /></p><p>关于这个问题，常见的解决办法就是使用new String(String original)或java.io.StreamTokenizer类。并且在网上已经有比较广泛的讨论，大家可以去阅读一下:</p><p><br  /></p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>Leaking Memory in Java</p></li><li><p>优化变成了忧患：String类的split方法引起的内存泄漏</p></li></ul><p><br  /></p><p><span style="color: rgb(214, 168, 65);"><strong>结论</strong></span></p><p><br  /></p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p>任何时候，比较字符串内容都应该使用equals方法</p></li><li><p>修改字符串操作，应该使用StringBuffer，StringBuilder</p></li><li><p>可以使用intern方法让运行时产生字符串的复用常量池中的字符串</p></li><li><p>字符串操作可能会复用原字符数组，在某些情况可能造成内存泄露的问题</p></li></ul><p><br  /></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16.1905px; line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; color: rgb(136, 136, 136); font-size: 20px; box-sizing: border-box !important; word-wrap: break-word !important;">【今日微信公号推荐↓】</span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16.1905px; line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; line-height: 1.6; box-sizing: border-box !important; word-wrap: break-word !important;"></span><img data-s="300,640" data-type="png" data-ratio="0.6258992805755396" data-w="" width="auto"  style="line-height: 25.6px; white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="初探Java字符串_files/640.jpg" /></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16.1905px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">更多推荐请看</span><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">《</span></strong><a href="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=402729167&idx=1&sn=5a02d08e2dd393f7b1cd08409a4a5000&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&amp;mid=402729167&amp;idx=1&amp;sn=5a02d08e2dd393f7b1cd08409a4a5000&amp;scene=21#wechat_redirect" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(255, 169, 0); box-sizing: border-box !important; word-wrap: break-word !important;">值得关注的技术和设计公众号</span></a><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 16px; box-sizing: border-box !important; word-wrap: break-word !important;">》</span></strong></span></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16.1905px; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;"><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /></span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16.1905px; line-height: 1.75em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">其中推荐了包括<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">技术</strong>、<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">设计</strong>、<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">极客</strong>和<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">IT相亲</strong>相关的热门公众号。技术涵盖：Python、Web前端、Java、安卓、iOS、PHP、C/C++、.NET、Linux、数据库、运维、大数据、算法、IT职场等。点击《</span><a href="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&mid=402729167&idx=1&sn=5a02d08e2dd393f7b1cd08409a4a5000&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MjM5NzMyMjAwMA==&amp;mid=402729167&amp;idx=1&amp;sn=5a02d08e2dd393f7b1cd08409a4a5000&amp;scene=21#wechat_redirect" style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; color: rgb(255, 169, 0); box-sizing: border-box !important; word-wrap: break-word !important;">值得关注的技术和设计公众号</span></a><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">》，发现精彩！</span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); font-size: 16.1905px; line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><img data-s="300,640" data-type="jpeg" data-ratio="0.8129496402877698" data-w="" width="auto"  style="font-size: 16.1905px; line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="初探Java字符串_files/640_2.jpg" /></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="初探Java字符串_files/page_mp_article_improve_combo2c57d0.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <a class="media_tool_meta meta_primary" id="js_view_source" href="">阅读原文</a>
+                                                <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">投诉</a>
+
+                    </div>
+
+
+
+                                    </div>
+
+                <div class="rich_media_area_primary sougou" id="sg_tj" style="display:none">
+
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+                                        
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">关注该公众号可参与留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="初探Java字符串_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            关注该公众号可参与留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="初探Java字符串_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="初探Java字符串_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+        
+    
+
+    
+  
+  
+
+    </body>
+</html>
+
+ 

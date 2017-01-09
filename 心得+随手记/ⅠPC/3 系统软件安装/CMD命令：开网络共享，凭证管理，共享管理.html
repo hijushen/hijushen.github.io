@@ -1,0 +1,13 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>CMD命令：开网络共享，凭证管理，共享管理</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><div>www.google.com\ncr 美国谷歌访问方式。</div><div>net share 显示系统当前共享目录， net share ***** &nbsp;/delete 删除共享目录</div><div><br/></div><div>net use G: <a href="file://10.2.64.141/f$">\\10.2.72.141\f$</a>&nbsp;将远程Ipf盘映射到本地G盘，</div><div>net use <a href="file://10.2.72.141/">\\10.2.72.141</a>&nbsp;/user: 用户名 密码 :以特定的用户名密码登录</div><div><br/></div>
+netsh wlan set hostednetwork mode=allow ssid=wuminPC key=wuminWiFi<br/>
+启用设置虚拟WiFi网卡；<br/><br/>
+netsh wlan set hostednetwork mode=disallow 禁用了，3 大参数可以单独使用；<br/><br/><br/>
+我用的例子：netsh wlan set hostednetwork mode=allow ssid=Siren key=Laoge123<br/><br/><br/>
+netsh wlan start hostednetwork<br/>
+.bat文件需要使用管理员身份启用；
+<div><br/></div><div>netsh wlan start hostednetwork</div><div><br/></div><div>无法共享网络宽带，使用如下命令修复：</div><div><p>此时可以通过如下两条命令修复：</p><p><strong>netsh int ip reset D:\resetlog.txt</strong></p><div><strong>netsh winsock reset catalog</strong></div></div><div><strong><br/></strong></div><div><b>如果不行，果断关闭防火墙，成功。另有如下建议可以实现：</b></div><div><pre>
+在局域网内访问有VISTA和Win7操作系统PC时,出现报错信息,能看见共享文件夹,但不能打开,错误代码:0x80070035<br/><br/>分析:在网上以错误代码:0x80070035关键字搜索了一下.发现网上有很多人也遇见了此问题,所以总结了一下,遇见此情况处理方法:<br/>1,首先可以肯定的是,此问题就是大部份是由于系统自带的防火墙问题引起的.<br/>2,直接关闭掉操作系统的防火墙是最为简单的处理方法.<br/><br/>首先要说明一下,如果操作系统是Vista,需要注意:<br/>1,打开Vista系统的控制面板，点击安全里的windows防火墙(允许程序通过Windows防火墙)，并在其例为选项中，勾选文件和打印机共享，然后勾选网络发现项，如果此项不选，即会造成Vista平台在访问其他网络的计算机和被其它计算机访问时，形成无法连接主机，所以这里要开启网络发现功能，让其自动寻找第三方计算机.<br/>2.文件共享、服务启动 打开控制面板-网络和Internet-设置文件共享，确认计算机中是否开启了文件共享、打印机共享及公用文件夹共享三项。 并在开始运行菜单中输入services.msc调出服务项，将其下的Server设为自动，并手工试行启动服务，如果此项无法启动则计算机无法支持通过网络的文件、打印和命名管道共享。 随后将Workstation服务改为自动启动，以确保通过SMB协议创建并维护客户端网络与远程服务器之间的连接，如果想在网络邻居中让XP与Vista能相互沟通，就必须启动ComputerBrowser服务，以达刷新维护网络计算机更新列表。
+</pre></div><div><br/></div><div>百度ip：119.75.217.56</div><div><br/></div><div>61.177.7.1 &nbsp; &nbsp;221.228.255.1 &nbsp;218.2.135.1 昆山地区DNS</div></div>

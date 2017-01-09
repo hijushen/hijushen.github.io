@@ -1,0 +1,55 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>超链接特效处理总结.md</title>
+</head>
+<body>
+<!--WizHtmlContentBegin-->
+<div>&gt; 代码为片段, 需要自行设置全部环境方可全部运行.</div>
+<div>&nbsp;</div>
+<div>## 案例背景</div>
+<div>- 使用Ext开发了一个表格,需要根据一列值来动态设置颜色. 效果如下:</div>
+<div>&lt;a href="http://thumbsnap.com/pNxOQKPi" title="Image Hosted by ThumbSnap"&gt;&lt;img src="http://thumbsnap.com/s/pNxOQKPi.jpg" alt="Free Photo Sharing by ThumbSnap" /&gt;&lt;/a&gt;</div>
+<div>&nbsp;&nbsp;&nbsp; - 说明: 不同行显示不同的内容, 作为标题行, 可以点击链接到其他地方.</div>
+<div>- 相应的代码如下</div>
+<div>-</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (record.data.OQMYWGWJSFX &lt;= 0) {</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return Ext.String.format("&lt;a class='company-link' href='#' onclick='Win_DataSources_Show(\"" + record.data.OrgID + "\")'&gt;{0}&lt;/a&gt;", record.data.OrgName);</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else {</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return Ext.String.format("&lt;a class='company-link' href='#' style='color:red' onclick='Win_DataSources_Show(\"" + record.data.OrgID + "\")'&gt;{0}&lt;/a&gt;", record.data.OrgName);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+<div>&nbsp;</div>
+<div>关键在于`&lt;a&gt;` 链接点击之后默认会变色，可以通过伪类的方式去修改。例如：</div>
+<div>&nbsp;</div>
+<div>&nbsp;&nbsp;&nbsp; a:link { text-decoration: none; color: Black; }</div>
+<div>&nbsp;&nbsp;&nbsp; a:active { text-decoration: blink; }</div>
+<div>&nbsp;&nbsp;&nbsp; a:hover { text-decoration: underline; }</div>
+<div>&nbsp;&nbsp;&nbsp; a:visited { text-decoration: none; }</div>
+<div>&nbsp;</div>
+<div>## 问题来了， 如何保证红色链接点击之后还是红色， 黑色的链接点击之后还是黑色呢？</div>
+<div>- 网络搜索后发现很多人有同样的问题，思路无非2种：</div>
+<div>&nbsp;&nbsp;&nbsp; - CSS 支持相应的伪类，可以保持原本的颜色不变。 找啊找，没找到，此路不通。</div>
+<div>&nbsp;&nbsp;&nbsp; - 通过onclick事件，给当前`&lt;a&gt;`标签赋相应颜色属性。</div>
+<div>&nbsp;&nbsp;&nbsp; - **变通方式** 本例中，发现链接是`#`即当前页的的页面顶部，索搜索中发现还有另外一种方式就是`href='javascript:void(0)'`这种方式是空链接，</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 二者区别： [http://www.uw3c.com/cssviews/css12.html](http://www.uw3c.com/cssviews/css12.html)</div>
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - 加不加`void(0)`也有人讨论：[http://www.zhangxinxu.com/wordpress/2013/01/why-use-href-javascript-void0/](http://www.zhangxinxu.com/wordpress/2013/01/why-use-href-javascript-void0/)</div>
+<div>&nbsp;</div>
+<div>## 解决方法的总结</div>
+<div>### href 变更法。</div>
+<div>- `javascript:void(0)`方式可以屏蔽跳转作用，也就是说从`href = '#'` =&gt; `href = 'javascript:void(0)'` 之后可以保持原本的颜色不变。</div>
+<div>### render函数触发强制颜色变更.</div>
+<div>- 在使用render时生成的链接设置出发在最后，比伪类定义的还要晚。 本例中的代码： `Ext.String.format("&lt;a class='company-link' href='#' style ='color:gray' 。。。`</div>
+<div>&nbsp;&nbsp;&nbsp; - `Ext`中的`render` 也是采用js的方式实现，</div>
+<div>&nbsp;</div>
+<div>## 总结&nbsp;&nbsp; </div>
+<div>- 回归标题，如何使多颜色的 `&lt;a&gt;`标签点击之后保持原色，本例中如果是通用的网页， 且在当前页，可以使用`javascript:void(0)` 来替换`'#'` 完成页面的重新定向。</div>
+<div>- 如果在`Ext` 框架下可以使用列的`Render`事件定义，完成逻辑定义</div>
+<div>- 更通用的情况，普通网页不同颜色跳转的方式，目前没有遇到，我想到的解决路径就是：</div>
+<div>&nbsp;&nbsp;&nbsp; - 定义不同颜色的`&lt;a&gt;`标签为不同`class`，这样在配合伪类使用的过程中，可以采用`a.class:visited`的方式去过滤显示与原本的颜色相同。</div>
+<div>&nbsp;&nbsp;&nbsp; - 使用属性选择器`&lt;a&gt;[color:red]:visited` 这样的方式去定义访问之后的颜色。</div>
+<div>如上通用的办法未验证，有知道的，或感兴趣可自行尝试。</div>
+<!--WizHtmlContentEnd-->
+</body>
+</html>

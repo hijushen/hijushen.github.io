@@ -1,0 +1,44 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>精益C#网络编程基础总结</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><ol><li>异步是一种委托，在另一个线程方法中调用invoke执行异步委托；</li><li>同步TCP客户端：a）建立客户端连接
+<div>&nbsp;&nbsp;&nbsp;&nbsp; 1)声明并实例化IPEndPoint、TcpClient<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2)myTcpClient.connet(ipEndpoint)建立连接<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 3)通过myTcpClient.GetStream()到NetworkStream流实例<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 4)启动收消息线程<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a,建立byte[]大小<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b,从stream中读取数据ns.Read()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c,解码消息成string<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d,异步显示到主窗体控件中<br/>
+&nbsp;&nbsp;&nbsp; b) 发送消息<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 1)将string消息编码发送到字节数组中<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2)向stream中写入直接数据信息<br/>
+&nbsp;&nbsp;&nbsp; c)断开连接<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 1)断开TcpClient<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2)销毁stream流<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 3)中断收消息线程</div></li><li>异步回调：<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 1，声明实例化AsyncCallBack someCallBack= new AsyncCallBack(ConnectMethod);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a)ConnectMethod(IAsyncResult iar)为系统声明委托，故方法参数固定，传入TcpClient后建立连接。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b)方法为异步连接，所以传入TCPClient，方法中进行转换：myTcpClient = (TcpClient)iar.AsyncState;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c)异步模型尝试进行连接：myTcpClient.EndConnect(iar);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d)从连接中读出stream:ns = myTcpClient.GetStream();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e)启动ReceiveMsg线程:receiveMsgThread = new Thread(ReceiveMsg);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; receiveMsgThread.Start();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f)异常为连接异常<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 2，receiveMsgThread启动后,ReceiveMsg异步接受消息线程做的事为:<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a)定义消息字符串getMsg;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; b)异步接收消息：IAsyncResult result = receiveMsgCallBack.BeginInvoke(out getMsg,null,null);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i)异步接收消息方法ReceiveMsgMethod(out string msg);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ii)定义直接流byte[] getData = new byte[1024];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 将networkstream读出ns.read(getData,0,getData.length);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; iii)转换字符getMsg = Encoding.Default.GetString(getData);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; iv)异常时为接受消息异常，释放networkstream.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; c)当(!result.IsComplete){}时进行循环<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; d)结束receiveMsgCallBack.EndInvoke(out msg,result);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e)当msg不为空时显示给文本框<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; f)异常为线程异常ThreadException等，发生追踪异常时需要Dispose NetworkStream.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;</li><li>&nbsp;声明TcpClient<br/></li><li>IAsyncResult result = myTcpClient.BeginConnect(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IPAddress.Parse(txtServerIP.Text), Convert.ToInt32(txtServerPort.Text), connectCallBack, myTcpClient);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MessageBox.Show(&quot;异步发起连接！&quot;);</li></ol>
+&nbsp; &nbsp;&nbsp;
+<div>&nbsp; &nbsp; &nbsp;</div></div>

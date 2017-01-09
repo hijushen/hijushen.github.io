@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>7-3.2 DBA顾问第二次上课上机</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.08">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 8px; padding-bottom: 8px; line-height: 1;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style=""><div><font face="微软雅黑">总结: 获得数据库自动推荐的tuning sql 优化建议, 包括物理, 静态等优化建议.</font></div><div><font face="微软雅黑">做完, "DBA就是失业"了?</font></div><div><font face="微软雅黑">开什么玩笑, 他们又偷懒了.</font></div><div><font face="微软雅黑">计算机追求无止境..... &nbsp;偷懒混日子也是有妙招.</font></div><div><font face="微软雅黑"><br></font></div><div><font face="微软雅黑">前文预热:<br><span lang="EN-US"><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span>select sql_id,
+child_number,executions,parse_calls,loads,invalidations ,LAST_LOAD_TIME from
+v$sql where sql_text like&nbsp;&nbsp; '<i><span style="color:#00AE00">SELECT distinct substr(l.line_name, 1, 1) ||
+substr(l.line_nam%</span></i>' order by LAST_LOAD_TIME;</span><br><span lang="HI">单引号内的字符串是原始</span><span lang="EN-US">sql</span><span lang="HI">语句的部分</span><span lang="HI"><br></span>本次上机作业内容如下:&nbsp;<span style="font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span></font></div><div><font face="微软雅黑"><br></font></div><div><font face="微软雅黑">&nbsp; &nbsp; --</font>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p class="MsoBodyText"><span lang="HI" style="font-family:&quot;Arial Unicode MS&quot;,&quot;sans-serif&quot;;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">在</span></span><span lang="EN-US"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">sqlplus </span></span><span lang="HI" style="font-family:&quot;Arial Unicode MS&quot;,&quot;sans-serif&quot;;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">中运行</span></span><span lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="EN-US"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">&nbsp;select
+* from table(dbms_xplan.display_cursor('</span><span style="color:#00AE00"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">31b1ba01z95b1</span></span><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">',null,'all
+ALLSTATS LAST'));</span><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="HI" style="font-family:&quot;Arial Unicode MS&quot;,&quot;sans-serif&quot;;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">如果在语句运行前在</span></span><span lang="EN-US"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">sqlplus</span></span><span lang="HI" style="font-family:&quot;Arial Unicode MS&quot;,&quot;sans-serif&quot;;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">中设置</span></span><span lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="EN-US"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">alter session set statistics_level=all;</span><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="EN-US"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">alter session set timed_statistics=true;</span><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="EN-US"><o:p></o:p></span></p>
+
+<p class="MsoBodyText"><span lang="HI" style="font-family:&quot;Arial Unicode MS&quot;,&quot;sans-serif&quot;;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">执行计划的内容会更丰富，以上设置在退出该</span></span><span lang="EN-US"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">session</span></span><span lang="HI" style="font-family:&quot;Arial Unicode MS&quot;,&quot;sans-serif&quot;;
+mso-ascii-font-family:&quot;Times New Roman&quot;;mso-hansi-font-family:&quot;Times New Roman&quot;"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">就失效。</span></span><span lang="EN-US"><o:p></o:p></span></p><font face="微软雅黑"><span data-wiz-span="data-wiz-span" style="font-size: 7.5pt;">&nbsp; &nbsp;</span></font></div><div><font face="微软雅黑">--1 根据sqlid执行查询计划</font></div><div><font face="微软雅黑"><span style="font-size: 12pt; line-height: 1.5;">select&nbsp;*&nbsp;from&nbsp;table(dbms_xplan.display_cursor('c5pqy84v71vry',0,'all&nbsp;ALLSTATS&nbsp;LAST'));</span><span lang="EN-US" style="font-size: 12pt;"><br></span><span lang="EN-US" style="font-size: 12pt;">--2 定义变量, 已完成查询计划的, 完成相应自动优化建议task任务
+</span></font></div><div><font face="微软雅黑"><span lang="EN-US" style="font-size: 12pt;">variable&nbsp;stmt_task&nbsp;varchar2(64);</span><br><span lang="EN-US" style="font-size: 12pt;">
+exec&nbsp;:stmt_task:=sys.dbms_sqltune.create_tuning_task(sql_id=&gt;'c5pqy84v71vry');</span></font></div><div><font face="微软雅黑"><font size="3"><span style="line-height: 24px;">--3 获取当前已有优化建议的任务id<br></span></font><span lang="EN-US" style="font-size: 12pt;">
+&nbsp;select&nbsp;task_id,task_name&nbsp;from&nbsp;user_advisor_tasks&nbsp;order&nbsp;by&nbsp;EXECUTION_START;</span></font></div><div><img src="7-3.2 DBA顾问第二次上课上机_files/09bd9c1b-de97-4bc8-96af-181bc69f4b02.png" border="0" alt="" name="" width="225" height="200"></div><div><font>--4 执行相应分析处的执行计划, 获得优化建议.<br></font><span lang="EN-US" style="font-family: 微软雅黑; font-size: 12pt;">
+exec&nbsp;dbms_sqltune.execute_tuning_task(task_name&nbsp;=&gt;&nbsp;'TASK_836');</span></div><div><font face="微软雅黑" size="3"><span style="line-height: 24px;">--5 查询获得相应的优化建议内容<br></span></font><span lang="EN-US" style="font-family: 微软雅黑; font-size: 12pt;">
+&nbsp;select&nbsp;dbms_sqltune.report_tuning_task('TASK_836')from&nbsp;dual;&nbsp;</span></div></body></html>

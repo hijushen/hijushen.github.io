@@ -1,0 +1,176 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>基础拾遗8 接口多继承 抽象类与接口区别 接口多继承显式声明 释放非托管资源</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+1)接口多继承所带来的问题：一个接口可以有多个父接口，可是两个父成员如果具有相同的成员，则产生了二义性；这是在实现时，最好采用显式声明。Case：
+<div>using System;<br/>
+using System.Collections.Generic;<br/>
+using System.Text;<br/>
+&nbsp;&nbsp;<br/>
+namespace Example17<br/>
+{<br/>
+class Program<br/>
+{<br/>
+//一个完整的接口声明示例<br/>
+interface IExample<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //属性<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; string P<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //方法<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; string F(int Value);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //事件<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; event EventHandler E;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //索引指示器<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; string this[int Index]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+interface IA<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; int Count { get; set;}<br/>
+}<br/>
+interface IB<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; int Count();<br/>
+}<br/>
+//IC接口从IA和IB多重继承<br/>
+interface IC : IA, IB<br/>
+&nbsp; {<br/>
+&nbsp; }<br/>
+class C : IC<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; private int count = 100;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //显式声明实现IA接口中的Count属性<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; int IA.Count<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; get { return 100; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; set { count = value; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //显式声明实现IB接口中的Count方法<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; int IB.Count()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count * count;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; }<br/>
+}<br/>
+static void Main(string[] args)<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; C tmpObj = new C();<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //调用时也要显式转换<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;Count property: {0}&quot;, ((IA)tmpObj).Count);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;Count function: {0}&quot;, ((IB)tmpObj).Count());<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.ReadLine();<br/>
+}<br/>
+}<br/>
+}<br/>
+结果：<br/>
+Count property: 100<br/>
+Count function: 10000</div><div><br/></div><div>2）抽象类与接口的区别</div><div>&nbsp;抽象类（Abstract class）可以包含功能定义和实现，接口（interface）只能包含功能定义；</div><div>&nbsp; &nbsp; &nbsp;抽象类是从一系列相关对象抽象出来的概念，因此反映的是事务的内部共性；接口是为满足外部调用而定的一个功能约束，反映的是事物的外部特性。</div><div>&nbsp; &nbsp; &nbsp;分析对象，提炼内部共性形成抽象类，用以表示对象本质，“是什么”？</div><div>&nbsp; &nbsp; &nbsp;为外部提供调用或者需要扩充时优先使用接口。</div><div><br/></div><div>3）别名指示符</div><div>&nbsp; &nbsp; &nbsp;通过别名指数符我们可以为某个型号起一个别名，主要用以解决引用的2个命名空间内有同名类型的冲突或避免使用冗余的命名空间，别名指示符只在一个单元文件中起作用。</div><div>Case：Class1.cs:&nbsp;</div><br/>
+using System;<br/>
+using System.Collections.Generic;<br/>
+using System.Text;<br/><br/>
+namespace com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib01<br/>
+{<br/>
+class Class1<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; public override string ToString()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return &quot;com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib01&#39;s Class1&quot;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+}<br/>
+Class2.cs<br/><br/>
+using System;<br/>
+using System.Collections.Generic;<br/>
+using System.Text;<br/><br/>
+namespace com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib02<br/>
+{<br/>
+class Class1<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; public override string ToString()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return &quot;com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib02&#39;s Class1&quot;;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+}<br/>
+主单元（Program.cs）：<br/><br/>
+using System;<br/>
+using System.Collections.Generic;<br/>
+using System.Text;<br/><br/>
+//使用别名指示符解决同名类型的冲突<br/>
+using Lib01Class1 = com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib01.Class1;<br/>
+using Lib02Class2 = com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib02.Class1;<br/><br/>
+namespace Example19<br/>
+{<br/>
+class Program<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lib01Class1 tmpObj1 = new Lib01Class1();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Lib02Class2 tmpObj2 = new Lib02Class2();<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(tmpObj1);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(tmpObj2);<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.ReadLine();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+}<br/>
+结果：<br/>
+com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib01&#39;s Class1<br/>
+com.nblogs.reonlyrun.CSharp26QExample.Example19.Lib02&#39;s Class1&nbsp;<br/><div><br/></div><div>4）释放非托管资源</div><div>&nbsp; &nbsp; &nbsp;.NET 平台在内存管理方面提供了GC（Garbage Collection），负责自动释放托管资源和内存回收的工作，但它无法对非托管资源进行释放，这时我们必须自己提供方法来释放对象内分配的非托管资源，比如你在对象的实现代码中使用了一个COM对象&nbsp;</div>
+&nbsp; &nbsp; &nbsp; 最简单的办法，可以通过实现protected void Finalize()（析构函数会在编译时变成这个东东）来释放非托管资源，因为GC在释放对象时会检查该对象是否实现了 Finalize() 方法，如果是则调用它。但，据说这样会降低效率。。。<br/>
+&nbsp; &nbsp; &nbsp; 有一种更好的，那就是通过实现一个接口显式的提供给客户调用端手工释放对象的方法，而不是傻傻的等着GC来释放我们的对象（何况效率又那么低）<br/>
+&nbsp; &nbsp; &nbsp; System 命名空间内有一个 IDisposable 接口，拿来做这事非常合适，就省得我们自己再声明一个接口了<br/>
+&nbsp; &nbsp; &nbsp; 另外补充一句，这种实现并不一定要使用了非托管资源后才用，如果你设计的类会在运行时有大些的实例（象 GIS 中的Geometry），为了优化程序性能，你也可以通过实现该接口让客户调用端在确认不需要这些对象时手工释放它们。
+<div>Case：</div><div>using System;<br/>
+using System.Collections.Generic;<br/>
+using System.Text;<br/><br/>
+namespace Example20<br/>
+{<br/>
+class Program<br/>
+{<br/>
+class Class1 : IDisposable<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //析构函数，编译后变成 protected void Finalize()，GC会在回收对象前会调用调用该方法<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; ~Class1()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dispose(false);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //通过实现该接口，客户可以显式地释放对象，而不需要等待GC来释放资源，据说那样会降低效率<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; void IDisposable.Dispose()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dispose(true);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //将释放非托管资源设计成一个虚函数，提供在继承类中释放基类的资源的能力<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; protected virtual void ReleaseUnmanageResources()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //Do something...<br/>
+&nbsp; &nbsp; &nbsp; &nbsp;}<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //私有函数用以释放非托管资源<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; private void Dispose(bool disposing)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ReleaseUnmanageResources();<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //为true时表示是客户显式调用了释放函数，需通知GC不要再调用对象的Finalize方法<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //为false时肯定是GC调用了对象的Finalize方法，所以没有必要再告诉GC你不要调用我的Finalize方法啦<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (disposing)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; GC.SuppressFinalize(this);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;<br/>
+}<br/>
+static void Main(string[] args)<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //tmpObj1没有手工释放资源，就等着GC来慢慢的释放它吧<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Class1 tmpObj1 = new Class1();<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //tmpObj2调用了Dispose方法，传说比等着GC来释放它效率要调一些<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //个人认为是因为要逐个对象的查看其元数据，以确认是否实现了Dispose方法吧<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //当然最重要的是我们可以自己确定释放的时间以节省内存，优化程序运行效率<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Class1 tmpObj2 = new Class1();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; ((IDisposable)tmpObj2).Dispose();<br/>
+}<br/>
+}<br/>
+}<br/><br/></div></div>

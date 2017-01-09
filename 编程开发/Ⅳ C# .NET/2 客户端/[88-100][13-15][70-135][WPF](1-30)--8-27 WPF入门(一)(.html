@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+<!--defaultCSS-->
+<title>[88/100][13/15][70/135][WPF](1/30)--8/27 WPF入门(一)(二）</title>
+
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+</head>
+
+<body  style=""><h2>WPF(二) (2015/8/31 星期一 23:37:14)</h2>一\WPF架构(P130)<div>.(待定)</div><div>二. WPF的类层次结构</div><div><img src="[88-100][13-15][70-135][WPF](1-30)--8-27 WPF入门(一)(_files/fa6f6a06-d6c6-412c-8c51-9b61f273b25d.jpg" border="0" alt="" name=""><br></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; WPF命名空间以System.Windows开始. 如System.Windows.Controls, System.Windows.Media 唯一的例外是System.Windows.Forms.&nbsp;</font><br></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; -- System.Threading.DispatcherObject类: 用户界面STA单线程. 通过派遣者来处理消息, 布局操作从DispatchObject派生子类,&nbsp;</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; -- System.Windows.DependencyObject: 通过属性来与界面元素交互, WPF提供强大的一套属性系统, 使用声明式语法,其中一个例子是WPF中的数据双向绑定技术. WPF属性从DependencyObject类派生, 一个依赖属性. 依赖属性会 跟踪属性表达式之间 的依赖关系. 依赖关系更改时, 回自动重新验证属性值. 继承父类如FontSize, 元素父级 属性更改, 则自动更新系统.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; -- Visual 图形对象, 派生自此,&nbsp;</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --UIElement</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --FrameworkElement WPF继承层次树的终止点, 包括HorizontalAlignment和Margin 数据绑定和样式.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --Shape. Rectange. Polygon Line, Path等.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --Control 与用户交互元素. 如TextBox, Button, ListBox. 设置字体, 前景色, 背景色. 还提供了对控件模板的支持. 可以自定义样式改变控件的标准呈现.&nbsp;</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --ContentControl, 其他内容控件自动继承的类, Content属性为Object, 对再ContentControl中放置内容没有任何限制. 呈现单块内容.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --ItemsControl . 集合项控件的基类. 如ListBox和TreeView控件等.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --Panel 所有布局容器面板类的基类, 布局面板可以使用指定的布局面板排列放置于其中的一个或多个子元素, 容器面板是WPF布局系统的基础.</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI"><br></font></div><hr /><h2>[88/100][13/15][70/135][WPF](1/30)--8/27 WPF入门(一) (2015/8/27 星期四 20:07:35)</h2>一, 项目引用:<div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;PresentationFramework.dll;&nbsp;</font><span style="background-color: rgb(255, 255, 255); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13.9200000762939px; line-height: 16.7040004730225px; widows: 1;">PresentationCore.dll</span><br></div><div><span style="font-family: Verdana; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="background-color: rgb(255, 255, 255); widows: 1;"><font face="Verdana, Arial, Helvetica, sans-serif"><span style="line-height: 16.703125px;">PresentationFramework.Aero 和&nbsp;</span></font></span><font face="Verdana, Arial, Helvetica, sans-serif"><span style="line-height: 16.703125px;">PresentationFramework.Aero2 实现win8类的效果;</span></font></div><div><font face="Verdana">&nbsp; &nbsp;&nbsp;System.Xaml 的引用是文件的必须引用.</font><font face="Verdana, Arial, Helvetica, sans-serif"><span style="line-height: 16.703125px;"><br></span></font></div><div><font face="Verdana">&nbsp; &nbsp;&nbsp;</font><font face="Verdana"><br></font></div><div><font face="Verdana"><br></font></div><div><font face="Verdana">&nbsp; &nbsp; si-tech 自定义控件:</font></div><div><font face="Verdana">&nbsp; &nbsp;&nbsp;_SCREEN_CAPTURE.dll 2)agsXMPP.dll 3)CoreAudioApi 4)Hardcodet.Wpf.TaskbarNotification<br></font></div><div><font face="Verdana"><br></font></div><div><br></div><div><font face="Verdana">二， 其dong'w</font></div><div><font face="Verdana"><br></font></div><div><font face="Verdana"><br></font></div><div><font face="Verdana"><br></font></div><div><font face="Verdana"><br></font></div><div><font face="Verdana"><br></font></div><div><font face="Verdana">&nbsp; &nbsp;&nbsp;</font><font face="Verdana"><br></font></div></body></html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>7-1 DBA顾问培训内容@20141230</title>
+
+
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.08">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 8px; padding-bottom: 8px; line-height: 1;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body style="" ><div>1, 逻辑读还是物理读?</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>查询语句的实际执行计划.</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>F5 预计执行计划.</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--如何产生实际执行计划 ??. --Session收集指令.</div><div><br></div><div>workload repository report for AWR</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>ELAPSECT: DBTIME. &nbsp;分子/分母 轻松: -&gt;1.&nbsp;</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--TOP 10 FOREGROUND EVENTS BY TOTAL WAIT TIME</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--SQL ORDERED BY GETS 磁盘缓冲区的次数</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 1/28更新--BUFFER使用次数, 降到次数10000为准.</span><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--SQL ORDERED BY VERSION COUNT 子游标排列. 语句相同&lt;利用假 hint 完成, 降低子游标轮询. (硬解析 &gt; 软解析, 2.RAC)</div><div><span class="Apple-tab-span" style="white-space:pre">		</span>-- SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(SQLID,子游标号码&lt;null代表全部&gt;,执行计划中的哪个数据&lt;个人偏好&gt;.</div><div><span class="Apple-tab-span" style="white-space:pre">			</span>--E- 开头预估.&nbsp;</div><div><span class="Apple-tab-span" style="white-space:pre">			</span>--A- 实际完成logic次数(statistics session)</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--Sample: dev,prd,qas. 数据量↑ , cbo方式优化, 走索引方式不同.</div><div><span class="Apple-tab-span" style="white-space:pre">		</span>--背景:表连接: 4. substr, ||</div><div><span class="Apple-tab-span" style="white-space:pre">		</span>--buffers:磁盘缓存执行次数. 依赖: 参数:1)每次读取block个数, 2)实际环境. 例:参数:16.实际存储块,分布,连续读取一个.8,18. 读8,16,2..<span class="Apple-tab-span" style="white-space:pre">		</span>与表空间逻辑大小无关,实际存储,内模式控制,碎片.</div><div><span class="Apple-tab-span" style="white-space:pre">		</span>--方法: 缩短索引,rowid → 实际值 cost. 增加索引组织表查询. (待查询结果列放到索引中, 查询次数少时不划算.CBO. 针对查询excute次数多, 效果明显). 降低get.</div><div><br></div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--平均每行占用, 元组存储大小. 属性不占用. 估算方法: 平均行资料占用长度 * 多少行. 模拟数据,表数据采集,平均长度. &lt;表分析&gt;</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>--dbms_stats.gather_table_stats 数据统计. 自动触发机制 + 人工统计. 基于schema的统计,cost ↑,基于table的统计.</div><div><span class="Apple-tab-span" style="white-space:pre">	</span>oracle 性能诊断艺术.</div><div><span class="Apple-tab-span" style="white-space:pre">	</span></div><div><br></div>
+
+
+
+</body></html>

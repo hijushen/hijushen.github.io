@@ -1,0 +1,99 @@
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>在线程同步中使用信号量</title><style type="text/css" id="wiz_phone_default_css"> body {margin: 8px 12px;padding: 0;font-size: 17px;line-height: 1.5em;}p {letter-spacing:1.5px;text-indent: 2em;line-height: 1.5em;}</style>
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+</style>
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.07">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label {margin-top: 8px; margin-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head><body  style=""><div>代码:</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="font-family: Consolas; font-size: 15px; line-height: 1.5; color: rgb(86, 156, 214);">public</span><span style="background-color: rgb(30, 30, 30); color: rgb(220, 220, 220); font-family: Consolas; font-size: 15px; line-height: 1.5;">&nbsp;</span><span style="font-family: Consolas; font-size: 15px; line-height: 1.5; color: rgb(86, 156, 214);">partial</span><span style="background-color: rgb(30, 30, 30); color: rgb(220, 220, 220); font-family: Consolas; font-size: 15px; line-height: 1.5;">&nbsp;</span><span style="font-family: Consolas; font-size: 15px; line-height: 1.5; color: rgb(86, 156, 214);">class</span><span style="background-color: rgb(30, 30, 30); color: rgb(220, 220, 220); font-family: Consolas; font-size: 15px; line-height: 1.5;">&nbsp;</span><span style="font-family: Consolas; font-size: 15px; line-height: 1.5; color: rgb(78, 201, 176);">Form1</span><span style="background-color: rgb(30, 30, 30); color: rgb(220, 220, 220); font-family: Consolas; font-size: 15px; line-height: 1.5;">&nbsp;:&nbsp;</span><span style="font-family: Consolas; font-size: 15px; line-height: 1.5; color: rgb(78, 201, 176);">Form</span></div><pre style="font-family: Consolas; font-size: 15px; background-color: rgb(30, 30, 30); background-position: initial initial; background-repeat: initial initial;"><font color="#dcdcdc">&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">public</span><font color="#dcdcdc">&nbsp;Form1()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;InitializeComponent();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(78, 201, 176);">AutoResetEvent</span><font color="#dcdcdc">&nbsp;autoResetEvent&nbsp;</font><span style="color: rgb(180, 180, 180);">=</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">new</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(78, 201, 176);">AutoResetEvent</span><font color="#dcdcdc">(</font><span style="color: rgb(86, 156, 214);">false</span><font color="#dcdcdc">);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">delegate</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">void</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(78, 201, 176);">setlabel</span><font color="#dcdcdc">(</font><span style="color: rgb(86, 156, 214);">string</span><font color="#dcdcdc">&nbsp;s);
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">private</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">void</span><font color="#dcdcdc">&nbsp;button1_Click(</font><span style="color: rgb(86, 156, 214);">object</span><font color="#dcdcdc">&nbsp;sender,&nbsp;</font><span style="color: rgb(78, 201, 176);">EventArgs</span><font color="#dcdcdc">&nbsp;e)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(78, 201, 176);">Thread</span><font color="#dcdcdc">&nbsp;tWork&nbsp;</font><span style="color: rgb(180, 180, 180);">=</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">new</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(78, 201, 176);">Thread</span><font color="#dcdcdc">(()&nbsp;</font><span style="color: rgb(180, 180, 180);">=&gt;</span><font color="#dcdcdc">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLabelValue(label1,&nbsp;</font><span style="color: rgb(214, 157, 133);">"线程&nbsp;开始了..."</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(180, 180, 180);">+</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(78, 201, 176);">Environment</span><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">NewLine);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLabelValue(label1,</font><span style="color: rgb(214, 157, 133);">"开始做实际的事情:&nbsp;"</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(180, 180, 180);">+</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(78, 201, 176);">Environment</span><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">NewLine);
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(87, 166, 74);">//</span><font color="#dcdcdc">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLabelValue(label1,</font><span style="color: rgb(214, 157, 133);">"等待信号,否则罢工..."</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(180, 180, 180);">+</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(78, 201, 176);">Environment</span><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">NewLine);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autoResetEvent</font><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">WaitOne();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;setLabelValue(label1,</font><span style="color: rgb(214, 157, 133);">"钱到账,活就干完了"</span><font color="#dcdcdc">);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tWork</font><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">IsBackground&nbsp;</font><span style="color: rgb(180, 180, 180);">=</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">true</span><font color="#dcdcdc">;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tWork</font><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">Start();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">private</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">void</span><font color="#dcdcdc">&nbsp;setLabelValue(</font><span style="color: rgb(78, 201, 176);">Control</span><font color="#dcdcdc">&nbsp;ct,</font><span style="color: rgb(86, 156, 214);">string</span><font color="#dcdcdc">&nbsp;arg)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">if</span><font color="#dcdcdc">&nbsp;(ct</font><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">InvokeRequired)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><font color="#ff0000">ct.Invoke(new&nbsp;Action(()&nbsp;=&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ct.Text&nbsp;+=&nbsp;arg;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}));</font><font color="#dcdcdc">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">else</span><font color="#dcdcdc">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ct</font><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">Text&nbsp;</font><span style="color: rgb(180, 180, 180);">+=</span><font color="#dcdcdc">&nbsp;arg;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">private</span><font color="#dcdcdc">&nbsp;</font><span style="color: rgb(86, 156, 214);">void</span><font color="#dcdcdc">&nbsp;button2_Click(</font><span style="color: rgb(86, 156, 214);">object</span><font color="#dcdcdc">&nbsp;sender,&nbsp;</font><span style="color: rgb(78, 201, 176);">EventArgs</span><font color="#dcdcdc">&nbsp;e)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;autoResetEvent</font><span style="color: rgb(180, 180, 180);">.</span><font color="#dcdcdc">Set();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;}</font></pre><br>线程同步中使用信号量。<div><br><img src="在线程同步中使用信号量_files/20140720232914073.jpg"></div><div id="current_img_bottom"><br></div></body></html>

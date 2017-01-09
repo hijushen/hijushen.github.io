@@ -1,0 +1,66 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>编写高质量代码-改善C#程序的157个建议</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"><font color="#FF0000" style="font-size: 16px;">建议21 选择正确的集合</font><div><ol><li>如果集合的数目固定并且不涉及转型，使用数组效率高，否则就使用List&lt;T&gt;。</li><li>顺序存储结构即线性表，插入和删除数据效率高，查找的效率相对低，不按照索引查找，对地址的相对引用来搜寻元素。为了找到某个元素，必须遍历所有元素，直到知道对应元素为止。线性表分 队列、栈及索引群集。索引群集：散列、字典Dictionary，双向链表LinkedList&lt;T&gt;。如果插入和删除数据较慢时，可以考虑实用链表。</li><li>FCL 中使用非线性集合不多，主要有HashSet&lt;T&gt;.</li><li>拓展，SortedList&lt;T&gt;\SortedDictionary&lt;TKey,TValue&gt;\SortedSet&lt;T&gt;；线程相关：ConcurrentBag&lt;T&gt;对应List&lt;T&gt;\ConcurrentDictionary。。。。如果集合使用在多线程中，可以使用这种类型</li></ol><div><br/></div></div><div style="font-size: 16px;"><font color="#E30000">建议24：迭代器应该是只读的</font></div><div style="font-size: 16px;"><font color="#E30000">建议25：谨慎操作集合属性的可写操作，将类型的集合属性设置为只读；其次，集合对象有内心自身创建，保证集合属性永远只有一个引用。示例代码；</font></div><div>class StudentTeamA<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; public List&lt;Student&gt; Students {get;private set;}<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; public StudentTeamA() //基本构造<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Students = new List&lt;Student&gt;(); //永远只有一个应用<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; public StudentTeamA (IEnumerable&lt;Student&gt; studentList) //继续构造<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :this()<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Students.AddRange(studentList);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}</div><div><br/></div><div style="font-size: 16px;"><font color="#FF0000">建议27：在查询中使用Lambda表达式</font></div><div>var personWithCompanyList = from person in personList select new {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; PersonName = person.Name, CompanyName = person.CompanyID == 0:&quot;Micro&quot;:&quot;Sun&quot;<br/>
+};<br/>
+foreach (var item in personWithCompanyList)<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(string.format(&quot;{0} \t :{1}&quot;),item.PersonName,item.CompanyName);<br/>
+}<br/><br/>
+foreach(var item in personList.Select(person =&gt; new {PersonName =<br/>
+person.Name, CompanyName = peroson.CompanyID == 0?&quot;Micro&quot; : &quot;Sun&quot;}))<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(string.format(&quot;{0} \t {1}&quot;,item.PersonName, item.CompanyName))<br/>
+}<br/>
+//=&gt; 左边代表方法参数，右边是方法体<br/>
+//调用Where拓展方法，查找出“Sun”公司员工：<br/>
+foreach(var item in personWithCompanyList.Where(p =&gt; p.CompanyName == &quot;Sun&quot;))<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(item.PersonName);<br/>
+}<br/>
+//调用OrderByDescending拓展方法<br/>
+foreach(var item in personWithCompanyList.OrderByDescending(person =&gt; person.Name))<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(item.Name);<br/>
+}</div><div><br/></div><div style="font-size: 16px;"><font color="#FF0000">Tips29：区别Linq中的IEnumerable&lt;T&gt;</font></div><div>//IEnumerable&lt;T&gt; 和IQueryable&lt;T&gt;<br/>
+//IQueryable&lt;T&gt;继承IEnumerable&lt;T&gt;<br/>
+private static void Newmethod3()<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; DataContext ctx = new DataContext(&quot;server = 192.168.0.102;database = Temp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; uid = sa;pwd = sa123&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Table&lt;Person&gt; persons = ctx.GetTable&lt;Person&gt;();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; var temp1 = (from p in persons where p.Age &gt; 20 select p)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .AsEnumerable&lt;Person&gt;();//为本地IEenmuable&lt;T&gt;了<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; var temp2 = from p in temp1 where p.Name.IndexOf(&#39;e&#39;) &gt; 0 select p;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; foreach (var item in temp2)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(string.format(&quot;Name:{0}\tAge:{1}&quot;, item.Name,item.Age));<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/><br/>
+private static void NewMethod2()<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; DataContext c x = new DataContext(&quot;server = 192.168.0.102;database = Temp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; uid =sa;pwd = 123&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; Table&lt;Person&gt; persons = ctx.GetTable&lt;Person&gt;();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; var temp1 = from p in persons where p.Age &gt; 20 select p;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; var temp2 = from p in temp1 where p.Name.IndexOf(&#39;e&#39;) &gt; 0 select p;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; //会采取延迟求值的方式，化二为一<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; foreach (var item in temp2)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(string.Format(&quot;Name: {0}\tAge:{1}&quot;,item.Name,item.Age));<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+//优点明显，注意点就是IQueryable&lt;T&gt;不能使用自定义的方法，必须先生成表达式树，查询由Linq to Sql 引擎处理，如果采用了自定义方法则抛出异常。而IEnumable&lt;T&gt; 则没有改困扰。</div></div>

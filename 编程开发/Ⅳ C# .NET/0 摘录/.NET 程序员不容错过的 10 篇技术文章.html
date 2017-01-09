@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        
+        
+
+
+
+
+        <link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+
+
+        <title>.NET 程序员不容错过的 10 篇技术文章</title>
+        
+<link rel="stylesheet" type="text/css" href=".NET 程序员不容错过的 10 篇技术文章_files/page_mp_article_improve2d1390.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2c9cd6.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">.NET 程序员不容错过的 10 篇技术文章</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src=".NET 程序员不容错过的 10 篇技术文章_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src=".NET 程序员不容错过的 10 篇技术文章_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src=".NET 程序员不容错过的 10 篇技术文章_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        .NET 程序员不容错过的 10 篇技术文章 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-06-01</em>
+
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">DotNet</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">DotNet</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">DotNet</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">iDotNet</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">专注分享&nbsp;.NET&nbsp;相关技术文章、教程和工具。有时也会涉及到IT职场相关的一些东西，或者来点幽默趣文。</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <p style="text-align: center; line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><span style="line-height: 25.6px; text-align: center; white-space: pre-wrap; font-size: 14px; color: rgb(255, 0, 0); max-width: 100%; font-family: Verdana; box-sizing: border-box !important; word-wrap: break-word !important;">（点击</span><span style="text-align: center; white-space: pre-wrap; color: rgb(0, 128, 255); font-size: 14px; line-height: 22.4px;">上方蓝字</span><span style="line-height: 25.6px; text-align: center; white-space: pre-wrap; font-size: 14px; color: rgb(255, 0, 0); max-width: 100%; font-family: Verdana; box-sizing: border-box !important; word-wrap: break-word !important;">，可快速关注我们）</span></span></p><p style="text-align: center; line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><span style="line-height: 25.6px; text-align: center; white-space: pre-wrap; font-size: 14px; color: rgb(255, 0, 0); max-width: 100%; font-family: Verdana; box-sizing: border-box !important; word-wrap: break-word !important;"><br  /></span></span></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">本文精选了 DotNet&nbsp; 2016年5月份的10篇热门文章。其中有技术分享、技术资源。</span></p><p style="line-height: 1.5em;"><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(255, 169, 0); font-size: 14px; line-height: 22.4px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">注：以下文章，点击标题即可阅读</span></p><p style="line-height: 1.5em;"><span style="color: rgb(255, 169, 0); font-size: 14px; line-height: 22.4px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><br  /></span></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099179&idx=1&sn=1908766afcc183169fea3aa5b9eb40c8&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099179&amp;idx=1&amp;sn=1908766afcc183169fea3aa5b9eb40c8&amp;scene=21#wechat_redirect"><span style="line-height: 25.6px;">《C#移动跨平台开发：环境准备》</span></a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">C#依托于mono平台可以实现Unix平台服务器端开发已经不是什么新鲜事了，而Xarmain公司（初始成员大多来自原Mono、MonoTouch、Mono For Android成员)继续将C#的先进性带到了移动平台。</span></p><p><br  /></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099193&idx=1&sn=3434055efafa3f25eeabcaf5129d0d32&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099193&amp;idx=1&amp;sn=3434055efafa3f25eeabcaf5129d0d32&amp;scene=21#wechat_redirect"><span style="line-height: 25.6px;">《.NET Core 跨平台发布 》</span></a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">.NET Core 跨平台发布(dotnet publish) ,无需安装.NET Core SDK,就可以运行。</span></p><p style="line-height: 1.5em;"><span style="line-height: 25.6px;"><br  /></span></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099204&idx=1&sn=ef039fe3a245b962e588ed16905f85a4&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099204&amp;idx=1&amp;sn=ef039fe3a245b962e588ed16905f85a4&amp;scene=21#wechat_redirect">《.NET - 设计 C# 7》</a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">尽管元组还有很多复杂之处，但在大多数情况下，元组遵循的是语言内架构完善的结构，所以它们可以强有力地支持 C# 7 中的功能。</span></p><p><br  /></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099200&idx=1&sn=565e80b4f52cc41ecfe49386545c69d9&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099200&amp;idx=1&amp;sn=565e80b4f52cc41ecfe49386545c69d9&amp;scene=21#wechat_redirect">《.NET 编程基础知识》</a></p><p style="line-height: 1.5em;">&nbsp;</p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px;  background-color: rgb(255, 255, 255);">.NET的委托都是多播委托（multicast delegate），多播委托将会把所有添加到该委托中的所有目标函数组合成一个单一的调用。</span></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px;  background-color: rgb(255, 255, 255);"><br  /></span></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099185&idx=1&sn=ed8c13fab3ffb087de829b5860e14cf5&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099185&amp;idx=1&amp;sn=ed8c13fab3ffb087de829b5860e14cf5&amp;scene=21#wechat_redirect"><span style="line-height: 25.6px;">《.NET 中的反应式编程 》</span></a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">什么是反应式编程：反应式编程(Reactive programming)简称Rx，他是一个使用LINQ风格编写基于观察者模式的异步编程模型。简单点说Rx = Observables + LINQ + Schedulers。</span></p><p><br  /></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099197&idx=1&sn=5cf2320134b257c06d1dc5da53a15876&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099197&amp;idx=1&amp;sn=5cf2320134b257c06d1dc5da53a15876&amp;scene=21#wechat_redirect">《C#易混淆概念-接口 》</a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="max-width: 100%; color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);">对于接口来说，C#是有规定使用Interface关键字来声明接口。它的声明是和类一致的。可以说接口就是一个特殊的抽象类。</span></p><p><br  /></p><p style="line-height: 1.5em;"><span style="line-height: 25.6px;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099166&idx=1&sn=b5dbc5eabee7b5b34354a918f264c346&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099166&amp;idx=1&amp;sn=b5dbc5eabee7b5b34354a918f264c346&amp;scene=21#wechat_redirect">《浅谈 .NET 的并发与并行 》</a></span></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">为了解决并行的问题，在最开始的时候就有了多线程的概念。线程也是处理并行和分布式异步操作的最简单的方法。</span></p><p><br  /></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099181&idx=1&sn=63ab33270566cf93b3be30ece5385ddd&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099181&amp;idx=1&amp;sn=63ab33270566cf93b3be30ece5385ddd&amp;scene=21#wechat_redirect">《精简自己 20% 的代码 》</a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">从程序的健壮性来看第一种还是要比第二种情况好，至少在编程意识中，随时想到了异常情况，有一种基本的编程思想。</span></p><p><br  /></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099189&idx=1&sn=861c48d4af261af4a986e1fdc836a278&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099189&amp;idx=1&amp;sn=861c48d4af261af4a986e1fdc836a278&amp;scene=21#wechat_redirect"><span style="line-height: 25.6px;">《构建高性能 ASP.NET 应用的几点建议 》</span></a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">大多数开发者趋向在应用开发完成后，集成测试和回归测试通过后才进行负载测试。尽管在开发完成后执行一次负载测试好过不做，但是一旦完成了代码的编写，修复性能问题就为时已晚了。</span></p><p style="line-height: 1.5em;"><span style="line-height: 25.6px;"><br  /></span></p><p style="line-height: 1.5em;"><a href="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&mid=2660099176&idx=1&sn=c9de6ea4034e4c93b41f3bad1d781998&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660099176&amp;idx=1&amp;sn=c9de6ea4034e4c93b41f3bad1d781998&amp;scene=21#wechat_redirect"><span style="line-height: 25.6px;">《五分钟重温委托，匿名方法，Lambda，泛型委托，表达式树》</span></a></p><p><br  /></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);">这些对老一代的程序员都是老生常谈的东西，没什么新意，对新生代的程序员却充满着魅力。</span></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><span style="color: rgb(255, 169, 0); font-size: 14px; line-height: 22.4px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><br  /></span></span></p><p style="line-height: 1.5em;"><span style="color: rgb(62, 62, 62); line-height: 25.6px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"><span style="color: rgb(255, 169, 0); font-size: 14px; line-height: 22.4px; white-space: pre-wrap; background-color: rgb(255, 255, 255);"></span></span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); text-align: center; line-height: 1.5em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; color: rgb(136, 136, 136); line-height: 28.4444px; box-sizing: border-box !important; word-wrap: break-word !important;">【今日微信公号推荐↓】</span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); text-align: center; line-height: 1.5em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; color: rgb(136, 136, 136); line-height: 28.4444px; box-sizing: border-box !important; word-wrap: break-word !important;"><img  data-type="png" data-ratio="0.6258992805755396" data-w=""   SRC=".NET 程序员不容错过的 10 篇技术文章_files/640.jpg" /></span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); text-align: center; line-height: 1.5em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; line-height: 25.6px; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">更多推荐请看</span><strong style="max-width: 100%; line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">《</span></strong><span style="max-width: 100%; color: rgb(255, 169, 0); box-sizing: border-box !important; word-wrap: break-word !important;">值得关注的技术和设计公众号</span><span style="max-width: 100%; line-height: 25.6px; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 16px; box-sizing: border-box !important; word-wrap: break-word !important;">》</span></strong></span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); line-height: 1.5em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;"><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /></span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); line-height: 1.5em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">其中推荐了包括<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">技术</strong>、<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">设计</strong>、<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">极客&nbsp;</strong>和&nbsp;<strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">IT相亲</strong>相关的热门公众号。技术涵盖：Python、Web前端、Java、安卓、iOS、PHP、C/C++、.NET、Linux、数据库、运维、大数据、算法、IT职场等。点击《</span><span style="max-width: 100%; font-size: 14px; color: rgb(255, 169, 0); box-sizing: border-box !important; word-wrap: break-word !important;">值得关注的技术和设计公众号</span><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">》，发现精彩！</span></p><p style="white-space: normal; max-width: 100%; min-height: 1em; color: rgb(62, 62, 62); line-height: 1.5em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;"><img data-s="300,640" data-type="png" data-ratio="0.9172661870503597" data-w=""  style="line-height: 28.4444px; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC=".NET 程序员不容错过的 10 篇技术文章_files/640_2.jpg" /></span></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href=".NET 程序员不容错过的 10 篇技术文章_files/page_mp_article_improve_combo2d1390.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">投诉</a>
+
+                    </div>
+
+
+
+                                    </div>
+
+                <div class="rich_media_area_primary sougou" id="sg_tj" style="display:none">
+
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+                                        
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">该文章作者已设置需关注才可以留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src=".NET 程序员不容错过的 10 篇技术文章_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            该文章作者已设置需关注才可以留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src=".NET 程序员不容错过的 10 篇技术文章_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src=".NET 程序员不容错过的 10 篇技术文章_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+        
+    
+
+    
+  
+  
+
+    </body>
+</html>
+
+ 

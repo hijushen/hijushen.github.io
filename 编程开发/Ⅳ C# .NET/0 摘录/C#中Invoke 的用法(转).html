@@ -1,0 +1,60 @@
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+<title>C#中Invoke 的用法(转)</title><!--?xml version="1.0" encoding="UTF-8"?-->
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head><body  style=""><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1;"><span style="background-color: rgb(255, 255, 255);">在多线程编程中，我们经常要在工作线程中去更新界面显示，而在多线程中直接调用界面控件的方法是错误的做法，Invoke 和 BeginInvoke 就是为了解决这个问题而出现的，使你在多线程中安全的更新界面显示。<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">正确的做法是将工作线程中涉及更新界面的代码封装为一个方法，通过 </span><span style="background-color: rgb(152, 251, 152);">Invoke 或者 BeginInvoke 去调用，两者的区别就是一个导致工作线程等待，而另外一个则不会。</span><br style="word-break: break-all; line-height: normal !important;"></p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">&nbsp;</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">Framework框架的WinForm构建GUI程序界面时，如果要在控件的事件响应函数中改变控件的状态</p><div id="AD" style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);">&nbsp;</div><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">，例如：某个按钮上的文本原先叫“打开”，单击之后按钮上的文本显示“关闭”，初学者往往会想当然地这么写：</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">void ButtonOnClick(object sender,EventArgs e)</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">{</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">button.Text="关闭";</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">}</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">这样的写法运行程序之后，可能会触发异常，异常信息大致是“不能从不是创建该控件的线程调用它”。注意这里是“可能”，并不一定会触发该种异常。造 成这种异常的原因在于，控件是在主线程中创建的（比如this.Controls.Add(...);)，进入控件的事件响应函数时，是在控件所在的线 程，并不是主线程。在控件的事件响应函数中改变控件的状态，可能与主线程发生线程冲突。如果主线程正在重绘控件外观，此时在别的线程改变控件外观，就会造 成画面混乱。不过这样的情况并不总会发生，如果主线程此时在重绘别的控件，就可能逃过一劫，这样的写法可以正常通过，没有触发异常。</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">正确的写法是在控件响应函数中调用控件的Invoke方法（其实如果大家以前用过C++</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">Builder的话，也会找到类似Invoke那样的激活到主线程的函数）。Invoke方法会顺着控件树向上搜索，直到找到创建控件的那个线程（通常是主线程），然后进入那个线程改变控件的外观，确保不发生线程冲突。</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);">&nbsp;</p><p style="line-height: 19.5px; margin: 10px auto; color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; widows: 1; background-color: rgb(255, 255, 255);"><br style="word-break: break-all; line-height: normal !important;">而所谓的“一面响应操作，一面添加节点”永远只能是相对的，使 UI 线程的负担不至于太大而已，因为界面的正确更新始终要通过 UI 线程去做，我们要做的事情是在工作线程中包揽大部分的运算，而将对纯粹的界面更新放到 UI 线程中去做，这样也就达到了减轻 UI 线程负担的目的了。<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">举个简单例子说明下使用方法,比如你在启动一个线程,在线程的方法中想更新窗体中的一个TextBox..&nbsp;</p><div id="sina_keyword_ad_area2" class="articalContent  " style="color: rgb(75, 75, 75); font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 13px; line-height: 19.5px; widows: 1; background-color: rgb(255, 255, 255);"><br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">using System.Threading;&nbsp;<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">//启动一个线程&nbsp;<br style="word-break: break-all; line-height: normal !important;">Thread thread=new Thread(new ThreadStart(DoWork));&nbsp;<br style="word-break: break-all; line-height: normal !important;">thread.Start();&nbsp;<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">//线程方法&nbsp;<br style="word-break: break-all; line-height: normal !important;">private void DoWork()&nbsp;<br style="word-break: break-all; line-height: normal !important;">{&nbsp;<br style="word-break: break-all; line-height: normal !important;">this.TextBox1.Text="我是一个文本框";&nbsp;<br style="word-break: break-all; line-height: normal !important;">}&nbsp;<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">如果你像上面操作,在VS2005或2008里是会有异常的...&nbsp;<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">正确的做法是用Invoke\BeginInvoke<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">using System.Threading;<br style="word-break: break-all; line-height: normal !important;">namespace test<br style="word-break: break-all; line-height: normal !important;">{<br style="word-break: break-all; line-height: normal !important;">public partial class Form1 : Form<br style="word-break: break-all; line-height: normal !important;">{<br style="word-break: break-all; line-height: normal !important;">public delegate void MyInvoke(string str1,string str2);<br style="word-break: break-all; line-height: normal !important;">public Form1()<br style="word-break: break-all; line-height: normal !important;">{<br style="word-break: break-all; line-height: normal !important;">InitializeComponent();<br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;"><br style="word-break: break-all; line-height: normal !important;">}<br style="word-break: break-all; line-height: normal !important;">public void DoWork()<br style="word-break: break-all; line-height: normal !important;">{<br style="word-break: break-all; line-height: normal !important;">MyInvoke mi = new MyInvoke(UpdateForm);<br style="word-break: break-all; line-height: normal !important;">this.BeginInvoke(mi, new Object[] {"我是文本框","haha"});<br style="word-break: break-all; line-height: normal !important;">}<br style="word-break: break-all; line-height: normal !important;">public void UpdateForm(string param1,string parm2)<br style="word-break: break-all; line-height: normal !important;">{<br style="word-break: break-all; line-height: normal !important;">this.textBox1.Text = param1+parm2;<br style="word-break: break-all; line-height: normal !important;">}<br style="word-break: break-all; line-height: normal !important;">private void button1_Click(object sender, EventArgs e)<br style="word-break: break-all; line-height: normal !important;">{<br style="word-break: break-all; line-height: normal !important;">Thread thread = new Thread(new ThreadStart(DoWork));<br style="word-break: break-all; line-height: normal !important;">thread.Start();<br style="word-break: break-all; line-height: normal !important;">}<br style="word-break: break-all; line-height: normal !important;">}<br style="word-break: break-all; line-height: normal !important;">}<br style="word-break: break-all; line-height: normal !important;">注意代理的使用！</div><br><div style="color:gray"><small>来源：&nbsp;&lt;<a href="http://www.cnblogs.com/poorboy/archive/2013/05/09/3069997.html">http://www.cnblogs.com/poorboy/archive/2013/05/09/3069997.html</a><small>&gt;</small></small></div><small><small>&nbsp;</small></small><div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;"></div></body></html>

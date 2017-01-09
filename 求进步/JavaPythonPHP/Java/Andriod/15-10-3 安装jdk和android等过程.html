@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>15/10/3 安装jdk和android等过程</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style="">通用安装方法，相应参考的地址：<div>1，&nbsp;<a href="http://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html">http://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html</a>&nbsp;</div><div>&nbsp; &nbsp; 安装版本，jdk，jre安装后，不配置环境也可以运行的。 为了后续考虑，还是用JAVA_HOME PATH CLASSPATH都配置了下</div><div>2， 64/32位的选择。 eclipse和jdk必须相对应，否则就出错。排除的问题：安装了64位jdk后，copy的之前eclipse不能使用；后来下载了32_64版本的eclipse就可以了。eclipse地址：<a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a>&nbsp;</div><div>---------------</div><div>安装android。</div><div>1，jdk如上已行。</div><div>2，ADT andirod development tool</div><div>3，Andriod SDK(Andriod Software Development Kit) 模拟器，需要各个版本的，通过ADT管理和去下载。</div><div>--</div><div>使用eclipse后放弃，下载了Andriod Studio后使用：（成功之后在命令行输入：sc query intelhaxm 是正常的）</div><div>1，解决问题：<span style="font-size: 10.5pt; line-height: 1.5;">haxm 未能安装的问题。 A）BIOS中开启后； B）在设置中安装后，还需要手动运行安装，如图示：</span></div><div>问题参考来源：&nbsp;<a href="http://www.crifan.com/adt_android_sdk_manager_install_intel_hardware_accelerator_execution_manager_haxm/">http://www.crifan.com/adt_android_sdk_manager_install_intel_hardware_accelerator_execution_manager_haxm/</a>&nbsp;</div><div><img src="15-10-3 安装jdk和android等过程_files/d016a13b-6f5f-4158-85bc-d33a5f5a6f1e.png" border="0" alt="" name="" width="373" height="195">&nbsp;<img src="15-10-3 安装jdk和android等过程_files/86dfe925-04a1-421c-bd9e-9936022d9a1c.png" border="0" alt="" style="font-size: 10.5pt; line-height: 1.5;" name="" width="445" height="182"><br></div><div>c）"D:\Users\GLY\AppData\Local\Android\sdk\extras\intel\Hardware_Accelerated_Execution_Manager\intelhaxm-android.exe" 路径安装。</div><div>4， 第一次加载比较慢，原因是下载所谓的Gradle（参考：<a href="http://blog.csdn.net/maosidiaoxian/article/details/40109337">http://blog.csdn.net/maosidiaoxian/article/details/40109337</a>&nbsp;）</div><div><br></div></body></html>

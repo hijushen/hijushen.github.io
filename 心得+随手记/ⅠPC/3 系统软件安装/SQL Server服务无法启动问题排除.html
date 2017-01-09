@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>SQL Server服务无法启动问题排除</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style=""><div class="exp-title clearfix" style="zoom: 1; position: relative; padding-top: 21px; padding-bottom: 23px; font-family: 'Microsoft Yahei', 微软雅黑, arial, 宋体, sans-serif; font-size: 12px; line-height: 18px; widows: 1; background-color: rgb(255, 255, 255);"><h1 title="Sql Server服务远程过程调用失败解决" style="margin: 0px; padding: 0px; font-size: 30px; color: rgb(51, 51, 51); font-weight: 400;">Sql Server服务远程过程调用失败解决</h1></div><div alog-group="exp-content" class="exp-content format-exp" id="format-exp" style="font-family: 'Microsoft Yahei', 微软雅黑, arial, 宋体, sans-serif; font-size: 12px; line-height: 18px; widows: 1;"><div class="exp-content-block" style="color: rgb(51, 51, 51); font-size: 16px; line-height: 28px; margin-top: 40px;"><div class="exp-content-body exp-brief-step" style="text-align: justify; margin-top: 5px;"><div class="exp-content-listblock" style="position: relative;"><div class="content-listblock-text"><p style="margin: 20px 0px; padding: 0px;"><span style="background-color: rgb(152, 251, 152);">采用第一种办法卸载完12 和14 Express后问题解决. （其他未试验)</span></p><p style="background-color: rgb(255, 255, 255); margin: 20px 0px; padding: 0px;"><br>多搞开发的同志们，相信在刚刚使用sql server2008+c#2012（2012以上版本）会出现下面图片中的问题，这时因为安装Visual Studio 2013或者2012版本的时候，会自动安装“Microsoft SQL Server 2013（2012） Express LocalDB”服务，导致原本的SQL2008无法正常工作。</p><p style="background-color: rgb(255, 255, 255); margin: 20px 0px; padding: 0px;">下面，笔者将用两个方法，帮助大家解决这个问题。</p></div><div class="content-listblock-media" style="background-color: rgb(255, 255, 255);"><div class="content-listblock-image clearfix exp-image-center" style="zoom: 1; padding-left: 340px; float: left; text-align: center;"><a class="exp-image-wraper" log="type:20150831,pos:enter_step,expGroup:G3" href="http://jingyan.baidu.com/album/9f63fb91d436b4c8410f0e5c.html?picindex=1" target="_self" style="text-decoration: none; color: rgb(45, 100, 179); position: relative; display: block; float: left; margin-left: -250px;"><img class="exp-image-default" alt="Sql Server服务远程过程调用失败解决" src="SQL Server服务无法启动问题排除_files/af52600b-6222-4326-8c86-dd97a47bbc11.jpg" style="display: block;"><span class="exp-album-enter-mask" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; opacity: 0; cursor: pointer; background: rgb(51, 51, 51);"></span></a></div><div class="exp-brief-clear" style="clear: both; height: 0px; overflow: hidden;"></div></div></div></div></div><div class="exp-content-block" style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 16px; line-height: 28px; margin-top: 40px;"><h2 class="exp-content-head" style="margin: 40px 0px 0px; padding: 0px 0px 7px; font-size: 22px; font-weight: 400; line-height: 24px; font-family: 微软雅黑; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 214, 216);"><a href="" name="section-2" style="text-decoration: none; color: rgb(45, 100, 179);"></a></h2></div><div class="exp-content-block" style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-size: 16px; line-height: 28px; margin-top: 40px;"><div class="exp-content-body" style="text-align: justify; margin-top: 5px;"><ol class="exp-conent-orderlist" style="margin: 0px; padding: 0px; list-style: none; clear: both;"><li class="exp-content-list list-item-1" style="margin: 20px 0px 0px 17px; padding: 0px 0px 0px 35px; display: block; position: relative; min-height: 31px; border-left-width: 2px; border-left-style: dotted; border-left-color: rgb(228, 228, 228);"><div class="content-list-text"><p style="margin: 0px; padding: 0px;">第一种办法就是</p><p style="margin: 0px; padding: 0px;">打开控制面板，找到卸载程序，把”Microsoft SQL Server 2013（2012） Express LocalDB”卸载掉，然后打开SQL Server 配置管理器，就会显示正常使用。</p><p style="margin: 0px; padding: 0px;"></p></div><div class="content-list-media"><div class="content-list-image clearfix" style="zoom: 1; position: relative; padding: 10px 0px;"><a class="exp-image-wraper" href="http://jingyan.baidu.com/album/9f63fb91d436b4c8410f0e5c.html?picindex=2" log="type:20150831,pos:enter_step,expGroup:G3" target="_self" style="text-decoration: none; color: rgb(45, 100, 179); position: relative; display: block; float: left;"><img class="exp-image-default" alt="Sql Server服务远程过程调用失败解决" src="SQL Server服务无法启动问题排除_files/a7c225a8-2fc6-49c0-a726-4bba8635a693.jpg" style="display: block;"><span class="exp-album-enter-mask" style="position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; opacity: 0; cursor: pointer; background: rgb(51, 51, 51);"></span></a></div></div></li><li class="exp-content-list list-item-2" style="margin: 1px 0px 0px 17px; padding: 45px 0px 0px 35px; display: block; position: relative; min-height: 31px; border-left-width: 2px; border-left-style: dotted; border-left-color: rgb(228, 228, 228);"><div class="list-icon" style="width: 32px; height: 32px; position: absolute; left: -18px; top: 43px; font-size: 16px; color: rgb(238, 255, 238); text-align: center; line-height: 32px; visibility: hidden; background: url(&quot;&quot;) no-repeat;"></div><div class="content-list-text"><p style="margin: 0px; padding: 0px;">&nbsp;第二种办法就是升级数据库</p><p style="margin: 0px; padding: 0px;">使用更高版本的数据库，或者升级SqlServer2008为SP1或者SP2。</p></div></li><li class="exp-content-list list-item-3" style="margin: 1px 0px 0px 17px; padding: 45px 0px 0px 35px; display: block; position: relative; min-height: 31px; border-left-width: 2px; border-left-style: dotted; border-left-color: rgb(228, 228, 228);"><div class="list-icon" style="width: 32px; height: 32px; position: absolute; left: -18px; top: 43px; font-size: 16px; color: rgb(238, 255, 238); text-align: center; line-height: 32px; visibility: visible; background: url(&quot;&quot;) no-repeat;">3</div><div class="content-list-text"><p style="margin: 0px; padding: 0px;">&nbsp;第三种方法就是手动启动数据库服务项</p><p style="margin: 0px; padding: 0px;">方法如下：</p><p style="margin: 0px; padding: 0px;">右击“计算机”→“管理”→“服务”，找到SQL Server（MSSQLSERVER），右击，选择“启动”。此时登陆数据库不会有问题，但是重新启动系统后，问题会依旧存在的。</p><p style="margin: 0px; padding: 0px;"></p></div><div class="content-list-media"><div class="content-list-image clearfix" style="zoom: 1; position: relative; padding: 10px 0px;"><a class="exp-image-wraper" href="http://jingyan.baidu.com/album/9f63fb91d436b4c8410f0e5c.html?picindex=3" log="type:20150831,pos:enter_step,expGroup:G3" target="_self" style="text-decoration: none; color: rgb(45, 100, 179); position: relative; display: block; float: left;"><img class="exp-image-default" alt="Sql Server服务远程过程调用失败解决" src="SQL Server服务无法启动问题排除_files/94d5ae8d-ae28-460e-8831-edcfad84b8bb.jpg" style="display: block;"></a><div><br><div style="color:gray"><small>来源：&nbsp;&lt;<a href="http://jingyan.baidu.com/article/9f63fb91d436b4c8410f0e5c.html">http://jingyan.baidu.com/article/9f63fb91d436b4c8410f0e5c.html</a><small>&gt;</small></small></div><small><small><br>&nbsp;</small></small><br></div></div></div></li></ol></div></div></div></body></html>

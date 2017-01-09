@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>MMS5040 _Call Order 程式总结</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+</head>
+
+<body  style="">附件InvokeHelper的使用.<div>用于跨线程访问更新控件.</div><div>1,&nbsp;<span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(43, 145, 175);">InvokeHelper</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">.Set(</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: blue;">this</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">.lb_targetTime,&nbsp;</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(163, 21, 21);">"Text"</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">,&nbsp;introTime.ToString(</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(163, 21, 21);">"yyyy/MM/dd&nbsp;HH:mm"</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">));</span><br style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;"></div><div><font face="Segoe UI">&nbsp; &nbsp; 更新控件Lable Text 属性时间.</font><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;"><br></span></div><div><font face="Segoe UI">2,</font><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(43, 145, 175);">InvokeHelper</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">.Invoke(</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: blue;">this</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">,&nbsp;</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(163, 21, 21);">"filldatagridview1"</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">,&nbsp;mlst_OrderBean);</span><br style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;"></div><div><font face="Segoe UI">&nbsp; &nbsp;&nbsp;</font><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: blue;">public</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: blue;">void</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp;filldatagridview1(</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(43, 145, 175);">List</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">&lt;</span><span style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5; color: rgb(43, 145, 175);">OrderBean</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">&gt;&nbsp;mlst_OrderBean)</span><br style="font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;"></div><div><font face="Segoe UI">&nbsp; &nbsp; 使用</font><span style="color: rgb(163, 21, 21); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">filldatagridview1 中方法,传入参数</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;">mlst_OrderBean 完成界面更新.&nbsp;</span><span style="background-color: rgb(199, 237, 204); font-family: 'Segoe UI'; font-size: 10.5pt; line-height: 1.5;"><br></span></div><div><br></div><div>3. 使用非强类型进行Linq 排序.</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font>var&nbsp;query&nbsp;=&nbsp;from&nbsp;order&nbsp;in&nbsp;dt.AsEnumerable()<br></div><pre>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orderby&nbsp;order.Field&lt;string&gt;("状态")&nbsp;ascending,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;order.Field&lt;DateTime&gt;("创建时间")&nbsp;descending
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;select&nbsp;order;</pre><pre>4.2个比较条件的Linq:</pre><pre><font face="monospace">&nbsp;&nbsp;&nbsp;&nbsp;</font>var&nbsp;source&nbsp;=&nbsp;from&nbsp;code&nbsp;in&nbsp;dt_sapStore.AsEnumerable()<span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&nbsp;&nbsp;</span></pre><pre><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&nbsp;</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">where</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&nbsp;code.Field&lt;</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">string</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&gt;(</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">"MPLANT"</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">).ToString().Equals(cb_Plant.SelectedItem.ToString())</span></pre><pre><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&nbsp;&amp;&amp;&nbsp;code.Field&lt;</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">string</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&gt;(</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">"MTYPE"</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">).ToString().Equals(cb_StoreType.Text.ToString())</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&nbsp;&nbsp;</span></pre><pre><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">select</span><span style="font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', SimSun, 'Segoe UI', Tahoma, Helvetica, sans-serif, 'Microsoft YaHei', Georgia, Helvetica, Arial, sans-serif, 宋体, PMingLiU, serif; font-size: 10.5pt; line-height: 1.5;">&nbsp;code;</span></pre><!--StartFragment--><!--EndFragment--><!--StartFragment--><!--EndFragment--></body></html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>6 关于 Oracle NULL栏位和PL./SQL执行实验</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+</head>
+
+<body  style="">今日有针对NULL值有了相关实验. 对NULL 值插入的讨论.<div>1, PL/SQL 中可以执行插入''或者NULL 的操作, 前提是栏位允许为空.</div><div>2, 可以对NULL进行一系列数据库运算. 如:</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">SELECT</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">&nbsp;</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">ROUND</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">(TO_NUMBER(</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">MAX</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">(A.IN_STATION_TIME)-</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">SYSDATE</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">))*<span style="color:#0000ff;">24</span>&nbsp;</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">FROM</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">&nbsp;SFISM4.R_WIP_TRACKING_T&nbsp;A&nbsp;</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">WHERE</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">&nbsp;</span><br></div>
+
+
+<span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A.IN_STATION_TIME&nbsp;<span style="color:#008080;">IS</span>&nbsp;<span style="color:#008080;">NULL</span></span><div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;"><span style="color:#008080;"><br></span></span></div><div><font face="Courier New">&nbsp; 总结: 相应TO_NUMBER(NULL)也是可行, MAX 也是可行得,没有问题.</font><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;"><span style="color:#008080;"><br></span></span></div><div><font face="Courier New">3, 回归主题, SQL 原本的样子要做成这个样:</font></div><div><font face="Courier New"><br></font></div><div>
+
+<div><!--WizRtf2Html Charset=0  --><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;<span style="color:#008080;">INSERT</span>&nbsp;<span style="color:#008080;">INTO</span>&nbsp;SFISM4.R_DT_PCB_OVERTIME_T&nbsp;F</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;(F.SERIAL_NUMBER,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.MODEL_NAME,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.LINE_NAME,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.PRODUCTION_TIME,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.INTERCEPT_TIME,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.EXPRIATUION_HOUR,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.STATE_FLAG,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;F.SEND_USER)</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;(<span style="color:#008080;">SELECT</span>&nbsp;<span style="color:#0000ff;">'COCO111111111'</span>,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0000ff;">'NIUBI1'</span>,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0000ff;">'15555'</span>,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">NVL</span>(<span style="color:#008080;">NULL</span>,&nbsp;</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">MAX</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">(A.IN_STATION_TIME)</span><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">),</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">SYSDATE</span>,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">NVL</span>(</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">ROUND</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">(TO_NUMBER(</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">MAX</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">(A.IN_STATION_TIME)-</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">SYSDATE</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">))*<span style="color: rgb(0, 0, 255);">24</span></span><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">,&nbsp;<span style="color:#0000ff;">'0'</span>),</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0000ff;">'1'</span>,</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#0000ff;">'1'</span></span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">FROM</span>&nbsp;SFISM4.R_WIP_LOG_T&nbsp;E</span></div>
+<div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#008080;">WHERE</span>&nbsp;E.SERIAL_NUMBER&nbsp;=&nbsp;<span style="color:#0000ff;">'COCO111111111'</span>)&nbsp;<span style="color:#008080;">AND</span>&nbsp;E.GROUP_NAME&nbsp;=&nbsp;<span style="color:#0000ff;">'SMTS'</span>)</span></div></div><div><span style="font-size:10pt;color:#000080;font-family:'Courier New', monospace;"><br></span></div><div>结果, 部分执行后, 一条也不会插入. Insert 操作, 根据子查询, 如果子查询为空, 那么什么都不会插入.</div><div><br></div><div>4, 高潮来了-- 去掉子查询中的WHERE后, 即SELECT 条件都是肯定有值后, 居然将表E中全部记录插入. 啊, 幸亏是测试库, 数据量不大, 但是也执行了5s. 好吧, 异常. 全部删除! &nbsp;可见根据结果集Insert还是需要慎重啊, 否则将多少垃圾数据在实际中.</div><div><br></div><div>5, 回归本意. &nbsp;最终针对NULL值单独判定, 防止意外大量数据产生.</div></body></html>

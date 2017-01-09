@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>20150126--[高速机下线][SA材料出库工单选择]高速机未下线需要调拨换线.</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+</head>
+
+<body  style="">1,背景; 未下线材料与后续材料混在一起, 无法调拨.&nbsp;<div>解决方式: 加入F_ON-&gt;Z_IN流程, 入库后再出库. 同理, 调拨增加F_ON-&gt;F_ON?&nbsp;</div><div>2,SA 高单价材料出库. 试投工单问题:</div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp;&nbsp;</font><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">SELECT</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">&nbsp;C.*,</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">ROWID</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">&nbsp;</span><span style="color: rgb(0, 128, 128); font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5;">FROM</span><span style="font-family: 'Courier New', monospace; font-size: 10pt; line-height: 1.5; color: rgb(0, 0, 128);">&nbsp;SFISM4.R_MO_STOCK_SA_SUM_T&nbsp;C</span><br></div>
+
+
+<div><span style="font-size:10pt;color:#008080;font-family:'Courier New', monospace;">WHERE<span style="color:#000080;">&nbsp;C.MO_NO&nbsp;=&nbsp;<span style="color:#0000ff;">'10473908'</span>;</span></span></div>
+<div><span style="font-style:italic;font-size:10pt;color:#ff0000;font-family:'Courier New', monospace;">/*WHERE&nbsp;C.;*/<span style="font-style:normal;color:#000080;">&nbsp;</span>--SA&nbsp;MO发料数量&nbsp;By&nbsp;KP&nbsp;Relation</span></div>
+<div><span style="font-size:10pt;color:#008080;font-family:'Courier New', monospace;">SELECT<span style="color:#000080;">&nbsp;D.*,</span>ROWID<span style="color:#000080;">&nbsp;</span>FROM<span style="color:#000080;">&nbsp;SFISM4.R_MO_STOCK_SA_DETAIL_T&nbsp;D</span></span></div>
+<span style="font-size:10pt;color:#008080;font-family:'Courier New', monospace;">WHERE<span style="color:#000080;">&nbsp;D.MO_NO&nbsp;=&nbsp;<span style="color:#0000ff;">'10473908'</span></span></span><div><font color="#0000ff" face="Courier New, monospace" size="2"><span style="line-height: 19px;"><br></span></font></div><div>同时增加KP_RELATION相应信息. 当前从999递减. 完成2比信息录入. 注意SA_DETAIL不存在时需要LOAD.<font color="#0000ff" face="Courier New, monospace" size="2"><br></font><div><br></div></div></body></html>

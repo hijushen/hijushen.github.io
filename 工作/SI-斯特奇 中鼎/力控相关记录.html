@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>力控相关记录</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style=""><div><br></div><div>1. 开发环境--安装图库运行环境，需要以管理员身份启动开发环境。</div><div>2. 运行环境--开发环境中启动，自动将所需环境运行，然后在view中打开项目即可。</div><div>3. 进程管理器。停止动作--将a.实时数据库;b.NetSever；c.I/O监控器关闭。 开启即打开。</div><div>4. 如果更改了DbManager内容，则需要重启生效。</div><div>5. 开发中，在DBManager中管理建立变量，拖动控件双击，选择表达式完成数据绑定。按钮完成内容在动作中完成。</div><div>&nbsp; &nbsp; 应用程序动作--程序运行周期执行中完成业务逻辑。</div><div><br></div><div>疑问： 1， 变量关联后，递增变量增速如何控制。</div><div><span class="Apple-tab-span" style="white-space:pre">	</span> &nbsp; 2， 通过对按钮的变量改变，完成后续变量控制，完成到顶后自动充值</div><div><span class="Apple-tab-span" style="white-space:pre">	</span> &nbsp; 3，&nbsp;</div><div><br></div><div><br></div><div>数据库的形式</div><div><br></div><div>菊花链式链接形式，RJ485连接方式。MODBUS主机网路：最多支持247个从属控制器。 ASCII和RTU传输模式</div><div>RJ485的连线方式。上位机板卡链接</div><div>上位机与下位机</div><div><br></div><div>请求I/O 设备来获取相应采集点数据信息，配置串口通讯</div><div>从实施方案看，I/O 输出485，汇总中控室，在此转以太网信号。</div><div>结果：力控系统需以MODBUS TCP/IP驱动连接配置I/O设备，以此建立相应监控点位信息。</div><div><br></div><div><br></div><div>CommServer：拓展组件。实现力控软件相互通讯，一台作为Client，一台作为Server。作为Sever的需要启动CommServer启动。相应I/O设备的启动。</div><div>配置CommServer的通讯（串口或者网络均可）。Client需要配置CommServer I/O模拟，建点时</div><div><br></div><div>CommBridge：拓展组件，通讯功能，通过连接网桥连接设备。</div><div>启动参数配置启动CommBridge。 原理：DTU一端通过串口与下位机连接，另一端配置上位机网络连接。具体ID配置</div><div>力控I/O中设置通讯方位是网桥GPRS等，厂商具体，通讯方式TCP/IP，端口号为设备，终端ID与DTU相同。</div><div><br></div><div>I/O通讯：I/O作为数据采集单位（下位机），力控通过相应设备驱动完成设备访问连接。</div><div><br></div><div>图库开发。 开发各种图形仿真工业现场。 例子中使用隐藏方式将红蓝图形交替显示。需要定义方法属性和单元内编辑，完成相应隐藏赋值表达式，最后对齐显示合为一体。</div><div>动画链接。&nbsp;</div><div><br></div><div>NetDB通过Server端运行netServer。 Client端 z&gt;建立节点-&gt;新增数据源为网络DB-&gt;相应点的连接为改网络DB即可.，</div><div>NetView 在Clinet端通过建立节点-&gt;修改系统数据源为远程节点. 两者都是C/S结构</div><div>双机冗余，主站与备份站，配置点位相同，配置对方节点，设置双击冗余设置即可。任一台机器出现故障，自动启用备份机。（复合组件，历史追忆数据）</div><div><br></div><div><br></div><div>&nbsp;窗口动作</div><div>&nbsp;应用程序动作</div><div>&nbsp;数据变化动作</div><div>&nbsp;条件动作</div><div>&nbsp;按键程序动作，组合键发生时相应脚本动作</div><div>&nbsp;脚本调试，设置断点</div><div><br></div><div>&nbsp;本地事件，--复合组件，使用。直接使用控件，本地所有事件。</div><div>&nbsp;远程事件，--复合组件，配置点变量定义-&gt;事件记录中配置记录数据源（连接文件.dsn，access文件等）--&gt;控件中定义数据源显示等。</div><div><br></div><div>&nbsp;ADO组件 --后台组件， 用于保存变量数据。以access为例子，绑定相应连接后，完成bind绑定的相应设置， 调用函数将相应bind连接的值插入数据库。可通过查看--&gt;后台控件--&gt;查看已建立ADO控件。</div><div>&nbsp;SQL查询 --后台组件，报表控件，通过连接查询相应数据。</div><div>&nbsp;ODBCRouter转储控件.力控的实时数据库与关系数据库(Access,Oracle,Mysql) 数据转储的功能。</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;六种不同转储功能比较： 1）历史记录与实时记录的区别，只有点的历史记录打开，点值变化符合要求时，相应转储时才会发生历史变更后的值，未达到历史记录要求的数据转储时只记录变化，只记录原值。 2）实时记录与实时单记录的区别，后者只记录最新一条数据，即更新动作。3）单记录与多记录的区别：行列转换，单记录只包含一行，多记录多行。 转储任务需要保存，否则关闭之后就没有了。</div><div>&nbsp; &nbsp; ODBCRouter后台控制</div><div><br></div><div><br></div><div>1.复习实时数据库，DBManager数据库管理，添加相应点，进行管理。点的类型：</div><div>&nbsp; 点名小于63个字符. 点类型是什么样的概念？相应的值代表了什么。</div><div>2.雪崩过滤点。防止无效报警的出现。--TODO</div><div>3.复合报警。--TODO</div><div>4.复习幻灯片播放。 &nbsp;flash的播放控件，自带flash图库和自定义flash的使用。</div><div>5.web发布。</div><div>6.用户配置。启动参数中选择运行时权限保护，设置用户组角色即相应权限后，限制功能。</div><div>7.图库制作，动画连接，变量管理（中间变量（全局，系统变量也包含在其中）；数据库变量</div><div>&nbsp; &nbsp;数组的使用。）</div><div>8.复习脚本系统，脚本调试，自定义函数。</div><div>9.自定义工具栏。窗口工具栏改变，--暂时不需要</div><div>10，报表控件：SQL查询，历史报表，</div><div><br></div><div>10/16</div><div>1. 功能按钮</div><div>2. 展开式菜单，前台组件，导航。</div><div>3, Email控件</div><div>4，复习odbcRouter和动画链接</div><div>5, 定时器，后台组件，运行开始结束及值</div><div>6，计时器，后台组件，运行开始结束及值</div><div>7，截屏组件，定时，设置未知与当前</div><div>8，键盘，隐藏显示。</div><div>9，累计器。根据条件触发计时，复合时间，总时间及次数。</div><div>10，批次配方。</div><div>11，时间调度，每天每周每月定时执行。--重要</div><div>12，手机短信报警</div><div>13，系统函数组件，对系统函数的封装，文件夹，对话框等。</div><div>14，语音报警组件。结合报警中心使用</div><div><br></div><div><div>力控技术：</div><div>&nbsp;力控科技上海分公司--上海力控元申信息技术有限公司 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div>&nbsp; &nbsp; Beijing Sunway Forcecontrol Technology Co.,Ltd.</div><div>&nbsp; &nbsp; 网址：www.sunwayland.com.cn&nbsp;</div><div>&nbsp; &nbsp; 吕新</div><div>&nbsp; &nbsp; Mob：18017593912 &amp; 15605187013&nbsp;</div><div>&nbsp; &nbsp; Tel: 025-83765261-18 &nbsp; Tax：025-83765261</div><div>&nbsp; &nbsp; 统一客服电话：400-898-8181 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</div><div>&nbsp; &nbsp; 地址：南京市洪武路359号福鑫国际大厦东塔2406室</div></div></body></html>

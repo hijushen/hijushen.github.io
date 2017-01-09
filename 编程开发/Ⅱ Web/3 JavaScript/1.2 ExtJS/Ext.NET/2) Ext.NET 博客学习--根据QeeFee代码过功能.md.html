@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>2) Ext.NET 博客学习--根据QeeFee代码过功能.md</title>
+</head>
+<body>
+<!--WizHtmlContentBegin-->
+<div>## Ajax.aspx</div>
+<div>- 传统的Asp.NET Ajax获取方式, 之前已记录, 传统方式.</div>
+<div>- 方法端: codebind的方法和 service wcf内的方法用WebMethod 注解, 服务类需要ScprtService注解.</div>
+<div>- 界面端:</div>
+<div>&nbsp;&nbsp;&nbsp; - 引入`&lt;asp:ScriptManager runat="server" EnablePageMethod = "true"&gt;&lt;/..&gt; `方式引入, 子标签`&lt;service&gt;&lt;asp:ServiceReference Path="" /&gt;` 引入服务.</div>
+<div>&nbsp;&nbsp;&nbsp; - 脚本准备: PageMethod.方法1 调用; 命名空间.类.方法(调用), 并提供相应回掉.</div>
+<div>&nbsp;&nbsp;&nbsp; - 控件 onclick 等对 方法加壳的 调用.</div>
+<div>&nbsp;</div>
+<div>## ComboBox.aspx</div>
+<div>- `&lt;ext:comboBox&gt;` 控件分`&lt;Store&gt; 和 &lt;ListConfig&gt;` 两部分.</div>
+<div>- ComboBox 重要的两个属性: DisplayField, ValueField 属性</div>
+<div>- `&lt;listConfig&gt;`包括`&lt;ItemTpl runat="server"&gt;&lt;Html&gt;&lt;div class = ""&gt;...` 形式, 用来定义下拉列表形式.</div>
+<div>- `&lt;ext:store&gt;` 定义相应 Model 的field `&lt;ext:ModelField&gt;` 属性, 在模板中可以使用{Age}形式完成数据占位. 属性设置. 不指定proxy,默认为memoryProxy</div>
+<div>- 分页设置</div>
+<div>&nbsp;&nbsp;&nbsp; - 客户端分页, 设置comboBox PageSize="5", 然后 Store 设置为IsPagingStore="true" PageSize="5" 完成设置. 排查：　如果comboBox不设置, 没有下一页筛选.&nbsp; 具体显示如果通过Store控制的. 所以二者设置相同即可.</div>
+<div>&nbsp;&nbsp;&nbsp; - 服务端分页.</div>
+<div>&nbsp;</div>
+<div>## Store.aspx || Store2.axpx || Store3.aspx</div>
+<div>### Store.axpx</div>
+<div>- `&lt;ext:panel&gt;` 包括 Items 和 BottomBar 两部分.</div>
+<div>- `&lt;BottomBar&gt;`部分:&nbsp; 设置ID和 StoreID绑定数据源部分, 用来翻页. 设置Store的分页大小PageSize="5"即可, 这是客户端分页方式.</div>
+<div>- Items下 -&gt; `&lt;ext:DataView&gt;`包括 Store,Tpl,Listener三部分对应数据源, 模板, 事件处理三部分: 本身增加属性`ItemSelector=".info"` `SelectedItemCls="info-selected"`用来做样式显示</div>
+<div>&nbsp;&nbsp;&nbsp; - Store部分: model 部分定义字段, 自身定义分页 pageSize="5"等.</div>
+<div>&nbsp;&nbsp;&nbsp; - Tpl 用于定义数据显示模板, `&lt;tpl for="."&gt; `用于循环显示列表组数据.</div>
+<div>&nbsp;&nbsp;&nbsp; - Listeners部分, 增加`&lt;SelectionChange Fn=..&gt;`事件部分处理, 譬如例子中的展示界面内容. selectionChange 处理参数(selectionModel,selected)属性.</div>
+<div>&nbsp;</div>
+<div>### Store2.aspx</div>
+<div>- 代码大部分同 Store.aspx, 增加功能及改变如下:</div>
+<div>- 服务端份分页, Store 下增加 Proxy. 设置`&lt;ext:AjaxProxy Url=..&gt;`方式设置一般处理程序地址. 下定义`&lt;ActionMethods Read="GET" /&gt;` `&lt;ext:JsonReader Root="data" /&gt;` 方式设置代理. 分页参数由 PagingToolbar 自动处理你.</div>
+<div>- 服务器过滤 和 排序. Store 设置远程过滤和排序允许.&nbsp; 过滤通过自写界面js方法中转,&nbsp; 排序直接使用 store排序</div>
+<div>&nbsp;</div>
+<div>### Store3.aspx</div>
+<div>- 采用 `OnReadData = ""`时间方式处理, 参数包括 时间参数StoreReadDataEventArgs 包括Start Limit等方式.</div>
+<div>&nbsp;</div>
+<div>### Frameset.aspx </div>
+<div>- 窗口布局, 主界面等, 常用控件使用.</div>
+<div>- </div>
+<!--WizHtmlContentEnd-->
+</body>
+</html>

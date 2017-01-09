@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>[第二次架构梳理]--8/31--下午（XMMPClient.cs 解析）</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style><link type="text/css" rel="stylesheet" id="wiz_code_highlight_link" href="[第二次架构梳理]--8-31--下午（XMMPClient.cs 解析）_files/wiz_code_highlight_34.css"></head>
+
+<body  style="">1. &nbsp;定义了一堆委托，重要的消息处理：&nbsp;conn.OnMessage。<div><font face="Microsoft YaHei UI">&nbsp; &nbsp; --方法体中， 对XMPP消息事件EventArgs中从Message转换成MessageArgs。消息主要报文格式：</font><br></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">MessageEventArgs</span><span class="pun">()</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pln">            </span><span class="pun">{</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-cs"><span class="pln">                deviceType </span><span class="pun">=</span><span class="pln"> </span><span class="typ">ClientDeviceType</span><span class="pun">.</span><span class="pln">UNKNOWN</span><span class="pun">;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-cs"><span class="pln">                hasDeal </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-cs"><span class="pln">            </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> message </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> account </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> sendtime </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> to </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">string</span><span class="pln"> id </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> bool isChatroom </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> bool hasRead </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> bool hasDeal </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-cs"><span class="pln">            </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">ClientDeviceType</span><span class="pln"> deviceType </span><span class="pun">{</span><span class="pln"> get</span><span class="pun">;</span><span class="pln"> </span><span class="typ">set</span><span class="pun">;</span><span class="pln"> </span><span class="pun">}</span></code></li></ol></pre></div><div>2.<span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 针对初始化消息的时候，chat， groupchat类型操作，groupchat作业完之后直接退出？【疑问？--为什么不做后续消息处理】</span></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">message不为空的情况下执行相应的异步执行委托。（在单个消息处理后执行）【疑问？--如何保证不间断收取消息？事件注册后执行？】</span></div></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">3.</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; MessageQue 的入队操作。 【相应对Message队列的处理操作在什么地方？ --在global中完成messageHandle的init操作】</span></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">4.</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 进入【MessageHandler.cs】完成相信消息的处理解析。</span></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">5.</span><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp; 相应系统消息类型。</span></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 公告Type=1004， subType=2.。</font><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-html"><span class="tag">&lt;message</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"xxxx"</span><span class="pln">  </span><span class="atn">from</span><span class="pun">=</span><span class="atv">"900@im.on-con.com"</span><span class="atn">to</span><span class="pun">=</span><span class="atv">"123@ im.on-con.com"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"chat"</span><span class="tag">&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-html"><span class="tag">&lt;body&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-html"><span class="pln">m1_extend_msg@@@sitech-oncon@@@v1.0|||type=1004|||subtype=2|||bizid=xxx|||biztype=yiwen_t1_900|||title=xxx|||sender=xxx|||optime=xxx</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-html"><span class="tag">&lt;/body&gt;</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-html"><span class="tag">&lt;/message&gt;</span></code></li></ol></pre></div><div>6.<span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;">&nbsp; &nbsp;&nbsp;</span></div></div><div><span style="font-family: 'Microsoft YaHei UI'; font-size: 10.5pt; line-height: 1.5;"><br></span></div></body></html>

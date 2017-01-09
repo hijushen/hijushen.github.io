@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>【第三次】9/1 找专家，短流程逻辑</title>
+
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<link type="text/css" rel="stylesheet" id="wiz_code_highlight_link" href="【第三次】9-1 找专家，短流程逻辑_files/wiz_code_highlight_44.css"></head>
+
+<body style="" >1. &nbsp;手机端 从专家列表找找专家。<div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 生成一个新的GroupID，作为区分标识，PC端左侧展示列表。</font><br></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 手机可评价（评价完成，默认结案），PC端专家可办结（==申请结案）</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 存储信息位于本地数据库， 后续需要对聊天GroupID 进行区分， 标记为相应信息，传yi阅等功能未实现等。</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; DB地址。yiwen/history/手机号，用户名如13011111111/messageCenter.db3. （同目录下 yinwen_3333_@开头代表聊天记录等）后续需要更名messageCenter，将相应的GroupID进行标记。</font><font face="Microsoft YaHei UI"><br></font></div><div><font face="Microsoft YaHei UI">&nbsp; &nbsp; 每次收到时，存储信息进 ChatroomClickedRecord.db3 等聊天组信息。<br></font></div><div><font face="Microsoft YaHei UI">Account为问题ID。</font></div><div><img src="【第三次】9-1 找专家，短流程逻辑_files/bcd4b005-f4d9-426d-a5cd-dcff6af66f16.png" border="0" alt="" name="" width="539" height="228"><font face="Microsoft YaHei UI"><br></font></div><div><img src="【第三次】9-1 找专家，短流程逻辑_files/fd366fe3-900f-4cfd-baf9-50f9b7f8fd0e.png" border="0" alt="" name="" width="606" height="167"><br></div><div><br></div><div><span data-wiz-span="data-wiz-span" style="font-size: 8pt;"><b><u>Account对应的文件，保留了相应的聊天记录。 如yiwen_1_13044444444_0_179728798@conference.eask.teamshub.com.db3</u></b></span></div><div><br></div><div>引申：</div><div><font face="Microsoft YaHei UI">提问题，问题同步，从本地读取，加载时从服务器同步至本地SQLite，然后IM方式增量更新本地SQLite，完成读取等操作。</font></div><div><font face="Microsoft YaHei UI">对应的文件：yw_messageCenter.db3. 相应列的值为相应的属性。</font></div><div><img src="【第三次】9-1 找专家，短流程逻辑_files/f2f45b99-36b4-46d8-9050-04f5e10be5e2.png" border="0" alt="" name="" width="822" height="194"><font face="Microsoft YaHei UI"><br></font></div><div><br></div><div><br></div><div>相应修改记录：</div><div>--9/3日完成修改及对应标记如下：</div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-sql"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-sql"><span class="pln">CREATE TABLE </span><span class="typ">MessageCenterRecord</span><span class="pln"> </span><span class="pun">(</span><span class="pln"> </span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-sql"><span class="pln">    ID          INTEGER         PRIMARY KEY AUTOINCREMENT</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-sql"><span class="pln">    </span><span class="typ">Account</span><span class="pln">     VARCHAR</span><span class="pun">(</span><span class="pln"> </span><span class="lit">512</span><span class="pln"> </span><span class="pun">)</span><span class="pln">  NOT NULL</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-sql"><span class="pln">    </span><span class="typ">Type</span><span class="pln">        INTEGER</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-sql"><span class="pln">    </span><span class="typ">Name</span><span class="pln">        TEXT</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-sql"><span class="pln">    lastMessage TEXT</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-sql"><span class="pln">    lastTime    VARCHAR</span><span class="pun">(</span><span class="pln"> </span><span class="lit">128</span><span class="pln"> </span><span class="pun">),</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-sql"><span class="pln">    </span><span class="typ">EnterCode</span><span class="pln">   VARCHAR</span><span class="pun">(</span><span class="pln"> </span><span class="lit">256</span><span class="pln"> </span><span class="pun">),</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-sql"><span class="pln">    </span><span class="typ">UnReadCount</span><span class="pln"> INTEGER</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-sql"><span class="pln">    </span><span class="typ">HongDan</span><span class="pln">	BOOLEAN</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-sql"><span class="pln">    </span><span class="typ">ChuanYue</span><span class="pln">	BOOLEAN</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-sql"><span class="pln">    </span><span class="typ">GroupState</span><span class="pln">	INTEGER</span><span class="pun">,</span><span class="pln">	</span><span class="pun">--讨论组状态，</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">,</span><span class="lit">3</span><span class="pun">等。</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-sql"><span class="pln">    </span><span class="typ">ExpertSid</span><span class="pln">	VARCHAR</span><span class="pun">(</span><span class="lit">128</span><span class="pun">),</span><span class="pln">	</span><span class="pun">--首席专家手机号</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-sql"><span class="pln">    </span><span class="typ">SubjectSname</span><span class="pln">	VARCHAR</span><span class="pun">(</span><span class="lit">128</span><span class="pun">),</span><span class="pln"> </span><span class="pun">--聊天室主题</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-sql"><span class="pln">    </span><span class="typ">PrompoterCname</span><span class="pln">	VARCHAR</span><span class="pun">(</span><span class="lit">128</span><span class="pun">),</span><span class="pln"> </span><span class="pun">--提问人，发起人</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-sql"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-sql"><span class="pun">);</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-sql"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-sql"><span class="pun">找专家数据库修改</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-sql"><span class="pun">添加标记，传阅标志位,</span><span class="pln"> </span><span class="pun">--</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-sql"><span class="pln">    </span><span class="pun">--</span><span class="typ">BiaoJi</span><span class="pln">          BOOLEAN</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-sql"><span class="pln">    </span><span class="pun">--</span><span class="typ">ChuanYue</span><span class="pln">         BOOLEAN</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-sql"><span class="pun">讨论组状态(待处理，已结案，已评价)数据表字段.</span><span class="pln"> </span><span class="pun">--</span><span class="typ">QuestionState</span><span class="pln">    INTEGER</span><span class="pun">,</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-sql"><span class="pun">首席专家手机号=--</span><span class="pln"> VARCHAR</span><span class="pun">(</span><span class="pln"> </span><span class="lit">128</span><span class="pln"> </span><span class="pun">),</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-sql"><span class="pun">群组创建人，提问人</span><span class="pln"> </span><span class="pun">--主题</span><span class="pln">        </span><span class="typ">QuestionCname</span><span class="pln">    VARCHAR</span><span class="pun">(</span><span class="pln"> </span><span class="lit">128</span><span class="pln"> </span><span class="pun">),</span><span class="pln">     </span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-sql"><span class="pun">主题</span><span class="pln"> </span><span class="pun">--</span><span class="pln">    VARCHAR</span><span class="pun">(</span><span class="pln"> </span><span class="lit">128</span><span class="pln"> </span><span class="pun">),</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-sql"><span class="pun">修改以及新增相关</span><span class="pln">db api</span><span class="pun">.</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L8"><code class="language-sql"><span class="pun">对应消息属性值：</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L9"><code class="language-sql"><span class="pun">标记：</span><span class="pln"> </span><span class="typ">Questionmark</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-sql"><span class="pun">传阅：</span><span class="pln"> </span><span class="typ">Questionread</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-sql"><span class="pun">状态：　</span><span class="typ">QuestionState</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-sql"><span class="pun">首席专家手机号：　</span><span class="typ">QuestionSid</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-sql"><span class="pun">群组创建人：</span><span class="pln">	</span><span class="typ">QuestionCname</span><span class="pun">？？</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-sql"><span class="pun">聊天室主题：</span><span class="pln">	</span><span class="typ">QuestionSname</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-sql"></code></li><li style="list-style-type: none; padding-left: 0px;" class="L6"><code class="language-sql"><span class="pun">----</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L7"><code class="language-sql"><span class="pun">传阅，办结，都有一个</span><span class="pln">OP_Time</span><span class="pun">。消息延迟的问题。</span></code></li></ol></pre></div><div><br></div></div><div><br></div></body></html>

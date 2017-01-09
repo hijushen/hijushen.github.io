@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>使用Task</title>
+
+
+
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.07">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label {margin-top: 8px; margin-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style>
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+</style>
+</head>
+
+<body style="" ><pre style="font-family:Consolas;font-size:15;color:#dadada;background:#1e1e1e;"><span style="color:#569cd6;">static</span>&nbsp;<span style="color:#569cd6;">void</span>&nbsp;<span style="color:gainsboro;">Main</span>(<span style="color:#569cd6;">string</span>[]&nbsp;<span style="color:gainsboro;">args</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Task</span>&nbsp;<span style="color:gainsboro;">t</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">Task</span>(()&nbsp;<span style="color:#b4b4b4;">=&gt;</span>&nbsp;<span style="color:#57a64a;">//可以使用delegata()&nbsp;使用</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"任务开始工作..."</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Thread</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Sleep</span>(<span style="color:#b5cea8;">5000</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Start</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ContinueWith</span>((<span style="color:gainsboro;">task</span>)&nbsp;<span style="color:#b4b4b4;">=&gt;</span>&nbsp;<span style="color:#57a64a;">//&nbsp;可以使用delegate(Task&nbsp;task)&nbsp;使用&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"作业完成,完成时的状态为:&nbsp;"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"IsCancel={0}\tIsCompleted={1}\tIsFaulted={2}"</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsCanceled</span>,&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsCompleted</span>,&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsFaulted</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ReadKey</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</pre><pre style="font-family:Consolas;font-size:15;color:#dadada;background:#1e1e1e;"><pre style="font-family: Consolas; background-position: initial initial; background-repeat: initial initial;"><span style="color:#569cd6;">static</span>&nbsp;<span style="color:#569cd6;">void</span>&nbsp;<span style="color:gainsboro;">Main</span>(<span style="color:#569cd6;">string</span>[]&nbsp;<span style="color:gainsboro;">args</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span style="color:#9b9b9b;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#region</span>&nbsp;复杂的Task支持完成通知\取消\获取任务返回值
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">CancellationTokenSource</span>&nbsp;<span style="color:gainsboro;">cts</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">CancellationTokenSource</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Task</span><span style="color:#b4b4b4;">&lt;</span><span style="color:#569cd6;">int</span><span style="color:#b4b4b4;">&gt;</span>&nbsp;<span style="color:gainsboro;">t</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">Task</span><span style="color:#b4b4b4;">&lt;</span><span style="color:#569cd6;">int</span><span style="color:#b4b4b4;">&gt;</span>(()&nbsp;<span style="color:#b4b4b4;">=&gt;</span>&nbsp;<span style="color:gainsboro;">Add</span>(<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Token</span>),&nbsp;<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Token</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Start</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ContinueWith</span>(<span style="color:gainsboro;">TaskEnded</span>);
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ReadKey</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Cancel</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ReadKey</span>();
+<span style="color:#9b9b9b;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#endregion</span></pre><pre style="font-family: Consolas; background-position: initial initial; background-repeat: initial initial;"><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(155, 155, 155);">}</span></pre><pre style="font-family: Consolas; background-position: initial initial; background-repeat: initial initial;"><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;&nbsp;&nbsp; </span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(86, 156, 214);">static</span><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(86, 156, 214);">void</span><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(220, 220, 220);">TaskEnded</span><span style="font-size: 10.5pt; line-height: 1.5;">(</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(78, 201, 176);">Task</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(180, 180, 180);">&lt;</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(86, 156, 214);">int</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(180, 180, 180);">&gt;</span><span style="font-size: 10.5pt; line-height: 1.5;">&nbsp;</span><span style="font-size: 10.5pt; line-height: 1.5; color: rgb(220, 220, 220);">task</span><span style="font-size: 10.5pt; line-height: 1.5;">)</span></pre><pre style="font-family: Consolas; background-position: initial initial; background-repeat: initial initial;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"任务完成,&nbsp;完成时的状态为:&nbsp;"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"IsCanceled={0}\tIsCompleted={1}\tIsFaulted={2}"</span>,<span style="color:gainsboro;">task</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsCanceled</span>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">task</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsCompleted</span>,<span style="color:gainsboro;">task</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsFaulted</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"任务返回值为:&nbsp;{0}"</span>,&nbsp;<span style="color:gainsboro;">task</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Result</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">static</span>&nbsp;<span style="color:#569cd6;">int</span>&nbsp;<span style="color:gainsboro;">Add</span>(<span style="color:#4ec9b0;">CancellationToken</span>&nbsp;<span style="color:gainsboro;">ct</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"任务开始...&nbsp;...."</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">int</span>&nbsp;<span style="color:gainsboro;">result</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#b5cea8;">0</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">while</span>(<span style="color:#b4b4b4;">!</span><span style="color:gainsboro;">ct</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsCancellationRequested</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">result</span><span style="color:#b4b4b4;">++</span>;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Thread</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Sleep</span>(<span style="color:#b5cea8;">1000</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">return</span>&nbsp;<span style="color:gainsboro;">result</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</pre><pre style="font-family: Consolas; background-position: initial initial; background-repeat: initial initial;">//使用taskFactory完成批量任务修改</pre><pre style="font-family: Consolas; background-position: initial initial; background-repeat: initial initial;"><span style="color:#4ec9b0;">CancellationTokenSource</span>&nbsp;<span style="color:gainsboro;">cts</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">CancellationTokenSource</span>();
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">TaskFactory</span>&nbsp;<span style="color:gainsboro;">taskFactory</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">TaskFactory</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Task</span>[]&nbsp;<span style="color:gainsboro;">tasks</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">Task</span>[]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">taskFactory</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">StartNew</span>(()&nbsp;<span style="color:#b4b4b4;">=&gt;</span>&nbsp;<span style="color:gainsboro;">Add</span>(<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Token</span>)),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">taskFactory</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">StartNew</span>(()&nbsp;<span style="color:#b4b4b4;">=&gt;</span>&nbsp;<span style="color:gainsboro;">Add</span>(<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Token</span>)),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">taskFactory</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">StartNew</span>(()&nbsp;<span style="color:#b4b4b4;">=&gt;</span>&nbsp;<span style="color:gainsboro;">Add</span>(<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Token</span>))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;};
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">taskFactory</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ContinueWhenAll</span>(<span style="color:gainsboro;">tasks</span>,&nbsp;<span style="color:gainsboro;">TasksEnded</span>,&nbsp;<span style="color:#4ec9b0;">CancellationToken</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">None</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ReadKey</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Cancel</span>();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ReadKey</span>()</pre></pre>
+
+
+
+</body></html>

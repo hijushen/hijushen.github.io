@@ -1,0 +1,216 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>自托管(也做自承载)</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+自托管(也做自承载)<br/>
+&nbsp;&nbsp;&nbsp; 承载 WCF 服务最灵活、最便捷的方法就是进行自承载。要能够自承载服务，必须满足两个条件。第一，需要 WCF 运行时；第二，需要可以承载 ServiceHost 的托管 .NET 应用程序。您需要自己动手编写启动和停止宿主的代码。<br/>
+什么时候使用自托管？<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 当应用程序的各个组件之间需要相互通信，或者在一个本地环境中，客户端和事务的数量都十分受限是常使用自托管。对于企业级方案来说不应考虑自承载方式。自承载适用于企业项目的开发或演示阶段。此外，当您希望用户桌面应用程序进行相互通信或在点对点情况下，可以对服务进行自承载。<br/>
+自承载的优点：<br/>
+• 易用性：只需几行代码即可使服务运行。<br/>
+• 灵活性：通过 ServiceHost&lt;T&gt; 的 Open() 和 Close() 方法，可以轻松控制服务的生存期。<br/>
+• 易调试性：可以使用熟悉的调试方式对自承载环境中承载的 WCF 服务进行调试，而不必连接到单个应用程序来激活服务。<br/>
+• 易部署性：通常，部署简单 Windows 应用程序与使用 xcopy 一样容易。您不必在服务器场和类似地方部署复杂的方案，即可部署简单的 Windows 应用程序来充当 WCF ServiceHost。<br/>
+• 支持所有绑定和传输：自承载并不限制您仅能使用现有的绑定和传输技术。在 Windows XP 和 Windows Server 2003 上，IIS 限制您只能使用 HTTP。（备注：II6以下）<br/>
+下面是自承载的缺点：<br/>
+•可用性受到限制：服务只有在应用程序运行时才能被访问。<br/>
+•功能受到限制：自承载的应用程序在对高可用性、易管理性、可靠性、可恢复性、版本控制和部署方案的支持方面受到一定限制。至少，现有的 WCF 无法提供这些支持，因此在自承载的情况中，您必须自己实现这些功能；例如，默认情况下 IIS 提供了这些功能中几项。<br/>
+下面是一个小例子<br/><br/>
+&nbsp; using System.ServiceModel;<br/>
+&nbsp;<br/>
+&nbsp; namespace Halower.SelfHost<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [ServiceContract(Namespace = &quot;http://www.cnblogs.com/rohelm&quot;)]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public interface ICalcuContract<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double Add(int x, int y);<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double Substrate(int x, int y);<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double Multiply(int x, int y);<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; double Divide(int x, int y);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+ICalcuContract<br/><br/>
+&nbsp; namespace Halower.SelfHost<br/>
+&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public class CalculatorService : ICalcuContract<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public double Add(int x, int y)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x + y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public double Substrate(int x, int y)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x - y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public double Multiply(int x, int y)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x * y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public double Divide(int x, int y)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x / y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+CalculatorService<br/><br/>
+using System;<br/>
+using System.ServiceModel;<br/>
+using System.ServiceModel.Description;<br/><br/>
+namespace Halower.SelfHost<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; internal class Program<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private static void Main(string[] args)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uri[] baseAddresses = new Uri[] {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Uri(&quot;http://localhost:10101/CalculatorService&quot;),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Uri(&quot;net.tcp://localhost:10102/CalculatorService&quot;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; using (ServiceHost host = new ServiceHost(typeof(CalculatorService), baseAddresses))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host.AddDefaultEndpoints();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host.Open();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;WCF服务已经启动！&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; foreach (var endpoint in host.Description.Endpoints)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;\t&quot; + endpoint.Address.Uri.ToString());<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.ReadKey();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; catch (CommunicationException ex)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host.Abort();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+Host<br/>
+&nbsp; 虽然我们知道每一个服务的实现只能有一个serviceHost,但是可以公开多个终结点和接口，同理，我们可以在同一个进程中创建多个serviceHost，而且我们有时候有需求控制他们的启动顺序，我们就是可以尝试着使用一下serviceHost异步启动的方式。<br/><br/>
+using System;<br/>
+using System.ServiceModel;<br/><br/>
+namespace Halower.SelfHost<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp; internal class Program<br/>
+&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private static void Main(string[] args)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uri[] baseAddresses = new Uri[] {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Uri(&quot;http://localhost:10101/CalculatorService&quot;),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new Uri(&quot;net.tcp://localhost:10102/CalculatorService&quot;)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; using (ServiceHost host = new ServiceHost(typeof(CalculatorService), baseAddresses))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host.AddDefaultEndpoints();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IAsyncResult result = host.BeginOpen(new AsyncCallback(ServiceHostOpenCallBack), null);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (!result.IsCompleted)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;做一些与服务无关的事情&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.ReadKey();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; private static void ServiceHostOpenCallBack(IAsyncResult ar)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;服务1已经启动！&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ServiceHost host2 = new ServiceHost(typeof(CalculatorService), new Uri(&quot;http://localhost:10103/CalculatorService&quot;));<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;服务2即将启动!&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host2.Open();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;服务2已经启动！&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; host2.Close();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+viceHost使用异步<br/>
+有时候需要自定义serviceHost？<br/>
+有些时候，我们需要在不同的地方重用配置参数相同的同一个ServiceHost类，例如，我们已经创建了一个ServiceHost对象，可以用编码的方式控制服务配置或者部分配置。在这种情况下，如果使用这个类，就需要扩展并编写自定义的ServiceHost类的实现。<br/>
+如，.NET Framework 提供了专门宿主实现,都极大的方便了我们的操作，而不去自己配置某些关键项：<br/>
+orkflowServiceHost 类，为基于工作流的服务提供宿主。<br/>
+ebServiceHost 类，它是对 Windows Communication Foundation (WCF) REST 编程模型的补充&nbsp;<br/><br/>
+[ServiceContract]<br/>
+public interface ICalculator<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp; [WebInvoke(UriTemplate = &quot;add?x={x}&amp;y={y}&quot;)]<br/>
+&nbsp;&nbsp;&nbsp; long Add(long x, long y);<br/><br/>
+&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp; [WebInvoke(UriTemplate = &quot;sub?x={x}&amp;y={y}&quot;)]<br/>
+&nbsp;&nbsp;&nbsp; long Subtract(long x, long y);<br/><br/>
+&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp; [WebInvoke(UriTemplate = &quot;mult?x={x}&amp;y={y}&quot;)]<br/>
+&nbsp;&nbsp;&nbsp; long Multiply(long x, long y);<br/><br/>
+&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp; [WebInvoke(UriTemplate = &quot;div?x={x}&amp;y={y}&quot;)]<br/>
+&nbsp;&nbsp;&nbsp; long Divide(long x, long y);<br/><br/>
+&nbsp;&nbsp;&nbsp; [OperationContract]<br/>
+&nbsp;&nbsp;&nbsp; [WebGet(UriTemplate = &quot;hello?name={name}&quot;)]<br/>
+&nbsp;&nbsp;&nbsp; string SayHello(string name);<br/>
+}<br/><br/>
+public class CalcService : ICalculator<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp; public long Add(long x, long y)<br/>
+&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x + y;<br/>
+&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp; public long Subtract(long x, long y)<br/>
+&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x - y;<br/>
+&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp; public long Multiply(long x, long y)<br/>
+&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x * y;<br/>
+&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp; public long Divide(long x, long y)<br/>
+&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return x / y;<br/>
+&nbsp;&nbsp;&nbsp; }<br/><br/>
+&nbsp;&nbsp;&nbsp; public string SayHello(string name)<br/>
+&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return &quot;Hello &quot; + name;<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+}<br/><br/>
+class Program<br/>
+{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; static void Main(string[] args)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Uri baseAddress = new Uri(&quot;http://localhost:8000/&quot;);<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WebServiceHost svcHost = new WebServiceHost(typeof(CalcService), baseAddress);<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svcHost.Open();<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;Service is running&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;Press enter to quit...&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.ReadLine();<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svcHost.Close();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; catch (CommunicationException cex)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Console.WriteLine(&quot;An exception occurred: {0}&quot;, cex.Message);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svcHost.Abort();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+}<br/>
+WebServiceHostDemo<br/>
+&nbsp;&nbsp;&nbsp; 自定义ServiceHost类说起来用以做起来难，简单的说，如果我们直接继承自ServiceHost，我们要从读取配置文件读取参数后修改他们就重写ServiceHost类的ApplyConfiguration，如果是在宿主创建之前修改配置参数，就可重写ServiceHost类的Opening方法。<br/>
+IIS承载<br/>
+&nbsp; 在 IIS 上的 Web 服务开发长期以来一直是 ASP.NET 的领地。ASP.NET 1.0 发布后，Web 服务框架成为它的一部分。Microsoft 利用 ASP.NET HTTP 管道使 Web 服务在 Windows 平台上成为现实。遗憾的是，ASP.NET 和 Web 服务之间的这种紧密耦合在面向服务的世界中产生了几个限制，对 HTTP 的依赖性是主要原因。在不同宿主上运行 ASP.NET HTTP 管道很困难，因此很少采用这种方案。甚至在此后，ASP.NET Web 服务（也称为 ASMX 服务）在部署方案和配置依赖性方面一直是非常面向 Web 的。Microsoft 最初发布了几个版本的 Web 服务增强 (WSE)，以弥补 ASP.NET Web 服务的某些局限，尤其是消除在实现 WS-* 协议方面的限制。但是，WSE 非常依赖于 ASP.NET Web 服务实现。<br/>
+WCF 服务采用了完全不同的途径来实现面向服务。WCF 的统一编程模型基于严格分层的模型，以分解面向 Web 的范例，并使服务模型和通道层与受支持的传输方式断开连接。此模型允许 WCF 支持几个不同的宿主，其中 IIS 是最重要的。<br/>
+构建 WCF 是为了支持 Windows XP、Windows Server 2003、Windows Vista 和 Windows Server 2007。自从 IIS 5.1（与 Windows XP 一起发布）以来，有了很多变化。但是，Microsoft 仍然继续支持旧版上的 WCF。这可能是因为 Microsoft .NET Framework 和 CLR 提供的功能所导致的，该功能是构建 WCF 的基础。<br/>
+&nbsp; IIS 7.0 推动了 Web 服务器领域中的又一重大演进。可以在图中看到两个重要改变。第一，现在特定于协议的侦听器适配器支持所有四种 WCF 传输，而不是仅限于 IIS 6.0 中的 HTTP 传输。此外，出现了称为 Windows 激活服务 (WAS) 的新操作系统服务。W3svc.exe 和 WAS 都运行在称为 SvcHost.exe 的操作系统宿主的内部。为了能够将 IIS 6.0 进程模型的强大功能与 WCF 结合使用，则需要进行这些更改。您可能会问“为什么？”好的，WCF 服务也工作在 IIS 5.1 和 IIS 6.0 中，那么，通过在 IIS 中推广进程模型和激活功能可以获得什么好处呢？很简单：通过推广激活概念使它与协议无关，而不是绑定到 HTTP，可以将平台的激活功能扩展到几乎所有传输类型。<br/>
+.<br/>
+IIS 7.0 进程模型体系结构<br/><br/>
+&nbsp; HTTP、TCP/IP、命名管道和 MSMQ 的特定于协议的侦听器适配器运行于它们自己的进程内部，并将特定传输桥接到 WAS。侦听器适配器要求 WAS 激活工作进程，然后将实际通信转交给这些工作进程内部的特定协议处理程序。因此，WAS 现在拥有 W3svc.exe 中具备的所有功能。通过将此责任拆分成多个单独的进程，其他三种传输也受益于过去内置在 IIS 6.0 中但只用于 HTTP 的进程模型和激活功能。总而言之，使用 IIS 7.0 可以跨越 IIS 中提供的任何传输类型承载任何 WCF 服务。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IIS承载WCF服务的功能建立在Asp.net HTTP管道的基础上，这意味着这类宿主你支持HTTP/HTTPS传输协议。ASP.NET HTTP 管道有HTTP处理器（HTTP Handler）和HTTP模块（HTTP Module）两个概念。尽管HTTP处理器是一个特殊类，可以用它截获及处理传入及传出的信息，但是HTTP处理器会专门负责处理特定的消息。当吧一个扩展名映射到一个实现IHttpHandler接口的类时，就会启动HTTP处理器。在WCF环境下，.svc文件是用来标识服务的扩展名。<br/>
+IIS承载WCF服务的的实现很简单，可是使用VS的一键发布工具轻松完成，以下是几个需要注意的地方：<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 1.按需选择激活HTTP非HTTP协议功能<br/>
+&nbsp; 2.为新建的网站按需添加的协议类型的绑定,为相应的应用程序也添加必须的协议<br/>
+&nbsp; 3.如果安装了 .NET Framework 4，随后启用了 .NET Framework 3.5WCF HTTP 激活，则会发生如下错误。<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp; 若要解决该问题，请在 Visual Studio 命令提示符下运行下面的命令行：aspnet_regiis.exe -i -enable
+</div>

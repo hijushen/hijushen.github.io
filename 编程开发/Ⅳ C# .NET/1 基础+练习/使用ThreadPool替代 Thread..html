@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>使用ThreadPool替代 Thread.</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: "Microsoft YaHei UI","Microsoft YaHei",SimSun,"Segoe UI",Tahoma,Helvetica,Sans-Serif,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+
+</style>
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.07">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label {margin-top: 8px; margin-bottom: 8px; line-height: 1;} .wiz-todo-label-checked { /*text-decoration: line-through;*/ color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style="">使用下面的地方,替代方案:<div>使用前:<br><div><pre style="font-family:Consolas;font-size:15;color:#dadada;background:#1e1e1e;"><span style="color:#4ec9b0;">Thread</span>&nbsp;<span style="color:gainsboro;">t</span>&nbsp;<span style="color:#b4b4b4;">=</span>&nbsp;<span style="color:#569cd6;">new</span>&nbsp;<span style="color:#4ec9b0;">Thread</span>(()&nbsp;<span style="color:#b4b4b4;">=&gt;</span>
+{
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">while</span>&nbsp;(<span style="color:#569cd6;">true</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">if</span>&nbsp;(<span style="color:gainsboro;">cts</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">IsCancellationRequested</span>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#d69d85;">"线程被取消"</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#569cd6;">break</span>;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Console</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">WriteLine</span>(<span style="color:#4ec9b0;">DateTime</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Now</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">ToString</span>());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color:#4ec9b0;">Thread</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Sleep</span>(<span style="color:#b5cea8;">1000</span>);
+&nbsp;&nbsp;&nbsp;&nbsp;}
+});
+ 
+<span style="color:gainsboro;">t</span><span style="color:#b4b4b4;">.</span><span style="color:gainsboro;">Start</span>();</pre><pre style="background-position: initial initial; background-repeat: initial initial;">替代方案:</pre><pre style="background-position: initial initial; background-repeat: initial initial;"><pre style="font-family: Consolas; background-color: rgb(30, 30, 30); background-position: initial initial; background-repeat: initial initial;"><span style="color: rgb(78, 201, 176);">ThreadPool</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">QueueUserWorkItem</span><font color="#dadada">((</font><span style="color: rgb(220, 220, 220);">objState</span><font color="#dadada">)&nbsp;</font><span style="color: rgb(180, 180, 180);">=&gt;</span><font color="#dadada">&nbsp;&nbsp;</font><span style="color: rgb(87, 166, 74);">//object为WaitCallBack要执行的方法,不能少</span><font color="#dadada">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">while</span><font color="#dadada">(</font><span style="color: rgb(86, 156, 214);">true</span><font color="#dadada">)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">if</span><font color="#dadada">&nbsp;(</font><span style="color: rgb(220, 220, 220);">cts</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">IsCancellationRequested</span><font color="#dadada">)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(78, 201, 176);">Console</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">WriteLine</span><font color="#dadada">(</font><span style="color: rgb(214, 157, 133);">"线程被取消"</span><font color="#dadada">);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(86, 156, 214);">break</span><font color="#dadada">;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(78, 201, 176);">Console</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">WriteLine</span><font color="#dadada">(</font><span style="color: rgb(78, 201, 176);">DateTime</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">Now</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">ToString</span><font color="#dadada">());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font><span style="color: rgb(78, 201, 176);">Thread</span><span style="color: rgb(180, 180, 180);">.</span><span style="color: rgb(220, 220, 220);">Sleep</span><font color="#dadada">(</font><span style="color: rgb(181, 206, 168);">1000</span><font color="#dadada">);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</font><font color="#ff0000"><span data-wiz-span="data-wiz-span" style="font-size: 12pt;"><b><i><span data-wiz-span="data-wiz-span" style="font-size: 14pt;">null</span></i></b></span></font><font color="#dadada">);&nbsp;</font><span style="color: rgb(87, 166, 74);">//</span><font color="#ff0000">null可删除有重载,代表方法是用数据object</font></pre></pre><pre style="background-position: initial initial; background-repeat: initial initial;"><br></pre></div></div></body></html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>【第四次】9/2 提问题流程梳理及近期版本修改-- for shujz</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style></head>
+
+<body  style=""><div>转派，办结，都放到待结案中。(调度员正常，可转派专家等不正常，<span style="background-color: rgb(255, 215, 0);">修改</span>)</div><div><br></div><div>IM收到【结案通知】【撤单通知】后，删除待结案（保守删除待分配，待处理，待结案），移动到历史。</div><div><br></div><div><span data-wiz-span="data-wiz-span" style="font-size: 8pt;">51 --消息状态通知</span></div><div><span data-wiz-span="data-wiz-span" style="font-size: 8pt;">94 工单状态通知（提问题业务的工单）</span></div><div><span data-wiz-span="data-wiz-span" style="font-size: 8pt;"><br></span></div><div>check_need_deal 判断是否自己处理的单子</div><div>is_dispatcher 是否调度员角色</div><div>只有【退单】有角色属性判断？</div><div>--Ywgolbal.cs 中YwUiStateChange() 方法UI处理方法，包括绑定集合的处理。</div><div>当前存在MainPage.cs 中根据 角色禁用待结案消息</div><div><br></div><div><br></div><div>同步部分：</div><div>YwJieanPage.xaml.cs 中sync_question开头方法同步待结案列表。--</div><div>----</div><div>问题处理业务：</div><div>标记，本地数据库</div><div>转派， 到人和部门。到人就到人。 &nbsp; 部门，专家，可转派专家进入待接单列表。</div><div>退单， 逐级退单。</div><div>传阅， 分享到人。 问题具有传阅的标志，在待处理列表中。</div><div>办结， 移动到待结案。</div><div><br></div><div><br></div><div><br></div><div><br></div></body></html>

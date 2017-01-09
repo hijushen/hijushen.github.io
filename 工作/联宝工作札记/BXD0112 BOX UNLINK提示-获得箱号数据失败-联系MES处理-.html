@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<!--defaultCSS-->
+<title>BXD0112 BOX UNLINK提示"获得箱号数据失败,联系MES处理"</title>
+
+
+
+<style type="text/css" id="wiz_custom_css">
+body
+{
+    font-family: Microsoft YaHei UI,"Microsoft YaHei", Georgia,Helvetica,Arial,sans-serif,宋体, PMingLiU,serif;
+    font-size: 10.5pt;
+    line-height: 1.5;
+}
+html, body
+{
+    
+    
+}
+h1 {
+    font-size:1.5em;
+    font-weight:bold;
+}
+h2 {
+    font-size:1.4em;
+    font-weight:bold;
+}
+h3 {
+    font-size:1.3em;
+    font-weight:bold;
+}
+h4 {
+    font-size:1.2em;
+    font-weight:bold;
+}
+h5 {
+    font-size:1.1em;
+    font-weight:bold;
+}
+h6 {
+    font-size:1.0em;
+    font-weight:bold;
+}
+img {
+    border:0;
+    max-width: 100%;
+    height: auto !important;
+}
+blockquote {
+    margin-top:0px;
+    margin-bottom:0px;
+}
+table {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+td {
+    border-collapse:collapse;
+    border:1px solid #bbbbbb;
+}
+</style>
+
+<style type="text/css" id="wiz_todo_style_id" wiz_link_version="01.00.09">.wiz-todo, .wiz-todo-img {width: 16px; height: 16px; cursor: default; padding: 0 10px 0 2px; vertical-align: -10%;-webkit-user-select: none;} .wiz-todo-label { display: inline-block; padding-top: 7px; padding-bottom: 6px; line-height: 1.5;} .wiz-todo-label-checked {  color: #666;} .wiz-todo-label-unchecked {text-decoration: initial;} .wiz-todo-completed-info {padding-left: 44px; display: inline-block; } .wiz-todo-avatar { width:20px; height: 20px; vertical-align: -20%; margin-right:10px; border-radius: 2px;} .wiz-todo-account, .wiz-todo-dt { color: #666; }</style><link type="text/css" rel="stylesheet" id="wiz_code_highlight_link" href="BXD0112 BOX UNLINK提示-获得箱号数据失败-联系MES处理-_files/wiz_code_highlight_20.css"></head>
+
+<body  style=""><div>报错界面如下,&nbsp;</div><div>注意: 解单片SN的SQL如下, &nbsp;业务逻辑是, 未结箱的SN解箱号.</div><div>SQL:</div><div><font color="#ff0000"><span class="pln" style="font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px; line-height: 18px; white-space: pre; background-color: rgb(247, 247, 249);">SFISM4</span><span class="pun" style="font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px; line-height: 18px; white-space: pre; background-color: rgb(247, 247, 249);">.</span><span class="pln" style="font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; font-size: 13px; line-height: 18px; white-space: pre; background-color: rgb(247, 247, 249);">R_BOX_MAP_T B 是MB站临时储存 半成品箱号数据表.</span></font><br></div><div><div><pre class="prettyprint linenums prettyprinted"><ol class="linenums" style="padding-left: 0px;"><li style="list-style-type: none; padding-left: 0px;" class="L0"><code class="language-sql"><span class="pln">SELECT B</span><span class="pun">.</span><span class="pln">BOX_ID</span><span class="pun">,</span><span class="pln"> B</span><span class="pun">.</span><span class="pln">VIRTUAL_ID</span><span class="pun">,</span><span class="pln"> B</span><span class="pun">.</span><span class="pln">LINE_NAME</span><span class="pun">,</span><span class="pln"> B</span><span class="pun">.</span><span class="pln">MB_PN</span><span class="pun">,</span><span class="pln"> A</span><span class="pun">.</span><span class="pln">SERIAL_NUMBER</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L1"><code class="language-sql"><span class="pln">  FROM SFISM4</span><span class="pun">.</span><span class="pln">R_BOX_STATUS_T B</span><span class="pun">,</span><span class="pln"> SFISM4</span><span class="pun">.</span><span class="pln">R_BOX_MAP_T A</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L2"><code class="language-sql"><span class="pln"> WHERE B</span><span class="pun">.</span><span class="pln">BOX_ID IN </span><span class="pun">(</span><span class="pln">SELECT B</span><span class="pun">.</span><span class="pln">BOX_ID</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L3"><code class="language-sql"><span class="pln">                      FROM SFISM4</span><span class="pun">.</span><span class="pln">R_BOX_MAP_T B</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L4"><code class="language-sql"><span class="pln">                     WHERE B</span><span class="pun">.</span><span class="pln">SERIAL_NUMBER </span><span class="pun">=</span><span class="pln"> </span><span class="str">'1045480903362'</span></code></li><li style="list-style-type: none; padding-left: 0px;" class="L5"><code class="language-sql"><span class="pln">                       AND SHEET_NO LIKE </span><span class="str">'MB_IN_BOX%'</span><span class="pun">)</span></code></li></ol></pre></div><div><img src="BXD0112 BOX UNLINK提示-获得箱号数据失败-联系MES处理-_files/91954cb2-9914-4f13-9078-ea29e31883b0.png" border="0" alt="" name="" width="504" height="331" style="font-size: 10.5pt; line-height: 1.5;"><br></div></div><div><br></div><div><font color="#ff0000">解整个箱号方式</font>:&nbsp;</div><div><img src="BXD0112 BOX UNLINK提示-获得箱号数据失败-联系MES处理-_files/00f5affb-48c0-4016-b5ee-75a9454efbc1.png" border="0" alt="" name="" width="509" height="333"><br></div></body></html>

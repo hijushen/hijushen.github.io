@@ -1,0 +1,46 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>8.2 处理流：BufferedIO   TransformIO</title><?xml version="1.0" encoding="UTF-8"?>
+
+
+<div style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+BUfferedReader(Reader in) &nbsp; 带小桶的输出流;缓冲流
+<div><br/>
+&nbsp;
+<div>FileInputStream fis = new FileInputStream(&quot;/ / / .txt&quot;);</div><div><br/></div><div>import java.io.*;<br/>
+public class TestTransForm1 {<br/>
+&nbsp; public static void main(String[] args) {<br/>
+&nbsp;&nbsp;&nbsp; try {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#FF4635">OutputStreamWriter</font>&nbsp;osw = new OutputStreamWriter( //字节流想字符流转换<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new <font color="#FF4635">FileOutputStream</font>(&quot;d:\\bak\\char.txt&quot;));<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; osw.write(&quot;mircosoftibmsunapplehp&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(osw.getEncoding());<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; osw.close();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; osw = new OutputStreamWriter(<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new FileOutputStream(&quot;d:\\bak\\char.txt&quot;, true),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;ISO8859_1&quot;); // latin-1<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; osw.write(&quot;mircosoftibmsunapplehp&quot;);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(osw.getEncoding());<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; osw.close();<br/>
+&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+}</div><div><br/></div><div><br/></div><div><span style="border-collapse: separate; color: rgb(0, 0, 0); font-family: &#39;YaHei Consolas Hybrid&#39;; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-border-horizontal-spacing: 0px; -webkit-border-vertical-spacing: 0px; -webkit-text-decorations-in-effect: none; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; font-size: medium;">TestTransForm2 非常典型的用法</span></div><div>import java.io.*;<br/>
+public class TestTransForm2 {<br/>
+&nbsp; public static void main(String args[]) {<br/>
+&nbsp;&nbsp;&nbsp; InputStreamReader isr =<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new InputStreamReader(System.in);<br/>
+&nbsp;&nbsp;&nbsp; BufferedReader br = new BufferedReader(isr); //<font color="#FF4635">可以有一个好方法，读一行，readLine（）</font><br/>
+&nbsp;&nbsp;&nbsp; String s = null;<br/>
+&nbsp;&nbsp;&nbsp; try {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s = br.readLine();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while(s!=null){<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(s.equalsIgnoreCase(&quot;exit&quot;)) break;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(s.toUpperCase());&nbsp; // 转换成大写打印出来<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; s = br.readLine();<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; br.close();<br/>
+&nbsp;&nbsp;&nbsp; } catch (IOException e) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();<br/>
+&nbsp;&nbsp;&nbsp; }<br/>
+&nbsp; }<br/>
+} //阻塞式的方法</div><div><br/><div><br/></div></div></div></div>

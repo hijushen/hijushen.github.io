@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+
+        
+        
+
+
+
+
+        <link rel="dns-prefetch" href="http://res.wx.qq.com/">
+<link rel="dns-prefetch" href="http://mmbiz.qpic.cn/">
+
+
+
+        <title>Jquery的基本架构</title>
+        
+<link rel="stylesheet" type="text/css" href="Jquery的基本架构_files/page_mp_article_improve2d1390.css">
+<style>
+     
+    </style>
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve_pc2c9cd6.css">
+<![endif]-->
+
+
+    </head>
+    <body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+        
+    
+    
+    <div id="js_cmt_mine" class="discuss_container editing access" style="display:none;">
+        <div class="discuss_container_inner">
+            <h2 class="rich_media_title">Jquery的基本架构</h2>
+            <span id="log"></span>
+            <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="留言将由公众号筛选后显示，对所有人可见。"></textarea>
+                    <div class="emotion_tool">
+                        <span class="emotion_switch" style="display:none;"></span>
+                        <span id="js_emotion_switch" class="pic_emotion_switch_wrp">
+                            <img class="pic_default" src="Jquery的基本架构_files/icon_emotion_switch.2x278965.png" alt="">
+                            <img class="pic_active" src="Jquery的基本架构_files/icon_emotion_switch_active.2x278965.png" alt="">
+                        </span>
+                        <div class="emotion_panel" id="js_emotion_panel">
+                            <span class="emotion_panel_arrow_wrp" id="js_emotion_panel_arrow_wrp">
+                                <i class="emotion_panel_arrow arrow_out"></i>
+                                <i class="emotion_panel_arrow arrow_in"></i>
+                            </span>
+                            <div class="emotion_list_wrp" id="js_slide_wrapper">
+                                
+                                
+                            </div>
+                            <ul class="emotion_navs" id="js_navbar">
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <div class="discuss_btn_wrp"><a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="">提交</a></div>
+            <div class="discuss_list_wrp" style="display:none">
+                <div class="rich_tips with_line title_tips discuss_title_line">
+                    <span class="tips">我的留言</span>
+                </div>
+                <ul class="discuss_list" id="js_cmt_mylist"></ul>
+            </div>
+            <div class="rich_tips tips_global loading_tips" id="js_mycmt_loading">
+                <img src="Jquery的基本架构_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                <span class="tips">加载中</span>
+            </div>
+            <div class="wx_poptips" id="js_cmt_toast" style="display:none;">
+                <img alt="" class="icon_toast" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAABqCAYAAABUIcSXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA3NpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoyMTUxMzkxZS1jYWVhLTRmZTMtYTY2NS0xNTRkNDJiOGQyMWIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MTA3QzM2RTg3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MTA3QzM2RTc3N0UwMTFFNEIzQURGMTQzNzQzMDAxQTUiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NWMyOGVjZTMtNzllZS00ODlhLWIxZTYtYzNmM2RjNzg2YjI2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIxNTEzOTFlLWNhZWEtNGZlMy1hNjY1LTE1NGQ0MmI4ZDIxYiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pmvxj1gAAAVrSURBVHja7J15rF1TFMbXk74q1ZKHGlMkJVIhIgg1FH+YEpEQJCKmGBpThRoSs5jVVNrSQUvEEENIhGiiNf9BiERICCFIRbUiDa2qvudbOetF3Tzv7XWGffa55/uS7593977n3vO7e5+199p7v56BgQGh0tcmvAUERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERREUQVEERVAUQVEERVAUQbVYk+HdvZVG8b5F0xj4RvhouB+eCy8KrdzDJc1RtAX8ILxvx98V1GyCSkN98Cx4z/95/Wn4fj6j6tUEeN4wkFSnw1MJqj5NhBfAuwaUHREUg4lqNMmePVsHll/HFhVfe1t3FwpJI8DXCCquDrCWNN4B6Tb4M3Z98aTPmTvh0YHl18PXw29yZiKejoPvcUD6E74yFBJbVDk6Bb7K8aP/Hb4c/tRzEYIqprPhSxzlf4Uvhb/0Xoig8qnHAJ3lqPMzfDH8XZ4LEpRf2sVdA5/sqPO9Qfop70UJyn+/boaPddT5yrq7VUUvTIVJI7q74MMddXR8NB1eXcYvhBpZm0s2w72/o86HFoKvLau/pYaXzjLMdUJ6y0LwtWV9CIIaXtvA8+G9HHV03u5q+K+yH47U0NoRngPv7KjzHDwTLj0bS1BDazfJJlcnOOostC6ysnCT+q80G/sIvFVgeW09D8FPVT0uoP7VfvAD8NjA8pqmuAN+OcYAjso0RbIZ8DGB5TVNcRO8JMaHY9SXSdfa3eeANJimWBLrA7JFiZwIXye+NMUV8CcxP2SRFjXefok7NRjSGZJlWUPvw2/wtNiQirSoXWyMsR28wR7AzzYM0oXw+Y7yK+CLJGeaoqjyrJSdZJD6Ov4+z5y6NJc0Az7NUecHydIUy+v60KNyQHoM3nKI1y7YCFiq0i7uBvgER52vDdKqWn9djhY1Dn4G3n6Ecqm2rF74dvgoR53S0hQxW9RJAZAGW5bSn58QJA27dQ7uIEedjywEX5NKVxCqsY6y+qA+LxFI4+yZ6oH0trWkNan80jygtIUsc5SflgAsDXgehfdx1KkkTRE76tN+Xue2jnTU0Ru1oIbvpt30bBtKhOp5yaaRkts0lic8V1i6dPcIRx2d/l8Y8XtNNEg7OOo8bl1kmmOKnDsO88CaYzejau0hWZqiL7C83oCH4SeTHvwV2BqqsHRVztSEYOmWF80NeXZT6Hd4KflResE9vCnBOlCyGfDNAstHTVPUDWoQ1t3iW+9WNizvlhfd4aerXd+ThqiMfNR6+9LvOOro5OY5JX2H4+F7HZD+kGzlamMgldWiirQsjcwWFbjmqZJteekJLK9pisvgL6RhKvuciZiwzrWWGapfrPy30kBVcSBIrw0aD3PU0XB6cehntq7rTMf7/2iQlktDVdXJLXlg6VjmiYBn6rWSTRCH6hvJ0hQrpcGq8oidsmHpTP8t8DGO9/vcWt9qabiqPgup1yKyQwvC2tSefZ73SSpNkUJ4PlLorlHZ+446nc8f3fIyywlJhwrTuwVSjBa1ccvSxN0hjjoK5xVrYZMd9V6XbFfgBukixTwGLg8sDam3dZR/wZ6L/dJlin1en8LS+bgpFbz3Ygvzu1J1HKxYNqxGpCmaCEo12rrBorD6LRp8UbpcdR5VWhTW35KlKd6QFqjuM2XzwlpnMxTvSkuUwuG/Xlg6NtPjbT6WFimF/VG6LEvXgn8QGDjMbBukVECFwhpoS+CQatfX2Q1q6H7wENHdrfCr0lKleEB9JyxNneus+VJpsVL9TwI6W65LovWIGl3KtVJaLv7LBwYTFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFEVQFEERFFWq/hFgADUMN4RzT6/OAAAAAElFTkSuQmCC">
+                <p class="toast_content">已留言</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="js_article" class="rich_media">
+        
+        <div id="js_top_ad_area" class="top_banner">
+ 
+        </div>
+                
+
+        <div class="rich_media_inner">
+            <div id="page-content">
+                <div id="img-content" class="rich_media_area_primary">
+                    <h2 class="rich_media_title" id="activity-name">
+                        Jquery的基本架构 
+                    </h2>
+                    <div class="rich_media_meta_list">
+                        						                        <em id="post-date" class="rich_media_meta rich_media_meta_text">2016-05-29</em>
+
+                                                <em class="rich_media_meta rich_media_meta_text">小火山</em>
+                                                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname" href="" id="post-user">前端开发</a>
+                        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">前端开发</span>
+
+                        <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                            <div class="profile_inner">
+                                <strong class="profile_nickname">前端开发</strong>
+                                <img class="profile_avatar" id="js_profile_qrcode_img" src="" alt="">
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">微信号</label>
+                                <span class="profile_meta_value">qianduan1024</span>
+                                </p>
+
+                                <p class="profile_meta">
+                                <label class="profile_meta_label">功能介绍</label>
+                                <span class="profile_meta_value">分享Web前端开发中HTML5、JavaScript、CSS3编程学习知识</span>
+                                </p>
+                                
+                            </div>
+                            <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                                <i class="profile_arrow arrow_out"></i>
+                                <i class="profile_arrow arrow_in"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                                                            
+                                                            
+                    
+                    <div class="rich_media_content " id="js_content">
+                        
+                        <blockquote><h1><span style="color: rgb(0, 82, 255); font-size: 14px;"><strong>来自：小火山 - 博客园</strong></span></h1><p><span style="color:#ab1942"><span style="color: rgb(0, 82, 255); font-size: 14px;"><strong>链接：http://www.cnblogs.com/cheerful-queen/p/4988282.html</strong></span></span></p><p><font color="#0052ff"><span style="font-size: 14px; line-height: 22.4px; color: rgb(136, 136, 136);"><b>已获转载授权</b></span></font></p></blockquote><h1><span style="color: rgb(171, 25, 66);"><strong><br  /></strong></span></h1><h1><span style="color: rgb(171, 25, 66);"><strong>引入</strong></span></h1><h1><span style="line-height: 1.6;"><br  /></span></h1><h1><span style="line-height: 1.6;">以前学习原生JS然后切换到用JQ的时候总觉得很不习惯，甚至有点排斥用JQ。后来自己写项目一直到公司实习用JQ的这段时间，才深深感受到JQ的强大~JQ不仅做到兼容很多浏览器，还能很方便地使用JS动画和各种交互，所以最突出的有点就方便！方便！方便！（重要的事情说三遍）。我找到了一个关于源码解析的很好的链接开始我的学习。</span></h1><p><span style="line-height: 1.6;"><br  /></span></p><p><img data-type="gif"  data-ratio="0.04666666666666667" data-w="450"   SRC="Jquery的基本架构_files/0.jpg" /><br  /></p><h1><br  /></h1><h1><span style="color: rgb(171, 25, 66);"><strong>JQuery的基本架构</strong></span></h1><h1><span style="line-height: 1.6;"><br  /></span></h1><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><h1><strong><span style="line-height: 1.6;">整体架构</span></strong></h1></li></ul><h1><span style="line-height: 1.6;"><br  /></span></h1><h1><span style="line-height: 1.6;">在学习JQuery之前，肯定有很多人都知道JQ的核心理念，那就是&quot;The Write Less,Do More&quot;.</span></h1><h1><span style="line-height: 1.6;"><br  /></span></h1><h1><span style="line-height: 1.6;">以JQuery-2.1.1为例（到现在最新版本已经出到JQuery-2.1.4）,JQ&nbsp;&nbsp;&nbsp;版本结构 &nbsp;为:</span></h1><p><span style="line-height: 1.6;"><br  /></span></p><blockquote><p><span style="font-size: 14px;">;(function(global, factory) {&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; factory(global);&nbsp;</span></p><p><span style="font-size: 14px;">}(typeof window !== &quot;undefined&quot; ? window : this, function(window, noGlobal) {&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; var jQuery = function( selector, context ) {&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; return new jQuery.fn.init( selector, context );&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; };&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; jQuery.fn = jQuery.prototype = {};&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 核心方法&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 回调系统&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 异步队列&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 数据缓存&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 队列操作&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 选择器引&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 属性操作&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 节点遍历&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 文档处理&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 样式操作&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 属性操作&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 事件体系&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // AJAX交互&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // 动画引擎&nbsp;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; return jQuery;&nbsp;</span></p><p><span style="font-size: 14px;">}));</span></p></blockquote><p><span style="line-height: 1.6;"><br  /></span></p><p>JQ库一共有多个模块，模块并不是独立的，而是互相依赖的，模块依赖网&nbsp;为：</p><p><br  /></p><p><img data-s="300,640" data-type="png"  data-ratio="0.6816546762589928" data-w=""   SRC="Jquery的基本架构_files/0_2.png" /><br  /></p><h2><br  /></h2><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><h2><strong>自执行匿名函数</strong></h2></li></ul><blockquote><p><span style="font-size: 14px;">(function(window, factory) {</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; factory(window)</span></p><p><span style="font-size: 14px;">}(this, function() {</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; return function() {</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp;//jQuery的调用</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; }</span></p><p><span style="font-size: 14px;">}))</span></p></blockquote><p><br  /></p><p><span style="line-height: 1.6;">JQ源码里有很多这样的函数，这种函数的写法一看上去就让人看晕了，来，我们换种写法</span><br  /></p><p><br  /></p><blockquote><p><span style="font-size: 14px;">(function(window, undefined) {</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; var jQuery = function() {}</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; // ...</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; window.jQuery = window.$ = jQuery;</span></p><p><span style="font-size: 14px;">})(window);</span></p></blockquote><p><span style="line-height: 1.6;"><br  /></span></p><p>这样是不是就清楚多了？换个样子是不是就认识了？这就是我们熟悉的自执行匿名函数啊~在自执行匿名函数剖析这篇文章里我提到过很多自执行匿名函数的写法，但达到的效果是一样的，让我们再来复习一下使用自执行匿名函数的好处和这里参数window和undefined的作用</p><p><br  /></p><blockquote><p><strong>好处</strong></p><p><span style="line-height: 1.6;"><br  /></span></p><p><span style="line-height: 1.6;">使用匿名函数可以防止全局变量的污染，小括号可以实现立即初始化，这样就可以形成单例模式的效果只执行一次。（这样还学到了单例模式的一个实例喔，设计模式无处不在~）</span></p><p><br  /></p><p><strong>参数作用</strong></p><p><span style="line-height: 1.6;"><br  /></span></p><p><strong><span style="line-height: 1.6;">1、window</span></strong></p><p><strong><span style="line-height: 1.6;">作用：</span></strong><span style="line-height: 1.6;">为了防止需要window时多次在作用域链上去查找window，这样将window传入函数内可以很快就找到window</span></p><p><br  /></p><p><strong>2、undefined</strong></p><p><strong>作用：</strong>在一些浏览器中undefined可以被改写，因为它不是关键字</p><p><br  /></p><p><span style="font-size: 14px;">var undefined = &#39;我不是undefined&#39;</span></p><p><span style="font-size: 14px;">　　;(function(window) {</span></p><p><span style="font-size: 14px;">　　 &nbsp;alert(undefined);// IE8或IE7 ---&gt; &#39;我不是undefined&#39;</span></p><p><span style="font-size: 14px;">　　})(window)</span></p></blockquote><p>&nbsp;</p><ul class=" list-paddingleft-2" style="list-style-type: disc;"><li><p><strong><span style="line-height: 1.6;">类数组对象结构</span></strong></p></li></ul><p><br  /></p><p>提到JavaScript中的类数组对象，就让我想起了像arguments、document.getElementsByTagName等。</p><p><br  /></p><blockquote><p>什么是类数组呢？</p><p><br  /></p><p>1、类数组具有length属性</p><p>2、类数组不具有数组的方法（如.push，.join等）</p><p>所以，类数组不是数组，如果要使用数组的方法，要把类数组转化为数组</p><p><br  /></p><p><span style="font-size: 14px;">function abc(a,b,c){</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;var arr = Array.prototype.slice.call(arguments);</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return arr;</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp;}</span></p><p><br  /></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp;var arr = abc(1,2,3);</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp;arr.push(0);</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp;arr.splice(1,2);</span></p><p><span style="font-size: 14px;">&nbsp; &nbsp; &nbsp;alert(arr); //1,0</span></p></blockquote><p>　　</p><p><span style="line-height: 1.6;">回到JQ里的类数组对象，JQ里的类数组对象既可以像对象一样处理，也可以像数组一样使用数组的方法。</span></p><p><span style="line-height: 1.6;"><br  /></span></p><blockquote><p>JQ里的类数组对象</p><p>Query的入口都是统一的$, 通过传递参数的不同，实现了9种方法的重载：</p><p><br  /></p><p>1、jQuery([selector,[context]])</p><p>2、jQuery(element)</p><p>3、jQuery(elementArray)</p><p>4、jQuery(object)</p><p>5、jQuery(jQuery object)</p><p>6、jQuery(html,[ownerDocument])</p><p>7、jQuery(html,[attributes])</p><p>8、jQuery()</p><p>9、jQuery(callback)</p><p><br  /></p><p>&nbsp; JQ对象通过对象键值对的关系保存着属性，原型保存着方法</p><p><br  /></p><p>&nbsp; -----------------------------------------------------------------</p><p>* JQ对象如果想要转换成DOM对象，可以加下标或者用.get()</p><p>eg. $(&#39;#div&#39;)[0]</p><p>&nbsp; &nbsp; $(&#39;#div&#39;).get(0)</p></blockquote><p>&nbsp;</p><p><img data-type="gif"  data-ratio="0.04666666666666667" data-w="450"   SRC="Jquery的基本架构_files/0.jpg" /></p><p><br  /></p><p>对JQ的基本架构了解了才会让我们更好地去读JQ代码~希望我能逐步提高自己的JS水平写出有水准的js代码~接下来我还会继续学习JQ源码~</p><p><br  /></p><p><img data-type="gif"  data-ratio="0.04666666666666667" data-w="450"   SRC="Jquery的基本架构_files/0.jpg" /><br  /></p><p><br  /></p><hr style="line-height: 25.6px; white-space: normal;"  /><p style="line-height: 25.6px; white-space: normal;">●本文编号157，以后想阅读这篇文章直接输入157即可。</p><p style="line-height: 25.6px; white-space: normal;">●输入m可以获取到文章目录</p><section style="line-height: 25.6px; white-space: normal; max-width: 100%; box-sizing: border-box; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section class="Powered-by-XIUMI V5" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><section class="" style="margin-top: 10px; margin-bottom: 10px; max-width: 100%; box-sizing: border-box; text-align: center; word-wrap: break-word !important;"><section class="" style="padding-right: 1em; padding-left: 1em; max-width: 100%; box-sizing: border-box; display: inline-block; word-wrap: break-word !important;"><span class="" style="padding: 0.3em 0.5em; max-width: 100%; box-sizing: border-box; display: inline-block; border-radius: 0.5em; font-size: 14.08px; color: rgb(255, 255, 255); word-wrap: break-word !important; background-color: rgb(249, 110, 87);"><section style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 16px; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;">今日微信公号推荐↓↓↓</strong></span></section></span>&nbsp;</section><section class="" style="margin-top: -1em; padding: 20px 10px 10px; max-width: 100%; box-sizing: border-box; border: 1px solid rgb(192, 200, 209); word-wrap: break-word !important; background-color: rgb(239, 239, 239);"><section class="Powered-by-XIUMI V5" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><section class="" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><section class="" style="max-width: 100%; box-sizing: border-box; text-align: left; word-wrap: break-word !important;"><section style="max-width: 100%; box-sizing: border-box; text-align: center; word-wrap: break-word !important;"><img data-s="300,640" data-type="jpeg" data-ratio="0.4232209737827715" data-w="534" width="auto"  style="box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="Jquery的基本架构_files/640.jpg" /></section></section></section></section></section></section></section></section><p><br  /></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; text-align: center; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">更多推荐请看</span><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;">《</span></strong><a href="http://mp.weixin.qq.com/s?__biz=MzAwNDcyNjI3OA==&mid=403116897&idx=2&sn=c1c089136c12a282e081c9f6a4772e55&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAwNDcyNjI3OA==&amp;mid=403116897&amp;idx=2&amp;sn=c1c089136c12a282e081c9f6a4772e55&amp;scene=21#wechat_redirect"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; color: rgb(255, 169, 0); box-sizing: border-box !important; word-wrap: break-word !important;">15个技术类公众微信</span></strong></a><span style="max-width: 100%; font-size: 14px; box-sizing: border-box !important; word-wrap: break-word !important;"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 16px; box-sizing: border-box !important; word-wrap: break-word !important;">》</span></strong></span></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; line-height: 1.75em; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;"><br style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"  /></span></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><span style="max-width: 100%; line-height: 1.75em; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">涵盖：程序人生、算法与数据结构、黑客技术与网络安全、大数据技术、前端开发、Java、Python、Web开发、安卓开发、iOS开发、C/C++、.NET、Linux、数据库、运维等。传播计算机学习经验、推荐计算机优秀资源：点击前往《</span><a href="http://mp.weixin.qq.com/s?__biz=MzAwNDcyNjI3OA==&mid=403116897&idx=2&sn=c1c089136c12a282e081c9f6a4772e55&scene=21#wechat_redirect" target="_blank" data_ue_src="http://mp.weixin.qq.com/s?__biz=MzAwNDcyNjI3OA==&amp;mid=403116897&amp;idx=2&amp;sn=c1c089136c12a282e081c9f6a4772e55&amp;scene=21#wechat_redirect"><strong style="max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; font-size: 14px; color: rgb(255, 169, 0); box-sizing: border-box !important; word-wrap: break-word !important;">值得关注的15个技术类微信公众号</span></strong></a><span style="max-width: 100%; line-height: 1.75em; font-size: 14px; color: rgb(136, 136, 136); box-sizing: border-box !important; word-wrap: break-word !important;">》</span></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; box-sizing: border-box !important; word-wrap: break-word !important;"><img data-s="300,640" data-type="jpeg" data-ratio="0.5557553956834532" data-w="" width="auto"  style="color: rgb(62, 62, 62); line-height: 25.6px; box-sizing: border-box !important; word-wrap: break-word !important; width: auto !important; visibility: visible !important;"   SRC="Jquery的基本架构_files/640_2.jpg" /></p><p style="line-height: 25.6px; white-space: normal; max-width: 100%; min-height: 1em; box-sizing: border-box !important; word-wrap: break-word !important;"><span style="max-width: 100%; line-height: 25.6px; color: rgb(230, 80, 30); white-space: pre-wrap; box-sizing: border-box !important; word-wrap: break-word !important; background-color: rgb(255, 255, 255);">点击阅读原文，了解野狗</span></p>
+                    </div>
+                    
+                    <link rel="stylesheet" type="text/css" href="Jquery的基本架构_files/page_mp_article_improve_combo2d1390.css">
+                    
+                    
+                                        
+                                        
+                                        <div class="rich_media_tool" id="js_toobar3">
+                                                                    <a class="media_tool_meta meta_primary" id="js_view_source" href="">阅读原文</a>
+                                                <div id="js_read_area3" class="media_tool_meta tips_global meta_primary" style="display:none;">阅读 <span id="readNum3"></span></div>
+
+                        <span style="display:none;" class="media_tool_meta meta_primary tips_global meta_praise" id="like3">
+                            <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum3"></span>
+                        </span>
+
+                        <a id="js_report_article3" style="display:none;" class="media_tool_meta tips_global meta_extra" href="">投诉</a>
+
+                    </div>
+
+
+
+                                    </div>
+
+                <div class="rich_media_area_primary sougou" id="sg_tj" style="display:none">
+
+                </div>
+
+                <div class="rich_media_area_extra">
+
+                    
+                                        <div class="mpda_bottom_container" id="js_bottom_ad_area">
+                        
+                    </div>
+                                        
+                    <div id="js_iframetest" style="display:none;"></div>
+                                        
+                                        <div class="rich_media_extra" id="js_cmt_area" style="display:none">
+
+                        <div class="discuss_container" id="js_cmt_main" style="display:none">
+                            <div class="rich_tips with_line title_tips discuss_title_line">
+                                <span class="tips">精选留言</span>
+                            </div>
+                            <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">该文章作者已设置需关注才可以留言</p>
+                            <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display:none">
+                                
+                                                                <a href="#comment">写留言<img class="icon_edit" src="Jquery的基本架构_files/icon_edit25ded2.png" alt=""></a>
+                                                            </p>
+                            <ul class="discuss_list" id="js_cmt_list"></ul>
+                        </div>
+
+
+                        <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                            该文章作者已设置需关注才可以留言
+                        </div>
+
+                        <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                            
+                                                        <a href="#comment">写留言<img class="icon_edit" src="Jquery的基本架构_files/icon_edit25ded2.png" alt=""></a>
+                                                    </p>
+
+                        <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display:none;"></p>
+
+
+                        <div class="rich_tips tips_global loading_tips" id="js_cmt_loading">
+                            <img src="Jquery的基本架构_files/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                            <span class="tips">加载中</span>
+                        </div>
+
+                        <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display:none">
+                            <span class="tips">以上留言由公众号筛选后显示</span>
+                        </div>
+
+                        <p class="rich_split_tips tc" id="js_cmt_qa" style="display:none;">
+                            <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                                了解留言功能详情
+                            </a>
+                        </p>
+
+                    </div>
+                                    </div>
+               
+            </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img id="js_pc_qr_code_img" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        
+        
+        
+    
+
+    
+  
+  
+
+    </body>
+</html>
+
+ 
